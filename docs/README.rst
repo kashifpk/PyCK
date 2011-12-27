@@ -3,7 +3,6 @@ INTRODUCTION
 **PyCK** (Python Code Karigar); prounounced '*pick*' is/would be a web development framework
 aiming to provide an easy to use yet powerful and flexible web framework for python developers.
 
-
 BACKGROUND
 ==========
 Of course, there are already a lot of great frameworks present for python like `Pylons <http://docs.pylonsproject.org/en/latest/docs/pylons.html>`_, `Django <https://www.djangoproject.com/>`_, `Pyramid <http://docs.pylonsproject.org/en/latest/docs/pyramid.html>`_, `BlueBream (Previously Zope) <http://bluebream.zope.org/>`_, `TurboGears2 <http://turbogears.org/>`_ that provide really cool
@@ -20,6 +19,10 @@ Pylons and Pyramid on the other hand are very "non-opinionated" frameworks. They
 
 So the solution? at least for me; I decided to build a framework based on Pyramid that makes the choices for the developers. If your choices are the same as mine, this framework would be ideal for you. Or if you are a new developer looking into python frameworks you can start here (just not right now since the work has only started yet).
 
+DISCUSSION ON VARIOUS ASPECTS OF PyCK
+=====================================
+[[Choosing a Form Generation and Validation Library|Choice-for-Form-Validation-and-Generation-Library]]
+
 FEATURE PLAN
 ============
 
@@ -34,3 +37,4 @@ And what exactly are the choices?
 * Use `Dojo <http://dojotoolkit.org/>`_ for UI components, AJAX etc
 * Ability to easily specify **separate view templates for mobile devices** (using Dojox.mobile)
 * **Automatic form generation from database/SQLAlchemy models** (looking into possible options like sprox, formalchemy, wtforms, deform, etc)
+
