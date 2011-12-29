@@ -1,0 +1,150 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pluggable application in PyCK &mdash; PyCK 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyCK 0.1 documentation" href="index.html" />
+    <link rel="next" title="Structure of a PyCK Project" href="pyck-project-structure.html" />
+    <link rel="prev" title="INTRODUCTION" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="pyck-project-structure.html" title="Structure of a PyCK Project"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyCK 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pluggable-application-in-pyck">
+<span id="pluggable-apps"></span><h1>Pluggable application in PyCK<a class="headerlink" href="#pluggable-application-in-pyck" title="Permalink to this headline">¶</a></h1>
+<p>Pluggable apps are just like normal pyck (or pyramid) project with a few modifications. Scaffolds for generating a pluggable application structure will be coming shortly. For the time being, this page describes how a pluggable application needs to behave to be able to successfully integrated into a PyCK project with minimal effort.</p>
+<div class="section" id="implement-application-routes-function-in-init-py">
+<h2>Implement application_routes function in __init__.py<a class="headerlink" href="#implement-application-routes-function-in-init-py" title="Permalink to this headline">¶</a></h2>
+<p>Taking a blog app as an example, in your app&#8217;s __init__.py, implement a function like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">application_routes</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s">&#39;blog.home&#39;</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s">&#39;blog.about&#39;</span><span class="p">,</span> <span class="s">&#39;/about&#39;</span><span class="p">)</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">add_static_view</span><span class="p">(</span><span class="s">&#39;static&#39;</span><span class="p">,</span> <span class="s">&#39;static&#39;</span><span class="p">,</span> <span class="n">cache_max_age</span><span class="o">=</span><span class="mi">3600</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And in your main project&#8217;s __init__.py you can add the routes from this application using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="n">application_routes</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s">&#39;/blog&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This takes care of accessing your app correctly from within the main project.</p>
+</div>
+<div class="section" id="implement-a-populate-app-function-to-your-app-s-scripts-populate-py-script">
+<h2>Implement a populate_app function to your app&#8217;s scripts/populate.py script<a class="headerlink" href="#implement-a-populate-app-function-to-your-app-s-scripts-populate-py-script" title="Permalink to this headline">¶</a></h2>
+<p>This function will be called by the main project&#8217;s populate script to automatically add tables and
+records for the app to the project&#8217;s database:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">populate_app</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">db_session</span><span class="p">):</span>
+    <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">manager</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="s">&#39;Test&#39;</span><span class="p">,</span> <span class="s">&#39;Just testing&#39;</span><span class="p">)</span>
+        <span class="n">db_session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pluggable application in PyCK</a><ul>
+<li><a class="reference internal" href="#implement-application-routes-function-in-init-py">Implement application_routes function in __init__.py</a></li>
+<li><a class="reference internal" href="#implement-a-populate-app-function-to-your-app-s-scripts-populate-py-script">Implement a populate_app function to your app&#8217;s scripts/populate.py script</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">INTRODUCTION</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyck-project-structure.html"
+                        title="next chapter">Structure of a PyCK Project</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pluggable-apps-howto.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="pyck-project-structure.html" title="Structure of a PyCK Project"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             >previous</a> |</li>
+        <li><a href="index.html">PyCK 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Kashif Iftikhar.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

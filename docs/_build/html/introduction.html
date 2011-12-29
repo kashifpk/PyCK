@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INTRODUCTION &mdash; PyCK 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyCK 0.1 documentation" href="index.html" />
+    <link rel="next" title="Pluggable application in PyCK" href="pluggable-apps-howto.html" />
+    <link rel="prev" title="Welcome to PyCK’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="pluggable-apps-howto.html" title="Pluggable application in PyCK"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyCK’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyCK 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>INTRODUCTION<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p><strong>PyCK</strong> (Python Code Karigar); prounounced &#8216;<em>pick</em>&#8216; is/would be a web development framework
+aiming to provide an easy to use yet powerful and flexible web framework for python developers.</p>
+<div class="section" id="background">
+<h2>BACKGROUND<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Of course, there are already a lot of great frameworks present for python like <a class="reference external" href="http://docs.pylonsproject.org/en/latest/docs/pylons.html">Pylons</a>, <a class="reference external" href="https://www.djangoproject.com/">Django</a>, <a class="reference external" href="http://docs.pylonsproject.org/en/latest/docs/pyramid.html">Pyramid</a>, <a class="reference external" href="http://bluebream.zope.org/">BlueBream (Previously Zope)</a>, <a class="reference external" href="http://turbogears.org/">TurboGears2</a> that provide really cool
+features for developing web applications in python, I feel like there was still something missing for my taste. So you can say that this project is starting to satisfy a personal itch.</p>
+<div class="section" id="why-create-pyck">
+<h3>Why Create PyCK?<a class="headerlink" href="#why-create-pyck" title="Permalink to this headline">¶</a></h3>
+<p>Of all the frameworks mentioned above I liked some features of one framework and other features of another framework. Unfortunately I wasn&#8217;t able to find all those features I like in any existing framework. For example Django probably is the most popular framework in python and for good reason, it has pluggable apps, extensible extensions like its admin panel, a lot of useful documentation and great community support. One of its biggest strengths is that a lot of apps are available for it which can be &#8220;plugged&#8221; into a new project to get things started really quickly. The problem is that django is very &#8220;opnionated&#8221;, the choices like ORM, templating language, URL dispatching mechanism are all made for the developer and you are mostly stuck with them unless you are willing to put in a lot of extra effort into it.</p>
+<p>Consider the following scenario, my favorite ORM is <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> and for good reason. I can develop command line applications, traditional GUIs in GUI toolkits like Qt, GTK etc all using SQLAlchemy as the ORM to interact with the database. Now if I decide to use django, I need to learn and use its ORM, why can&#8217;t I use the one I already am familiar and proficient with? Though I can but that breaks a lot of stuff in Django.</p>
+<p>Pylons and Pyramid on the other hand are very &#8220;non-opinionated&#8221; frameworks. They both are very flexible and I really like the way things are done in these frameworks. I can use SQLAlchemy or any other ORM like SQLObject etc if I like. I can choose the templating language I want to use (which BTW would be <a class="reference external" href="http://www.makotemplates.org/">Mako</a>). I can choose the URL handling mechanism (in Pyramid) be it URLDispatch or Traversal. But this flexiblity comes at a cost, building &#8220;ready-made&#8221; components for such frameworks isn&#8217;t easily possible because we are not sure what the framework user will pick as technologies. So having pluggable apps or pre-built admin panels etc because tough.</p>
+<p>So the solution? at least for me; I decided to build a framework based on Pyramid that makes the choices for the developers. If your choices are the same as mine, this framework would be ideal for you. Or if you are a new developer looking into python frameworks you can start here (just not right now since the work has only started yet).</p>
+</div>
+</div>
+<div class="section" id="discussion-on-various-aspects-of-pyck">
+<h2>DISCUSSION ON VARIOUS ASPECTS OF PyCK<a class="headerlink" href="#discussion-on-various-aspects-of-pyck" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="form-validation-library-choice.html#forms-library-choice"><em>The Problem (The Why? of Form Library)</em></a></p>
+<p><a class="reference internal" href="pyck-project-structure.html#pyck-project-structure"><em>Structure of a PyCK Project</em></a></p>
+<p><a class="reference internal" href="pluggable-apps-howto.html#pluggable-apps"><em>Pluggable application in PyCK</em></a></p>
+</div>
+<div class="section" id="feature-plan">
+<h2>FEATURE PLAN<a class="headerlink" href="#feature-plan" title="Permalink to this headline">¶</a></h2>
+<p>And what exactly are the choices?</p>
+<ul class="simple">
+<li>Use <strong>SQLAlchemy as the ORM</strong></li>
+<li>Use <strong>Mako as the templating language</strong></li>
+<li>Use <strong>URLDispatch as the resource location</strong> - URL to code mapping mechanism</li>
+<li>Design should support <strong>Pluggable applications</strong> similar to Djano</li>
+<li>Should have easily <strong>extendible components</strong> like an admin panel, etc</li>
+<li>Allow web applications to be easily <strong>Themable</strong></li>
+<li>Use <a class="reference external" href="http://dojotoolkit.org/">Dojo</a> for UI components, AJAX etc</li>
+<li>Ability to easily specify <strong>separate view templates for mobile devices</strong> (using Dojox.mobile)</li>
+<li><strong>Automatic form generation from database/SQLAlchemy models</strong> (looking into possible options like sprox, formalchemy, wtforms, deform, etc)</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">INTRODUCTION</a><ul>
+<li><a class="reference internal" href="#background">BACKGROUND</a><ul>
+<li><a class="reference internal" href="#why-create-pyck">Why Create PyCK?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#discussion-on-various-aspects-of-pyck">DISCUSSION ON VARIOUS ASPECTS OF PyCK</a></li>
+<li><a class="reference internal" href="#feature-plan">FEATURE PLAN</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to PyCK&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pluggable-apps-howto.html"
+                        title="next chapter">Pluggable application in PyCK</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="pluggable-apps-howto.html" title="Pluggable application in PyCK"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyCK’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">PyCK 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Kashif Iftikhar.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
