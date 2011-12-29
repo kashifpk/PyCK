@@ -9,6 +9,9 @@ from pyramid.paster import (
     setup_logging,
     )
 
+import importlib
+from ..apps import enabled_apps
+
 from ..models.models import (
     DBSession,
     Site,
@@ -35,5 +38,13 @@ def main(argv=sys.argv):
         DBSession.add(model)
     
     #populate application models
-    from ..apps.blog.scripts.populate import populate_app
-    populate_app(engine, DBSession)
+    for app_name in enabled_apps:
+        
+        app_module = importlib.import_module("..apps.%s.scripts.populate" % app_name, "combined_apps.scripts")
+        #print("App Module: %s\n" % app_module.__name__)
+        
+        try:
+            app_module.populate_app(engine, DBSession)
+        except Exception, e:
+            print(repr(e))
+    

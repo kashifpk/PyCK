@@ -28,6 +28,9 @@ DISCUSSION ON VARIOUS ASPECTS OF PyCK
 
 [[Structure of a PyCK Project|pyck-project-structure]]
 
+[[How to create Pluggable applications|pluggable-apps-howto]]
+
+
 FEATURE PLAN
 ============
 

@@ -14,13 +14,14 @@
 #    config.scan()
 #    return config.make_wsgi_app()
 
-PROJECT = 'combined_apps'
-APP = 'blog'
+from combined_apps.apps import PROJECT_NAME
 
-APP_BASE = '%s.apps.%s' % (PROJECT, APP)
+
+APP_NAME = 'blog'
+APP_BASE = '%s.apps.%s' % (PROJECT_NAME, APP_NAME)
 
 def application_routes(config):
-    config.add_route('blog.home', '/')
-    config.add_route('blog.about', '/about')
+    config.add_route(APP_NAME + '.home', '/')
+    config.add_route(APP_NAME + '.about', '/about')
     
     config.add_static_view('static', 'static', cache_max_age=3600)

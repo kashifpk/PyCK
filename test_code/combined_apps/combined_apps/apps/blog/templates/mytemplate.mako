@@ -12,7 +12,7 @@
 </head>
 <body>
   <div class="top align-center">
-        <div><img src="${request.static_url('combined_apps.apps.blog:static/pyramid.png')}" width="750" height="169" alt="pyramid"/></div>
+        <div><img src="${request.static_url(APP_BASE+':static/pyramid.png')}" width="750" height="169" alt="pyramid"/></div>
       </div>
   <div id="wrap">
     <div id="top">
