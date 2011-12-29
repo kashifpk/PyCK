@@ -10,8 +10,9 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   
+      
    introduction
+   installation
    pluggable-apps-howto
    pyck-project-structure
    form-validation-library-choice

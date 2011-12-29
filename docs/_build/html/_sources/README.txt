@@ -4,6 +4,8 @@ INTRODUCTION
 **PyCK** (Python Code Karigar); prounounced '*pick*' is/would be a web development framework
 aiming to provide an easy to use yet powerful and flexible web framework for python developers.
 
+Documentation for the project can be found at `PyCK Documentation <http://packages.python.org/PyCK/>`_
+
 BACKGROUND
 ----------
 
