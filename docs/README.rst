@@ -1,17 +1,19 @@
 INTRODUCTION
 ============
+
 **PyCK** (Python Code Karigar); prounounced '*pick*' is/would be a web development framework
 aiming to provide an easy to use yet powerful and flexible web framework for python developers.
 
 BACKGROUND
 ==========
+
 Of course, there are already a lot of great frameworks present for python like `Pylons <http://docs.pylonsproject.org/en/latest/docs/pylons.html>`_, `Django <https://www.djangoproject.com/>`_, `Pyramid <http://docs.pylonsproject.org/en/latest/docs/pyramid.html>`_, `BlueBream (Previously Zope) <http://bluebream.zope.org/>`_, `TurboGears2 <http://turbogears.org/>`_ that provide really cool
 features for developing web applications in python, I feel like there was still something missing for my taste. So you can say that this project is starting to satisfy a personal itch.
 
 Why Create PyCK?
 *****************
 
-Of all the frameworks mentioned above I liked some features of one framework and other features of another framework. Unfortunately I wasn't able to mix all those features I liked in any existing framework. For example Django probably is the most popular framework in python and for good reason, it has pluggable apps, extensible extensions like its admin panel, a lot of useful documentation and great community support. One of its biggest strengths is that a lot of apps are available for it which can be "plugged" into a new project to get things started really quickly. The problem is that django is very "opnionated", the choices like ORM, templating language, URL dispatching mechanism are all made for the developer and you are mostly stuck with them unless you are willing to put in a lot of extra effort into it.
+Of all the frameworks mentioned above I liked some features of one framework and other features of another framework. Unfortunately I wasn't able to find all those features I like in any existing framework. For example Django probably is the most popular framework in python and for good reason, it has pluggable apps, extensible extensions like its admin panel, a lot of useful documentation and great community support. One of its biggest strengths is that a lot of apps are available for it which can be "plugged" into a new project to get things started really quickly. The problem is that django is very "opnionated", the choices like ORM, templating language, URL dispatching mechanism are all made for the developer and you are mostly stuck with them unless you are willing to put in a lot of extra effort into it.
 
 Consider the following scenario, my favorite ORM is `SQLAlchemy <http://www.sqlalchemy.org/>`_ and for good reason. I can develop command line applications, traditional GUIs in GUI toolkits like Qt, GTK etc all using SQLAlchemy as the ORM to interact with the database. Now if I decide to use django, I need to learn and use its ORM, why can't I use the one I already am familiar and proficient with? Though I can but that breaks a lot of stuff in Django.
 
@@ -21,7 +23,10 @@ So the solution? at least for me; I decided to build a framework based on Pyrami
 
 DISCUSSION ON VARIOUS ASPECTS OF PyCK
 =====================================
+
 [[Choosing a Form Generation and Validation Library|Choice-for-Form-Validation-and-Generation-Library]]
+
+[[Structure of a PyCK Project|pyck-project-structure]]
 
 FEATURE PLAN
 ============

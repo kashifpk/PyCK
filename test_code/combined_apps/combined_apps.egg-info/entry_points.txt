@@ -1,0 +1,5 @@
+      [paste.app_factory]
+      main = combined_apps:main
+      [console_scripts]
+      populate_combined_apps = combined_apps.scripts.populate:main
+      
