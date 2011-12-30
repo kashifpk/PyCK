@@ -13,6 +13,7 @@ Contents:
       
    introduction
    installation
+   start-project
    pluggable-apps-howto
    pyck-project-structure
    form-validation-library-choice

@@ -1,4 +1,4 @@
-INSTALLATION
+Installation
 ============
 
 Installing **PyCK** is as easy as installing any other python package using either **easy_install** or **pip**. It is a good idea to setup pyck inside a virtual environment. Here is how:
