@@ -3,7 +3,12 @@ import sys
 
 from setuptools import setup, find_packages
 
+here = os.path.abspath(os.path.dirname(__file__))
+README = open(os.path.join(here, 'README.txt')).read()
+CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+
 requires = [
+    'PyCK',
     'pyramid',
     'SQLAlchemy',
     'transaction',
@@ -15,28 +20,29 @@ requires = [
 if sys.version_info[:3] < (2,5,0):
     requires.append('pysqlite')
 
-setup(name='PyCK',
-      version='0.1.6',
-      description='Python Code Karigar - Web Framework',
-      long_description='PyCK is an "opinionated" web framework based on Pyramid that makes choices of ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.',
+setup(name='{{project}}',
+      version='0.0',
+      description='{{project}}',
+      long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         "Programming Language :: Python",
         "Framework :: Pylons",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
-      author='Kashif Iftikhar',
-      author_email='kashif@compulife.com.pk',
-      url='http://pypi.python.org/pypi/PyCK',
+      author='',
+      author_email='',
+      url='',
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='combined_apps',
+      test_suite='{{package}}',
       install_requires = requires,
       entry_points = """\
-      [pyramid.scaffold]
-      pyck=pyck.scaffolds:PyCKTemplate
+      [paste.app_factory]
+      main = {{package}}:main
+      [console_scripts]
+      populate_{{project}} = {{package}}.scripts.populate:main
       """,
       )
-

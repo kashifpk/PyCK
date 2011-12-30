@@ -1,2 +1,2 @@
-include *.txt *.ini *.cfg *.rst
-recursive-include combined_apps *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml
+include *.txt *.ini *.cfg *.rst *.*
+recursive-include pyck *.* *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml
