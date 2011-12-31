@@ -44,5 +44,6 @@ setup(name='{{project}}',
       main = {{package}}:main
       [console_scripts]
       populate_{{project}} = {{package}}.scripts.populate:main
+      {{package}}_newapp = {{package}}.scripts.newapp:main
       """,
       )

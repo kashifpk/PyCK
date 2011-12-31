@@ -49,6 +49,8 @@ pyck/scaffolds/template/+package+/controllers/views.py_tmpl
 pyck/scaffolds/template/+package+/models/__init__.py_tmpl
 pyck/scaffolds/template/+package+/models/models.py_tmpl
 pyck/scaffolds/template/+package+/scripts/__init__.py_tmpl
+pyck/scaffolds/template/+package+/scripts/newapp.py
+pyck/scaffolds/template/+package+/scripts/newapp_scaffold.zip
 pyck/scaffolds/template/+package+/scripts/populate.py_tmpl
 pyck/scaffolds/template/+package+/static/favicon.ico
 pyck/scaffolds/template/+package+/static/footerbg.png

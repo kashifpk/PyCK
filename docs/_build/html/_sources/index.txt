@@ -14,9 +14,12 @@ Contents:
    introduction
    installation
    start-project
+   adding-apps
    pluggable-apps-howto
    pyck-project-structure
    form-validation-library-choice
+   
+   changes
 
 
 

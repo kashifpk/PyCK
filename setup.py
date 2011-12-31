@@ -16,7 +16,7 @@ if sys.version_info[:3] < (2,5,0):
     requires.append('pysqlite')
 
 setup(name='PyCK',
-      version='0.1.6',
+      version='0.2.0',
       description='Python Code Karigar - Web Framework',
       long_description='PyCK is an "opinionated" web framework based on Pyramid that makes choices of ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.',
       classifiers=[

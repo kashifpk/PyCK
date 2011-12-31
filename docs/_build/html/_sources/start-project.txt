@@ -1,3 +1,5 @@
+.. _start-project:
+
 Starting a Project
 ==================
 
