@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting a Project &mdash; PyCK 0.2.0 documentation</title>
+    <title>Starting a Project &mdash; PyCK 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.2.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.2.1 documentation" href="index.html" />
     <link rel="next" title="Adding an Application" href="adding-apps.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -60,10 +60,8 @@
 <li><p class="first">Create the project structure using:</p>
 <div class="highlight-python"><pre>pcreate -t pyck myproject</pre>
 </div>
-</li>
-</ol>
 <p>Replace myproject with the name of your project. This creates the basic structure for your project including configuration files for both development and production, adding project package and sub foldres for controllers/view, models, templates, scripts, tests etc. Your project has support for pluggable applications which can be placed in the apps folder under your project&#8217;s package. The generated code already contains one app there with its basic structure ready to use. If you like, you can copy this structure to create more apps.</p>
-<ol class="arabic" start="3">
+</li>
 <li><p class="first">Move into your newly created project&#8217;s base folder:</p>
 <div class="highlight-python"><pre>cd myproject</pre>
 </div>
@@ -75,28 +73,24 @@
 <li><p class="first">Now you should create any database models under &lt;yourprojectname&gt;/models/models.py that you wish to use, once done (or even if you don&#8217;t want to create any models yet), run:</p>
 <div class="highlight-python"><pre>populate_myproject development.ini</pre>
 </div>
-</li>
-</ol>
 <p>Remember to replace myproject with the name of your project. This script automatically creates tables in the database specified in development.ini configuration file. By default a SQLite file with the same name as your project is used, you can change the <strong>sqlalchemy.url</strong> parameter in development.ini (or production.ini in case you&#8217;re changing the backend DB for production). Remember that this populate script needs to be executed again in case you add/change your models in either your main project or in any of its sub-applications. When re-running the populate script, you may need to delete the existing records/tables from your DB for this script to execute without errors.</p>
-<ol class="arabic" start="6">
+</li>
 <li><p class="first">Now your application is ready to start. From now on you only need this step to start serving your application through the built-in web server provided by PyCK/Pyramid. To start serving your application run:</p>
 <div class="highlight-python"><pre>pserve development.ini --reload</pre>
 </div>
-</li>
-</ol>
 <p>You may see output similar to:</p>
 <div class="highlight-python"><pre>Starting subprocess with file monitor
 Starting server in PID 8191.
 Starting HTTP server on http://0.0.0.0:6543</pre>
 </div>
 <p>Note the listening port and IP can be changed in development.ini.</p>
-<ol class="arabic" start="7">
+</li>
 <li><p class="first">Open your browser and type:</p>
 <div class="highlight-python"><pre>http://localhost:6543</pre>
 </div>
+<p>and congratulations you should see the initial page saing Welcome and displaying a link to <strong>My Application</strong> in the middle. Clicking this link opens up a view from My Application just for demonstrating the use of pluggable apps.</p>
 </li>
 </ol>
-<p>and congratulations you should see the initial page saing Welcome and displaying a link to <strong>My Application</strong> in the middle. Clicking this link opens up a view from My Application just for demonstrating the use of pluggable apps.</p>
 <p>From here on you can start developing your project however you like :-)</p>
 </div>
 
@@ -146,7 +140,7 @@ Starting HTTP server on http://0.0.0.0:6543</pre>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

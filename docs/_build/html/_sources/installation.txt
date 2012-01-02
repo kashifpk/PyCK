@@ -21,11 +21,11 @@ Installing **PyCK** is as easy as installing any other python package using eith
 
     source pyckenv/bin/activate
 
-Anytime you want to deactivate the environment just issue the command **deactivate**
+   Anytime you want to deactivate the environment just issue the command **deactivate**
 
 5. Install pyck::
 
     pip install pyck
 
-This is the only step you actually need to do, if you already have easy_install or pip, installing pyck is as easy as **easy_install pyck** or **pip install pyck**, however using a virtual environment sandboxes the rest of the system nicely for  you.
+   This is the only step you actually need to do, if you already have easy_install or pip, installing pyck is as easy as **easy_install pyck** or **pip install pyck**, however using a virtual environment sandboxes the rest of the system nicely for  you.
 

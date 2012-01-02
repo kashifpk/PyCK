@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.2.0 documentation</title>
+    <title>Changes &mdash; PyCK 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.2.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.2.1 documentation" href="index.html" />
     <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,6 +50,29 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-2-1">
+<h2>Whats new in 0.2.1<a class="headerlink" href="#whats-new-in-0-2-1" title="Permalink to this headline">¶</a></h2>
+<p>Some code refactoring to ease up a few things</p>
+<ul>
+<li><p class="first">Moved sys.path addition settings to a seperate function named load_project_settings in project&#8217;s __init__.py. This function is called by __init__.py&#8217;s main function to load project specific settings and also called by the populate script. So the code is at one place instead of two places.</p>
+</li>
+<li><p class="first">For apps, moved the RenameTables SQA MetaBase to the model package&#8217;s __init__.py so its a bit hidden from the developer as the developer just sees:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">DBSession</span><span class="p">,</span> <span class="n">Base</span>
+</pre></div>
+</div>
+<p>in the model definition files. This also makes importing these into multiple model files much easier (since again the code is at a single location now)</p>
+</li>
+<li><p class="first">In the __init__.py of every model package (apps or the main project alike), we now import the models defined by that project/app and include them in the __all__ list so that instead of importing like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">myapp.models.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</pre></div>
+</div>
+<p>now we can use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-2-0">
 <h2>Whats new in 0.2.0<a class="headerlink" href="#whats-new-in-0-2-0" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -57,14 +80,13 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;posts&#39;</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <p>it will automatically be created as <strong>blog_posts</strong> in the database. Your access to the table through the model remained same without any changes.</p>
-<ul class="simple">
-<li>Once you run python setup.py develop for your new project, a new command for creating an app becomes availabe to you. Instead of copying the sample app provided and adjusting it, now the whole struture is created for you. For details see</li>
-</ul>
+</li>
+<li><p class="first">Once you run python setup.py develop for your new project, a new command for creating an app becomes availabe to you. Instead of copying the sample app provided and adjusting it, now the whole struture is created for you. For details see</p>
 <p><a class="reference internal" href="adding-apps.html#adding-apps"><em>Adding an Application</em></a></p>
 <p>This feature is the reason that the version number bumped upto 0.2 :-)</p>
+</li>
+</ul>
 </div>
 <div class="section" id="whats-new-in-0-1-6">
 <h2>Whats new in 0.1.6<a class="headerlink" href="#whats-new-in-0-1-6" title="Permalink to this headline">¶</a></h2>
@@ -83,6 +105,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-2-1">Whats new in 0.2.1</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-0">Whats new in 0.2.0</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-1-6">Whats new in 0.1.6</a></li>
 </ul>
@@ -123,7 +146,7 @@
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
