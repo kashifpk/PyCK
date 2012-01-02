@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 
-from ..models.models import (
+from ..models import (
     DBSession,
     Post,
     )

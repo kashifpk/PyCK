@@ -9,8 +9,9 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from ..models.models import (
+from ..models import (
     Base,
+    
     )
 
 def populate_app(engine, db_session):

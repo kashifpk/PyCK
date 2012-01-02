@@ -4,17 +4,7 @@ from sqlalchemy import (
     Text,
     )
 
-from sqlalchemy.ext.declarative import declarative_base
-
-from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
-    )
-
-from zope.sqlalchemy import ZopeTransactionExtension
-
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
+from . import DBSession, Base
 
 class Site(Base):
     __tablename__ = 'site'

@@ -3,7 +3,7 @@ import os
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 
-from models.models import DBSession
+from models import DBSession
 
 import importlib
 from apps import enabled_apps
@@ -12,9 +12,7 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     
-    here = os.path.dirname(__file__)
-    sys.path.insert(0, here+'/apps')
-    sys.path.insert(0, here)
+    load_project_settings()
     
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
@@ -27,6 +25,11 @@ def main(global_config, **settings):
     config.scan()
     
     return config.make_wsgi_app()
+
+def load_project_settings():
+    here = os.path.dirname(__file__)
+    sys.path.insert(0, here+'/apps')
+    sys.path.insert(0, here)
 
 def configure_app_routes(config):
     """
