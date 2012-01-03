@@ -11,4 +11,4 @@ from .. import APP_NAME, PROJECT_NAME, APP_BASE
 def my_view(request):
     first_post = DBSession.query(Post).filter(Post.title=='Test').first()
     
-    return {'post': first_post}
+    return {'APP_BASE': APP_BASE, 'post': first_post}

@@ -73,10 +73,12 @@ newapp/static/footerbg.png
 newapp/static/headerbg.png
 newapp/static/ie6.css
 newapp/static/middlebg.png
+newapp/static/pyck-small.png
+newapp/static/pyck.png
 newapp/static/pylons.css
-newapp/static/pyramid-small.png
-newapp/static/pyramid.png
 newapp/static/transparent.gif
-newapp/templates/mytemplate.mako
+newapp/templates/base.mako
+newapp/templates/home.mako
+newapp/templates/sample.mako
 newapp/tests/__init__.py
 newapp/tests/tests.py

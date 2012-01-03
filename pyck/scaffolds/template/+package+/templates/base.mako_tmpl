@@ -5,12 +5,12 @@
   <title>${self.title()}</title>
   ${self.meta()}
   
-  <link rel="shortcut icon" href="${request.static_url('newapp:static/favicon.ico')}" />
-  <link rel="stylesheet" href="${request.static_url('newapp:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="shortcut icon" href="${request.static_url('{{package}}:static/favicon.ico')}" />
+  <link rel="stylesheet" href="${request.static_url('{{package}}:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
   <!--[if lte IE 6]>
-  <link rel="stylesheet" href="${request.static_url('newapp:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="${request.static_url('{{package}}:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
 </head>
 
@@ -36,7 +36,7 @@
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
-  <div id="top-small"><img src="${request.static_url('newapp:static/pyck-small.png')}"  alt="pyck"/></div>
+  <div id="top-small"><img src="${request.static_url('{{package}}:static/pyck-small.png')}"  alt="pyck"/></div>
 </%def>
   
 <%def name="content_wrapper()">
@@ -47,8 +47,7 @@
     
 <%def name="main_menu()">
 <p>
-  <a href="${request.route_url('blog.home')}">My Blog</a> |
-  <a href="${request.route_url('wiki.home')}">My Wiki</a> |
+  <a href="${request.route_url('myapp.home')}">A sample App</a> |
   <a href="${request.route_url('sample_page')}">Sample Page</a>
 </p>
 </%def>

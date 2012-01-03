@@ -7,7 +7,7 @@ The WiKi app
 <div>
   <div class="middle align-center">
     <p class="app-welcome">
-      Welcome to wiki app
+    <img src="${request.static_url(APP_BASE + ':static/webapp.png')}" />  Welcome to wiki app
     </p>
   </div>
   <h1>Wiki page title: ${page.title}</h1>

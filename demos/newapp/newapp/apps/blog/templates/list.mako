@@ -7,7 +7,7 @@ The PyCK Blog app
 <div >
   <div class="middle align-center">
     <p class="app-welcome">
-      Welcome to Blog app
+    <img src="${request.static_url(APP_BASE + ':static/webapp.png')}" /> Welcome to Blog app
     </p>
   </div>
   <h1>${post.title}</h1>
