@@ -1,6 +1,8 @@
 import sys
 import os
 from pyramid.config import Configurator
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
 from sqlalchemy import engine_from_config
 
 from models import DBSession
@@ -14,12 +16,16 @@ def main(global_config, **settings):
     
     load_project_settings()
     
+    session_factory = UnencryptedCookieSessionFactoryConfig(settings.get('session.secret', 'hello'))
+    
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
-    config = Configurator(settings=settings)
+    
+    config = Configurator(session_factory=session_factory, settings=settings)
+    
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
-    config.add_route('sample_page', '/sample_page')
+    config.add_route('contact', '/contact')
     
     configure_app_routes(config)
     

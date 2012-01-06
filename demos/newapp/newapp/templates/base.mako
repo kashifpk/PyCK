@@ -41,15 +41,23 @@
   
 <%def name="content_wrapper()">
   <div id="content">
+    <div class="flash">
+      <% flash_msgs = request.session.pop_flash() %>
+      
+      %for flash_msg in flash_msgs:
+        ${flash_msg}<br />
+      %endfor
+    </div>
   ${self.body()}
   </div>
 </%def>
     
 <%def name="main_menu()">
 <p>
+  <a href="${request.route_url('home')}">Home</a> |
   <a href="${request.route_url('blog.home')}">My Blog</a> |
   <a href="${request.route_url('wiki.home')}">My Wiki</a> |
-  <a href="${request.route_url('sample_page')}">Sample Page</a>
+  <a href="${request.route_url('contact')}">Contact Us</a>
 </p>
 </%def>
 <%def name="footer()">

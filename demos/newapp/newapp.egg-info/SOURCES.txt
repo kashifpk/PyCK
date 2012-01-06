@@ -21,15 +21,7 @@ newapp/apps/blog/models/__init__.py
 newapp/apps/blog/models/models.py
 newapp/apps/blog/scripts/__init__.py
 newapp/apps/blog/scripts/populate.py
-newapp/apps/blog/static/favicon.ico
-newapp/apps/blog/static/footerbg.png
-newapp/apps/blog/static/headerbg.png
-newapp/apps/blog/static/ie6.css
-newapp/apps/blog/static/middlebg.png
-newapp/apps/blog/static/pylons.css
-newapp/apps/blog/static/pyramid-small.png
-newapp/apps/blog/static/pyramid.png
-newapp/apps/blog/static/transparent.gif
+newapp/apps/blog/static/webapp.png
 newapp/apps/blog/templates/list.mako
 newapp/apps/blog/tests/__init__.py
 newapp/apps/blog/tests/tests.py
@@ -49,6 +41,7 @@ newapp/apps/wiki/static/pylons.css
 newapp/apps/wiki/static/pyramid-small.png
 newapp/apps/wiki/static/pyramid.png
 newapp/apps/wiki/static/transparent.gif
+newapp/apps/wiki/static/webapp.png
 newapp/apps/wiki/templates/list.mako
 newapp/apps/wiki/tests/__init__.py
 newapp/apps/wiki/tests/tests.py

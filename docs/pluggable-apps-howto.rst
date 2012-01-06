@@ -24,7 +24,7 @@ This takes care of accessing your app correctly from within the main project.
 
 
 Implement a populate_app function to your app's scripts/populate.py script
---------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 This function will be called by the main project's populate script to automatically add tables and
 records for the app to the project's database::

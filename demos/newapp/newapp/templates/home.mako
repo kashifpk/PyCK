@@ -27,14 +27,22 @@
           the PyCK web application development framework.
         </p>
         <p>
+          
           <a href="${request.route_url('blog.home')}">My Blog</a> |
           <a href="${request.route_url('wiki.home')}">My Wiki</a> |
-          <a href="${request.route_url('sample_page')}">A Sample Page</a>
+          <a href="${request.route_url('contact')}">Contact Us</a>
         </p>
       </div>
     </div>
     <div id="bottom">
       <div class="bottom">
+        <div class="flash">
+          <% flash_msgs = request.session.pop_flash() %>
+          
+          %for flash_msg in flash_msgs:
+            ${flash_msg}<br />
+          %endfor
+        </div>
         <div id="left" class="align-right">
           <h2>Search documentation</h2>
           <form class="search" action="http://packages.python.org/PyCK/search.html" method="get">

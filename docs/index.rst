@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
       
-   introduction
+   README
    installation
    start-project
    adding-apps

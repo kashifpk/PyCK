@@ -5,6 +5,22 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.2.2
+------------------
+
+* Sessions support - Sessions come pre-configured now with a new PyCK project and the sample included has also been updated accordingly
+
+* Forms support - Initial support for forms using WTForms has landed. Keeping with the structure forms are defined within a forms package inside the application package.
+
+* A newly created project (and the sample project) now contains a contact form demonstrating forms usage.
+
+    * Additionally forms also have CSRF (Cross Site Request Forgery) protection
+
+* Flash messaging support is also in. Look at the contact form example (specifically its template and the home and base templates) to see flash messages in action.
+
+**Whats next?** Focus now is to make forms more easy to use within PyCK. Upcoming versions are expected to contain more enhancements related to forms.
+
+
 Whats new in 0.2.1
 ------------------
 
