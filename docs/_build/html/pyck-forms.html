@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The pyck.forms Package &mdash; PyCK 0.2.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyCK 0.2.3 documentation" href="index.html" />
+    <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyCK 0.2.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyck.forms">
+<span id="the-pyck-forms-package"></span><span id="pyck-forms"></span><h1>The pyck.forms Package<a class="headerlink" href="#module-pyck.forms" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pyck.forms"></span><p>The PyCK Forms Package</p>
+<dl class="class">
+<dt id="pyck.forms.Form">
+<em class="property">class </em><tt class="descclassname">pyck.forms.</tt><tt class="descname">Form</tt><big>(</big><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyck.forms.Form" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Form base class, extends from WTForms.Form</p>
+<p>This class provides some additional features to the base wtforms.Form class. These include:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Methods to render the form in HTML</dt>
+<dd><ul class="first last simple">
+<li>as_p to render form using p tags</li>
+<li>TODO: as_table to render using html table</li>
+<li>TODO: as_div to render using html divs</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">TODO: CSRF protection availability</p>
+</li>
+</ul>
+<dl class="method">
+<dt id="pyck.forms.Form.as_p">
+<tt class="descname">as_p</tt><big>(</big><em>labels='top'</em>, <em>errors='right'</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output each form field as html <strong>p</strong> tags. By default labels are displayed on top of the form fields
+and validation erros are displayed on the right of the form fields. Both these behaviors can be
+changed by settings values for the labels and errors parameters.</p>
+<p>Values can be left, top, right or bottom</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Here is an example usage to demonstrate the improvements:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">validators</span>
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">validators</span><span class="o">.</span><span class="n">required</span><span class="p">()])</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&quot;Father&#39;s Name&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">validators</span><span class="o">.</span><span class="n">required</span><span class="p">()])</span>
+
+<span class="n">myform</span> <span class="o">=</span> <span class="n">MyForm</span><span class="p">()</span>
+<span class="nb">str</span><span class="p">(</span><span class="n">myform</span><span class="o">.</span><span class="n">as_p</span><span class="p">())</span>
+<span class="s">r&#39;\n&lt;p&gt;\n&lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;&lt;br /&gt; &lt;input id=&quot;name&quot; name=&quot;name&quot; type=&quot;text&quot; value=&quot;&quot; /&gt; &lt;/p&gt;\n\n&lt;p&gt;\n&lt;label for=&quot;fname&quot;&gt;Father</span><span class="se">\&#39;</span><span class="s">s Name&lt;/label&gt;&lt;br /&gt; &lt;input id=&quot;fname&quot; name=&quot;fname&quot; type=&quot;text&quot; value=&quot;&quot; /&gt; &lt;/p&gt;\n&#39;</span>
+<span class="n">myform</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<span class="bp">False</span>
+<span class="nb">str</span><span class="p">(</span><span class="n">myform</span><span class="o">.</span><span class="n">as_p</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">))</span>
+<span class="s">&#39;</span><span class="se">\n</span><span class="s">&lt;p&gt;</span><span class="se">\n</span><span class="s">&lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt; &lt;input id=&quot;name&quot; name=&quot;name&quot; type=&quot;text&quot; value=&quot;&quot; /&gt; &lt;span class=&quot;errors&quot;&gt;This field is required.&lt;/span&gt; &lt;/p&gt;</span><span class="se">\n\n</span><span class="s">&lt;p&gt;</span><span class="se">\n</span><span class="s">&lt;label for=&quot;fname&quot;&gt;Father</span><span class="se">\&#39;</span><span class="s">s Name&lt;/label&gt; &lt;input id=&quot;fname&quot; name=&quot;fname&quot; type=&quot;text&quot; value=&quot;&quot; /&gt; &lt;span class=&quot;errors&quot;&gt;This field is required.&lt;/span&gt; &lt;/p&gt;</span><span class="se">\n</span><span class="s">&#39;</span>
+</pre></div>
+</div>
+<p>Within a template, all you need to do is to just call the form&#8217;s rendering function, for example:</p>
+<div class="highlight-python"><pre>${myform.as_p() | n}</pre>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="form-validation-library-choice.html"
+                        title="previous chapter">The Problem (The Why? of Form Library)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyck-forms.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
+             >previous</a> |</li>
+        <li><a href="index.html">PyCK 0.2.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Kashif Iftikhar.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

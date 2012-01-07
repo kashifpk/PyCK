@@ -1,4 +1,5 @@
-from wtforms import Form, TextField, TextAreaField, validators
+from pyck.forms import Form
+from wtforms import TextField, TextAreaField, validators
 
 
 class ContactForm(Form):

@@ -9,18 +9,19 @@ Welcome to PyCK's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
-      
-   README
-   installation
-   start-project
-   adding-apps
-   pluggable-apps-howto
-   pyck-project-structure
-   form-validation-library-choice
-   
-   changes
-
+    :maxdepth: 2
+    
+    README
+    changes
+    
+    installation
+    start-project
+    adding-apps
+    pluggable-apps-howto
+    pyck-project-structure
+    form-validation-library-choice
+    pyck-forms
+    
 
 
 Indices and tables
