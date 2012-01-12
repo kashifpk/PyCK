@@ -47,6 +47,8 @@ newapp/apps/wiki/tests/__init__.py
 newapp/apps/wiki/tests/tests.py
 newapp/controllers/__init__.py
 newapp/controllers/views.py
+newapp/forms/__init__.py
+newapp/forms/contact.py
 newapp/models/__init__.py
 newapp/models/models.py
 newapp/scripts/__init__.py
@@ -71,7 +73,7 @@ newapp/static/pyck.png
 newapp/static/pylons.css
 newapp/static/transparent.gif
 newapp/templates/base.mako
+newapp/templates/contact.mako
 newapp/templates/home.mako
-newapp/templates/sample.mako
 newapp/tests/__init__.py
 newapp/tests/tests.py

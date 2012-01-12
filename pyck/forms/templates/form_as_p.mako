@@ -1,3 +1,9 @@
+%if form._use_csrf_protection:
+<input type="hidden" name="csrf_token" value="${form._csrf_token}" />
+%endif
+%if '_csrf' in form.errors:
+<div class="errors">${form.errors['_csrf'][0]}</div><br />
+%endif
 % for field in form:
 <%
 field_errors = ''

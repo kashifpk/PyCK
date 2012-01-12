@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.2.4
+------------------
+
+* Automated CSRF Protection in forms.
+
 Whats new in 0.2.3
 ------------------
 

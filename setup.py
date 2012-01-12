@@ -9,6 +9,7 @@ requires = [
     'transaction',
     'pyramid_tm',
     'pyramid_debugtoolbar',
+    'pyramid_handlers',
     'zope.sqlalchemy',
     'wtforms',
     'nose',

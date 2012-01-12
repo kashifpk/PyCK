@@ -17,19 +17,16 @@ def my_view(request):
 @view_config(route_name='contact', renderer="contact.mako")
 def contact_form(request):
     
-    f = ContactForm(request.POST)   #empty form initializes if not a POST request
-    
-    token = request.session.get_csrf_token()
-    
+    #empty form initializes if not a POST request
+    f = ContactForm(request.POST, request_obj=request, use_csrf_protection=True)   
     
     if 'POST' == request.method and 'form.submitted' in request.params:
-        if token != request.POST['csrf_token']:
-            raise ValueError('CSRF token did not match')
-        
         if f.validate():
             #TODO: Do email sending here.
             
             request.session.flash("Your message has been sent!")
             return HTTPFound(location=request.route_url('home'))
+        
+        print(repr(f.errors))
     
-    return {'contact_form': f, 'csrf_token': token}
+    return {'contact_form': f}
