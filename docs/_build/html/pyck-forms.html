@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.forms Package &mdash; PyCK 0.2.3 documentation</title>
+    <title>The pyck.forms Package &mdash; PyCK 0.2.4 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.3',
+        VERSION:     '0.2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.2.3 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.2.4 documentation" href="index.html" />
     <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,7 +55,7 @@
 <span class="target" id="module-pyck.forms"></span><p>The PyCK Forms Package</p>
 <dl class="class">
 <dt id="pyck.forms.Form">
-<em class="property">class </em><tt class="descclassname">pyck.forms.</tt><tt class="descname">Form</tt><big>(</big><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyck.forms.Form" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyck.forms.</tt><tt class="descname">Form</tt><big>(</big><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>request_obj=None</em>, <em>use_csrf_protection=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyck.forms.Form" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Form base class, extends from WTForms.Form</p>
 <p>This class provides some additional features to the base wtforms.Form class. These include:</p>
 <ul>
@@ -63,15 +63,18 @@
 <dt>Methods to render the form in HTML</dt>
 <dd><ul class="first last simple">
 <li>as_p to render form using p tags</li>
-<li>TODO: as_table to render using html table</li>
-<li>TODO: as_div to render using html divs</li>
+<li>as_table to render using html table</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">TODO: CSRF protection availability</p>
+<li><p class="first">CSRF protection availability</p>
+</li>
+<li><p class="first">TODO: Since WTForms wants presentation attributes (like rows and cols for textarea) to be set on</p>
 </li>
 </ul>
+<p>instantiated form instances (not the class itself), allow some way to specify field attributes
+that are then read at field display time. Possibly a field_attrs dict??? May be reimplementing sub-classes of some fields to make use of it would be a could idea??</p>
 <dl class="method">
 <dt id="pyck.forms.Form.as_p">
 <tt class="descname">as_p</tt><big>(</big><em>labels='top'</em>, <em>errors='right'</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_p" title="Permalink to this definition">¶</a></dt>
@@ -79,6 +82,19 @@
 and validation erros are displayed on the right of the form fields. Both these behaviors can be
 changed by settings values for the labels and errors parameters.</p>
 <p>Values can be left, top, right or bottom</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyck.forms.Form.as_table">
+<tt class="descname">as_table</tt><big>(</big><em>labels='left'</em>, <em>errors='top'</em>, <em>include_table_tag=False</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output the form as HTML Table, optionally add the table tags too if include_table_tag is set to True (default False)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyck.forms.Form.validate">
+<tt class="descname">validate</tt><big>(</big><big>)</big><a class="headerlink" href="#pyck.forms.Form.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate form fields and check for CSRF token match if use_csrf_protection was set to true when
+initializing the form.</p>
 </dd></dl>
 
 </dd></dl>
@@ -147,7 +163,7 @@ changed by settings values for the labels and errors parameters.</p>
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.2.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

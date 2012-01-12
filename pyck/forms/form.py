@@ -11,17 +11,17 @@ class Form(wtforms.Form):
     
     * Methods to render the form in HTML
         * as_p to render form using p tags
-        * TODO: as_table to render using html table
-        * TODO: as_div to render using html divs
+        * as_table to render using html table
     
     * CSRF protection availability 
     
     * TODO: Since WTForms wants presentation attributes (like rows and cols for textarea) to be set on
     instantiated form instances (not the class itself), allow some way to specify field attributes
     that are then read at field display time. Possibly a field_attrs dict??? May be reimplementing sub-classes of some fields to make use of it would be a could idea??
+    
     """
     
-    def __init__(self, formdata=None, obj=None, prefix='', request_obj=None, use_csrf_protection=True, **kwargs):
+    def __init__(self, formdata=None, obj=None, prefix='', request_obj=None, use_csrf_protection=False, **kwargs):
         
         super(Form, self).__init__(formdata, obj, prefix, **kwargs)
         
@@ -36,6 +36,11 @@ class Form(wtforms.Form):
         #wtforms.Form.__init__(self, formdata=None, obj=None, prefix='', **kwargs)
     
     def validate(self):
+        """
+        Validate form fields and check for CSRF token match if use_csrf_protection was set to true when
+        initializing the form.
+        """
+        
         validate_result = super(Form, self).validate()
         
         if validate_result:
@@ -60,6 +65,15 @@ class Form(wtforms.Form):
         tmpl = template_lookup.get_template("form_as_p.mako")
         
         return tmpl.render(form=self, labels_position=labels.lower(), errors_position=errors.lower())
+    
+    def as_table(self, labels='left', errors='top', include_table_tag=False):
+        """
+        Output the form as HTML Table, optionally add the table tags too if include_table_tag is set to True (default False)
+        """
+        
+        tmpl = template_lookup.get_template("form_as_table.mako")
+        
+        return tmpl.render(form=self, labels_position=labels.lower(), errors_position=errors.lower(), include_table_tag=include_table_tag)
 
 
 

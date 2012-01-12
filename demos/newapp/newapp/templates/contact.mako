@@ -8,8 +8,10 @@ PyCK Project - Contact Us
 <h1>Contact Us</h1>
 
 <form action="${request.route_url('contact')}" method="POST">
-    ${contact_form.as_p() | n}
-    <input type="submit" name="form.submitted" value="Send Email" />
+    <table cellpadding="5" cellspacing="5">
+    ${contact_form.as_table(labels='top', errors='right') | n}
+    <tr><td colspan="3" align="center"><input type="submit" name="form.submitted" value="Send Email" /></td></tr>
+    </table>
 </form>
 <br /><br /><br /><br /><br /><br />
 </div>

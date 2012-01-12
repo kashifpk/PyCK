@@ -8,7 +8,11 @@ This document lists the changes as versions progress
 Whats new in 0.2.4
 ------------------
 
-* Automated CSRF Protection in forms.
+* Automated CSRF Protection in forms. While disabled by default (to maintain compatibility with WTForms), CSRF protection can be enabled for a form by passing the form two extra keyword arguments **request_obj** and **use_csrf_protection** set to **True** when initializing it. For example::
+
+    f = ContactForm(request.POST, request_obj=request, use_csrf_protection=True)
+
+* Form objects now have an as_table :func:`pyck.forms.Form.as_table` method that allows displaying the form in a table similar to the :func:`pyck.forms.Form.as_p` method added in previous release. This method also accepts labels and errors positions (left, right, top, bottom) and optionally allows you to insert the html <table> tag within the method instead of putting it in your template by setting **include_table_tag parameter** to **True**
 
 Whats new in 0.2.3
 ------------------

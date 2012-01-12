@@ -33,7 +33,7 @@ ${field_errors} \
 \
 ${field} \
 % if 'bottom' == labels_position:
-<br />${field.label} \
+${field.label} \
 % endif
 \
 % if field_errors and 'bottom'==errors_position:
