@@ -20,6 +20,7 @@ Whats new in 0.3
   
   and it will work exactly like a normal pyck Form.
 
+* A more operational blog app in the newapp given in demos that uses the model_form feature to add blog posts.
 
 Whats new in 0.2.4
 ------------------

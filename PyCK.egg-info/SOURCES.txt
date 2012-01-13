@@ -78,3 +78,5 @@ pyck/tests/__init__.py
 pyck/tests/__init__.pyc
 pyck/tests/test_form.py
 pyck/tests/test_form.pyc
+pyck/tests/test_model_form.py
+pyck/tests/test_model_form.pyc
