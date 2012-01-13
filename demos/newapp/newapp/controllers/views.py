@@ -27,6 +27,6 @@ def contact_form(request):
             request.session.flash("Your message has been sent!")
             return HTTPFound(location=request.route_url('home'))
         
-        print(repr(f.errors))
+        #print(repr(f.errors))
     
     return {'contact_form': f}

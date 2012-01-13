@@ -5,6 +5,22 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.3
+------------------
+
+* Model Forms - Ability to generate forms automatically from database models. We now have a :func:`pyck.forms.model_form` function that behaves exactly like :func:`wtforms.ext.sqlalchemy.orm.model_form` but uses :class:`pyck.forms.Form` as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example::
+
+    from pyck.forms import model_form
+    from myapp.models import User
+    UserForm = model_form(User)
+
+  Of course, you can then sub-class this UserForm class to add further validators or modifications if you like. Later in a view (considering you've not subclassed UserForm) you can use this form as::
+  
+    f = UserForm(request.POST, request_obj=request, use_csrf_protection=True)
+  
+  and it will work exactly like a normal pyck Form.
+
+
 Whats new in 0.2.4
 ------------------
 

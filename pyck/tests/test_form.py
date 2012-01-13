@@ -8,6 +8,9 @@ class MyForm(Form):
 
     
 class TestForm(unittest.TestCase):
+    """
+    TODO: Add tests for pyck.forms.Form.as_table method
+    """
     def setUp(self):
         self.myform = MyForm()
 

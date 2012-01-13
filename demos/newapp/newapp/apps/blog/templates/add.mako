@@ -9,13 +9,14 @@ The Blog app
     <p class="app-welcome">
     <img src="${request.static_url(APP_BASE + ':static/webapp.png')}" />  Welcome to Blog app
     </p>
-    <a href="${request.route_url(APP_NAME + '.add')}">Add a post</a> 
+    <a href="${request.route_url(APP_NAME + '.home')}">Back To Home</a> 
   </div>
-  %for post in posts:
-  <h1>${post.title}</h1>
-  <p>${post.content}</p>
-  <br /><br />
-  %endfor
+  <h1>Add a Post</h1>
+  <form action="${request.route_url(APP_NAME + '.add')}" method="POST">
+  ${form.as_p() | n}
+  <br />
+  <input type="submit" name="form.submitted" value="Add Post" />
+  </form>
 </div>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

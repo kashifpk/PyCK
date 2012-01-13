@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.2.4 documentation</title>
+    <title>Changes &mdash; PyCK 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.4',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.2.4 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.3 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,6 +57,23 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-3">
+<h2>Whats new in 0.3<a class="headerlink" href="#whats-new-in-0-3" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Model Forms - Ability to generate forms automatically from database models. We now have a <a class="reference internal" href="pyck-forms.html#pyck.forms.model_form" title="pyck.forms.model_form"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.model_form()</span></tt></a> function that behaves exactly like <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> but uses <a class="reference internal" href="pyck-forms.html#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">model_form</span>
+<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="n">UserForm</span> <span class="o">=</span> <span class="n">model_form</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, you can then sub-class this UserForm class to add further validators or modifications if you like. Later in a view (considering you&#8217;ve not subclassed UserForm) you can use this form as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">UserForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request_obj</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">use_csrf_protection</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and it will work exactly like a normal pyck Form.</p>
+</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-2-4">
 <h2>Whats new in 0.2.4<a class="headerlink" href="#whats-new-in-0-2-4" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -160,6 +177,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-3">Whats new in 0.3</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-4">Whats new in 0.2.4</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-3">Whats new in 0.2.3</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-2">Whats new in 0.2.2</a></li>
@@ -213,7 +231,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.2.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

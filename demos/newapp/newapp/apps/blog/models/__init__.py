@@ -21,7 +21,10 @@ Base = declarative_base(metaclass=RenameTables)
 
 
 from models import Post
+from pyck.forms import model_form
 
-__all__ = ['DBSession', 'Base', 'Post']
+AddPostForm = model_form(Post, exclude=['id',])
+
+__all__ = ['DBSession', 'Base', 'Post', 'AddPostForm']
 
 

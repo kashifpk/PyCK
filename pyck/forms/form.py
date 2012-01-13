@@ -60,6 +60,11 @@ class Form(wtforms.Form):
         
         Values can be left, top, right or bottom
         
+        :param labels:
+            Placement of labels relative to the field
+        :param errors:
+            Placement of validation errors (if any) relative to the field
+        
         """
         
         tmpl = template_lookup.get_template("form_as_p.mako")
@@ -69,6 +74,14 @@ class Form(wtforms.Form):
     def as_table(self, labels='left', errors='top', include_table_tag=False):
         """
         Output the form as HTML Table, optionally add the table tags too if include_table_tag is set to True (default False)
+        
+        :param labels:
+            Placement of labels relative to the field
+        :param errors:
+            Placement of validation errors (if any) relative to the field
+        :param include_table_tag:
+            Whether to include the html <table> and </table> tags in the output or not
+        
         """
         
         tmpl = template_lookup.get_template("form_as_table.mako")
