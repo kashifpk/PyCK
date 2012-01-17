@@ -22,7 +22,9 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     
     config = Configurator(session_factory=session_factory, settings=settings)
-    
+    config.include('pyramid_handlers')
+    config.add_view('pyramid.view.append_slash_notfound_view',
+                context='pyramid.httpexceptions.HTTPNotFound')
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
     config.add_route('contact', '/contact')

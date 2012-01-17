@@ -17,6 +17,7 @@ from ..models import (
 def populate_app(engine, db_session):
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = Page('Test', 'Just testing')
-        db_session.add(model)
+        for i in range(35):
+            model = Page('Test %i' % i, 'Just testing number %i' % i)
+            db_session.add(model)
     
