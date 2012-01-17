@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.3 documentation</title>
+    <title>Changes &mdash; PyCK 0.4.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.3 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.4.0 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,6 +57,37 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-4">
+<h2>Whats new in 0.4<a class="headerlink" href="#whats-new-in-0-4" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">CRUDController - Enables automatic CRUD interface generation from database models. The <a class="reference internal" href="pyck-controllers.html#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a> allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.controllers</span> <span class="kn">import</span> <span class="n">CRUDController</span>
+<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">MyModel</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="k">class</span> <span class="nc">MyCRUDController</span><span class="p">(</span><span class="n">CRUDController</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span>
+    <span class="n">db_session</span> <span class="o">=</span> <span class="n">DBSession</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">In your application&#8217;s routes settings, specify the url where the CRUD interface should be displayed. You can use the <a class="reference internal" href="pyck-controllers.html#pyck.controllers.add_crud_handler" title="pyck.controllers.add_crud_handler"><tt class="xref py py-func docutils literal"><span class="pre">pyck.controllers.add_crud_handler()</span></tt></a> method for it. For example in your __init__.py (if you&#8217;re enabling CRUD for a model without your main project) or in your routes.py (if you&#8217;re enabling CRUD for a model within an app in your project) put code like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.controllers</span> <span class="kn">import</span> <span class="n">add_crud_handler</span>
+<span class="kn">from</span> <span class="nn">controllers.views</span> <span class="kn">import</span> <span class="n">MyCRDUController</span>
+
+<span class="c"># Place this with the config.add_route calls</span>
+<span class="n">add_crud_handler</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s">&#39;mymodel_crud&#39;</span><span class="p">,</span> <span class="s">&#39;/mymodel&#39;</span><span class="p">,</span> <span class="n">WikiCRUDController</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>and that&#8217;s all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-3">
 <h2>Whats new in 0.3<a class="headerlink" href="#whats-new-in-0-3" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -179,6 +210,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-4">Whats new in 0.4</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-3">Whats new in 0.3</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-4">Whats new in 0.2.4</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-2-3">Whats new in 0.2.3</a></li>
@@ -233,7 +265,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

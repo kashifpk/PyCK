@@ -21,7 +21,7 @@ Contents:
     pyck-project-structure
     form-validation-library-choice
     pyck-forms
-    
+    pyck-controllers
 
 
 Indices and tables

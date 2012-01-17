@@ -13,7 +13,7 @@ class Page(Base):
     title = Column(Unicode, unique=True)
     content = Column(Text)
 
-    def __init__(self, title, content):
+    def __init__(self, title='', content=''):
         self.title = title
         self.content = content
 

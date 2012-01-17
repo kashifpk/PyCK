@@ -19,6 +19,9 @@ class WikiCRUDController(CRUDController):
     friendly_name = 'Wiki Page'
     db_session = DBSession()
     
+    
+    add_edit_exclude = ['id',]
+    
     #list_only = ['title', 'content']
     list_exclude = ['id',]
     list_actions = [

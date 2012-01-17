@@ -67,3 +67,12 @@ body:before{content:"";height:100%;float:left;width:0;margin-top:-32767px;}
 /*PyCK styles*/
 .errors {color: #ff0000; font-weight: bold;}
 .flash {background-color: #ABFF93; font-size: 16pt; alignment-adjust: middle; text-align: center}
+
+.tr_headinig, .tr_heading th {background-color: #F68B3A; color: #FFFFFF;}
+.oddrow { background-color: #E9FBFF;}
+.evenrow {background-color: #D7EFFF;}
+
+.tr_heading th, .oddrow td, .evenrow td { padding: 3px; }
+
+.list-actions {text-align: right; background-color: #F68B3A; color: #FFFFFF; }
+.list-actions a{text-align: right; background-color: #F68B3A; color: #FFFFFF; }

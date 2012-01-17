@@ -5,8 +5,33 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.4
+----------------
+
+* CRUDController - Enables automatic CRUD interface generation from database models. The :class:`pyck.controllers.CRUDController` allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.
+    
+    1. Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session::
+    
+        from pyck.controllers import CRUDController
+        from myapp.models import MyModel, DBSession
+        
+        class MyCRUDController(CRUDController):
+            model = MyModel
+            db_session = DBSession()
+    
+    2. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
+    
+        from pyck.controllers import add_crud_handler
+        from controllers.views import MyCRDUController
+        
+        # Place this with the config.add_route calls
+        add_crud_handler(config, 'mymodel_crud', '/mymodel', WikiCRUDController)
+    
+    and that's all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.
+
+
 Whats new in 0.3
-------------------
+----------------
 
 * Model Forms - Ability to generate forms automatically from database models. We now have a :func:`pyck.forms.model_form` function that behaves exactly like :func:`wtforms.ext.sqlalchemy.orm.model_form` but uses :class:`pyck.forms.Form` as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example::
 

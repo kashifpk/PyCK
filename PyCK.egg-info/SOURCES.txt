@@ -16,6 +16,10 @@ PyCK.egg-info/requires.txt
 PyCK.egg-info/top_level.txt
 pyck/__init__.py
 pyck/__init__.pyc
+pyck/controllers/__init__.py
+pyck/controllers/__init__.pyc
+pyck/controllers/crud_controller.py
+pyck/controllers/crud_controller.pyc
 pyck/forms/__init__.py
 pyck/forms/__init__.pyc
 pyck/forms/form.py
@@ -40,6 +44,7 @@ pyck/scaffolds/template/setup.py_tmpl
 pyck/scaffolds/template/+package+/__init__.py_tmpl
 pyck/scaffolds/template/+package+/apps/__init__.py_tmpl
 pyck/scaffolds/template/+package+/apps/myapp/__init__.py_tmpl
+pyck/scaffolds/template/+package+/apps/myapp/routes.py_tmpl
 pyck/scaffolds/template/+package+/apps/myapp/controllers/__init__.py
 pyck/scaffolds/template/+package+/apps/myapp/controllers/views.py
 pyck/scaffolds/template/+package+/apps/myapp/models/__init__.py
@@ -74,6 +79,9 @@ pyck/scaffolds/template/+package+/templates/contact.mako_tmpl
 pyck/scaffolds/template/+package+/templates/home.mako_tmpl
 pyck/scaffolds/template/+package+/tests/__init__.py_tmpl
 pyck/scaffolds/template/+package+/tests/tests.py_tmpl
+pyck/templates/crud/add_or_edit.mako
+pyck/templates/crud/details.mako
+pyck/templates/crud/list.mako
 pyck/tests/__init__.py
 pyck/tests/__init__.pyc
 pyck/tests/test_form.py

@@ -39,7 +39,7 @@ def insert_per_rec_keyword_values(s, R):
     </div>
     %endif
     
-    <div class="align-center">
+    <div class="align-left">
         <table>
         %if records.count()>0:
             <tr class="tr_heading">
