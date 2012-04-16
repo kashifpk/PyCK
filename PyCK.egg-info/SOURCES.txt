@@ -20,6 +20,11 @@ pyck/controllers/__init__.py
 pyck/controllers/__init__.pyc
 pyck/controllers/crud_controller.py
 pyck/controllers/crud_controller.pyc
+pyck/ext/__init__.py
+pyck/ext/__init__.pyc
+pyck/ext/admin.pyc
+pyck/ext/admin_controller.py
+pyck/ext/admin_controller.pyc
 pyck/forms/__init__.py
 pyck/forms/__init__.pyc
 pyck/forms/form.py
@@ -32,6 +37,10 @@ pyck/forms/cache/form_as_table.mako.py
 pyck/forms/cache/form_as_table.mako.pyc
 pyck/forms/templates/form_as_p.mako
 pyck/forms/templates/form_as_table.mako
+pyck/lib/__init__.py
+pyck/lib/__init__.pyc
+pyck/lib/models.py
+pyck/lib/models.pyc
 pyck/scaffolds/__init__.py
 pyck/scaffolds/__init__.pyc
 pyck/scaffolds/template/CHANGES.txt
@@ -79,6 +88,8 @@ pyck/scaffolds/template/+package+/templates/contact.mako_tmpl
 pyck/scaffolds/template/+package+/templates/home.mako_tmpl
 pyck/scaffolds/template/+package+/tests/__init__.py_tmpl
 pyck/scaffolds/template/+package+/tests/tests.py_tmpl
+pyck/templates/admin/admin_base.mako
+pyck/templates/admin/index.mako
 pyck/templates/crud/add_or_edit.mako
 pyck/templates/crud/details.mako
 pyck/templates/crud/list.mako
@@ -86,5 +97,7 @@ pyck/tests/__init__.py
 pyck/tests/__init__.pyc
 pyck/tests/test_form.py
 pyck/tests/test_form.pyc
+pyck/tests/test_lib_models.py
+pyck/tests/test_lib_models.pyc
 pyck/tests/test_model_form.py
 pyck/tests/test_model_form.pyc

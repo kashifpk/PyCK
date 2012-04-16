@@ -23,9 +23,6 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
         Optional string prefix to add to all route names. Useful if you're adding multiple CRUD controllers and want to avoid route name conflicts.
     :param url_pattern_prefix:
         Optional string prefix to add to all crud related url patterns
-    :param exclude:
-        An optional iterable with the property names that should be excluded
-        from the form. All other properties will have fields.
     :param handler_class:
         The handler class that is used to handle CRUD requests. Must be sub-class of :class:`pyck.controllers.CRUDController`
     
@@ -150,6 +147,9 @@ class CRUDController(object):
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
                    ]
     
+    _base_template = '/base.mako'
+    
+    
     def __init__(self, request):
         self.request = request
         
@@ -172,7 +172,7 @@ class CRUDController(object):
             pass
         else:
             pk_name = primary_key_columns[0]
-            R = self.db_session.query(self.model).filter("%s==%s" % (pk_name, pk_val)).one()
+            R = self.db_session.query(self.model).filter("%s=%s" % (pk_name, pk_val)).one()
         
         return R
     
@@ -212,7 +212,7 @@ class CRUDController(object):
         # determine primary key columns
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
         
-        return {'friendly_name': self.friendly_name,
+        return {'base_template': self._base_template, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'records': records, 'pages': total_pages,
                 'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions}
@@ -290,4 +290,4 @@ class CRUDController(object):
         return {'R': R, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'actions': self.detail_actions}
-        
+    

@@ -1,7 +1,7 @@
 from sqlalchemy import (
     Column,
     Integer,
-    Text,
+    UnicodeText,
     Unicode
     )
 
@@ -10,7 +10,7 @@ from . import DBSession, Base
 class Site(Base):
     __tablename__ = 'site'
     id = Column(Integer, primary_key=True)
-    name = Column(Unicode, unique=True)
+    name = Column(Unicode(200), unique=True)
     value = Column(Integer)
 
     def __init__(self, name, value):

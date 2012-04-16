@@ -8,7 +8,7 @@ from sqlalchemy.orm import (
 from zope.sqlalchemy import ZopeTransactionExtension
 from .. import project_package, APP_NAME
 
-DBSession = project_package.models.models.DBSession
+DBSession = project_package.models.DBSession
 
 class RenameTables(DeclarativeMeta): 
     def __init__(cls, classname, bases, dict_): 

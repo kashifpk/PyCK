@@ -22,6 +22,8 @@ Contents:
     form-validation-library-choice
     pyck-forms
     pyck-controllers
+    
+    mod_wsgi_virtualenv
 
 
 Indices and tables

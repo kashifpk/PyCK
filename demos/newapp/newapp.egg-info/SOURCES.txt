@@ -15,6 +15,7 @@ newapp.egg-info/requires.txt
 newapp.egg-info/top_level.txt
 newapp/apps/__init__.py
 newapp/apps/blog/__init__.py
+newapp/apps/blog/routes.py
 newapp/apps/blog/controllers/__init__.py
 newapp/apps/blog/controllers/views.py
 newapp/apps/blog/models/__init__.py
@@ -22,10 +23,12 @@ newapp/apps/blog/models/models.py
 newapp/apps/blog/scripts/__init__.py
 newapp/apps/blog/scripts/populate.py
 newapp/apps/blog/static/webapp.png
+newapp/apps/blog/templates/add.mako
 newapp/apps/blog/templates/list.mako
 newapp/apps/blog/tests/__init__.py
 newapp/apps/blog/tests/tests.py
 newapp/apps/wiki/__init__.py
+newapp/apps/wiki/routes.py
 newapp/apps/wiki/controllers/__init__.py
 newapp/apps/wiki/controllers/views.py
 newapp/apps/wiki/models/__init__.py

@@ -5,6 +5,12 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.4.1
+------------------
+
+* Fixed edit interface bug in CRUDController
+* Added instructions for setting up pyck with Apache+mod_wsgi 
+
 Whats new in 0.4
 ----------------
 
