@@ -1,10 +1,13 @@
 import os.path
+from sqlalchemy import func
+
 from pyramid_handlers import action
 from pyramid.response import Response
 
 from pyramid.httpexceptions import HTTPFound
 
 from pyck.forms import model_form
+from pyck.lib.pagination import get_pages
 
 def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handler_class=None):
     """
@@ -82,7 +85,10 @@ class CRUDController(object):
     
     :param list_recs_per_page: Number of records to display in a listing page. Default 10.
     
+    :param list_max_pages: Maximum number of pages to display in page links. Default 10.
+    
     :param list_only: List of fields that are to be displayed on listing page, all other fields are ignored.
+    
     :param list_exclude: List of fields to be exluded in listing page
     
     :param list_actions:
@@ -130,6 +136,7 @@ class CRUDController(object):
     
     #Listing page related settings
     list_recs_per_page = 10
+    list_max_pages = 10
     list_only = None
     list_exclude = None
     list_actions = [
@@ -159,6 +166,7 @@ class CRUDController(object):
         if self.friendly_name is None:
             self.friendly_name = self.model.__tablename__
     
+    
     def _get_rec_from_pk_val(self):
         
         pk_val = self.request.matchdict.get('PK')
@@ -183,6 +191,7 @@ class CRUDController(object):
         """
         
         p = int(self.request.params.get('p', '1'))
+        page_size = int(self.request.params.get('page_size', '25'))
         
         start_idx = self.list_recs_per_page*(p-1)
         
@@ -203,18 +212,22 @@ class CRUDController(object):
             columns = self.model.__table__.columns.keys()
         
         # calculate number of pages
-        total_recs = self.db_session.query(self.model).count()
-        total_pages = total_recs/self.list_recs_per_page
+        # TODO: Would need modifications for composite primary keys
+        pk_col = self.model.__table__.primary_key.columns.keys()[0]
+        pk_col = self.model.__table__.primary_key.columns[pk_col]
         
-        if total_recs%self.list_recs_per_page>0:
-            total_pages += 1
+        total_recs = self.db_session.query(func.count(pk_col)).scalar()
+        
+        pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
         
         # determine primary key columns
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
         
+        
         return {'base_template': self._base_template, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
-                'records': records, 'pages': total_pages,
+                'records': records, 'pages': pages, 'current_page': p,
+                'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
                 'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions}
     
     @action(renderer='pyck:templates/crud/add_or_edit.mako')
@@ -235,7 +248,7 @@ class CRUDController(object):
                 self.request.session.flash(self.friendly_name + " added successfully!")
                 return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
         
-        return {'friendly_name': self.friendly_name, 'form': f, "action_type": "add" }
+        return {'base_template': self._base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "add" }
     
     @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def edit(self):
@@ -257,7 +270,7 @@ class CRUDController(object):
                 self.request.session.flash(self.friendly_name + " updated successfully!")
                 return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
         
-        return {'friendly_name': self.friendly_name, 'form': f, "action_type": "edit" }
+        return {'base_template': self._base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit" }
     
     @action()
     def delete(self):
@@ -287,7 +300,7 @@ class CRUDController(object):
         columns = self.model.__table__.columns.keys()
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
         
-        return {'R': R, 'friendly_name': self.friendly_name,
+        return {'base_template': self._base_template, 'R': R, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'actions': self.detail_actions}
     

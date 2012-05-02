@@ -41,6 +41,8 @@ pyck/lib/__init__.py
 pyck/lib/__init__.pyc
 pyck/lib/models.py
 pyck/lib/models.pyc
+pyck/lib/pagination.py
+pyck/lib/pagination.pyc
 pyck/scaffolds/__init__.py
 pyck/scaffolds/__init__.pyc
 pyck/scaffolds/template/CHANGES.txt

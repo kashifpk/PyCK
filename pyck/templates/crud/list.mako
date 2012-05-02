@@ -32,15 +32,30 @@ def insert_per_rec_keyword_values(s, R):
     
     %if pages>1:
     <div class="page_links">
+        <span style="float: left">
+            <%
+            last_record = current_page*records_per_page;
+            if last_record>total_records:
+                  last_record=total_records
+            %>
+            Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
+        </span>
         Pages: 
-        %for i in range(pages):
-        <a href="${'?p=' + str(i+1)}">${i+1}</a> 
+        %for p in pages:
+            %if p==current_page:
+                <b>${p}</b>
+            %else:
+                <a href="${'?p=' + str(p)}">${p}</a> 
+            %endif
+            
         %endfor
+        
+        
     </div>
     %endif
     
     <div class="align-left">
-        <table>
+        <table style="width: 100%; ">
         %if records.count()>0:
             <tr class="tr_heading">
             %for column in columns:
@@ -54,7 +69,7 @@ def insert_per_rec_keyword_values(s, R):
         %for R in records:
             <tr class="${row_class_cycler.next()}">
             %for column in columns:
-                <td>${getattr(R, column)}</td>
+                <td style="word-break: break-all;">${getattr(R, column)}</td>
             %endfor
             %if len(per_record_actions)>0:
                 <td>

@@ -5,6 +5,16 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.4.3
+------------------
+
+* Updates to the CRUDController for better template integration
+
+Whats new in 0.4.2
+------------------
+
+* Pagination fixes for limiting the number of pages displayed
+
 Whats new in 0.4.1
 ------------------
 
@@ -28,10 +38,10 @@ Whats new in 0.4
     2. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
     
         from pyck.controllers import add_crud_handler
-        from controllers.views import MyCRDUController
+        from controllers.views import MyCRUDController
         
         # Place this with the config.add_route calls
-        add_crud_handler(config, 'mymodel_crud', '/mymodel', WikiCRUDController)
+        add_crud_handler(config, 'mymodel_crud', '/mymodel', MyCRUDController)
     
     and that's all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.
 

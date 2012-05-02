@@ -3,7 +3,7 @@
 Running PyCK Applications with Apache Mod WSGI and Virtualenv
 =============================================================
 
-Assuming you have followed the :ref:`installtion` section and created a virtualenv named pyckenv, we'll now setup Apache to use this virtualenv alongwith mod_wsgi for deploying our pyck applications. You should already have installed mod_wsgi for Apache.
+Assuming you have followed the :ref:`installation` section and created a virtualenv named pyckenv, we'll now setup Apache to use this virtualenv alongwith mod_wsgi for deploying our pyck applications. You should already have installed mod_wsgi for Apache.
 
 1. Edit Apache's mod_wsgi configuration file normally present under */etc/apache2/mods-available/wsgi.conf* and place these two lines in it::
     
