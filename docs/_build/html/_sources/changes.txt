@@ -5,6 +5,21 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.5
+----------------
+
+* Automatic Admin Interface - Enables automatic Admin interface generation from database models. The :class:`pyck.ext.admin_controller.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
+    
+    
+    1. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.ext.admin_controller.add_admin_handler` function for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
+    
+        from pyck.ext import AdminController, add_admin_handler
+        from puck.lib import get_models
+        # Place this with the config.add_route calls
+        add_admin_handler(config, db_session, get_models(myapplicationpackagenamehere), 'admin', '/admin', AdminController)
+    
+    and that's all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.
+    
 Whats new in 0.4.3
 ------------------
 

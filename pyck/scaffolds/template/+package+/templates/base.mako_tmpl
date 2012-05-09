@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<!DOCTYPE html>
+<html>
 <head>
   
   <title>${self.title()}</title>
@@ -22,6 +22,7 @@
   ${self.footer()}
   </div>
 </body>
+</html>
 
 <%def name="title()">The PyCK Web Application Development Framework</%def>
 
@@ -64,8 +65,4 @@
     <div class="footer">&copy; Copyright 2008-2012, Set your company name here</div>
   </div>
 </%def>
-    
-  
-  
-</body>
-</html>
+

@@ -1,17 +1,18 @@
 <%inherit file="${context.get('base_template')}" />
-<%! import itertools %>
-<%
-row_class_cycler = itertools.cycle(['oddrow', 'evenrow']);
-%>
 
 <div class="align-center">
 <h1>Welcome to Admin Section</h1>
-<table>
+<center>
+<table style="width: 60%">
 %for model in models:
-    <tr class="${row_class_cycler.next()}">
-        <td>${model.__tablename__.replace("_", " ").title()}</td>
-        <td></td>
+    <tr class="${loop.cycle('oddrow', 'evenrow')}">
+        <td style="width: 65%;">${model.__tablename__.replace("_", " ").title()}</td>
+        <td style="text-align: right;">
+            <a href="${request.route_url(route_prefix + model.__name__ + 'CRUD', action="add")}" class="button medium green">Add Record</a>
+            <a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}" class="button medium black">View Records</a>
+        </td>
     </tr>
 %endfor
 </table>
+</center>
 </div>

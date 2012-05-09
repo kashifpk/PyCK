@@ -1,0 +1,3 @@
+      [pyramid.scaffold]
+      pyck=pyck.scaffolds:PyCKTemplate
+      

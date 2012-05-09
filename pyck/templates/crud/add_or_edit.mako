@@ -1,8 +1,4 @@
 <%inherit file="${context.get('base_template')}" />
-<%! import itertools %>
-<%
-row_class_cycler = itertools.cycle(['oddrow', 'evenrow']);
-%>
 
 <div class="align-center">
     <h1>${action_type.title()} ${friendly_name}</h1>

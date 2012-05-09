@@ -33,7 +33,7 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('contact', '/contact')
     
-    add_admin_handler(config, DBSession, get_models(newapp), 'admin', '/admin', AdminController)
+    add_admin_handler(config, DBSession, get_models(newapp), 'admin.', '/admin', AdminController)
     
     configure_app_routes(config)
     

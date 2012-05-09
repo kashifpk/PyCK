@@ -41,6 +41,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
     
     handler_class.db_session = db_session
     handler_class.models = models
+    handler_class.route_prefix = route_name_prefix
     
     config.add_handler(route_name_prefix + 'admin_index',
                        url_pattern_prefix + '/',
@@ -51,16 +52,20 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
         for model in models:
             
             CC = type(model.__name__ + 'CRUDController', (pyck.controllers.CRUDController,),
-                      {'model': model, 'db_session': db_session, '_base_template': 'pyck:templates/admin/admin_base.mako'})
+                      {'model': model, 'db_session': db_session,
+                       'base_template': 'pyck:templates/admin/admin_base.mako',
+                       'template_extra_params': {'models': models, 'route_prefix': route_name_prefix}
+                      }
+                     )
             
-            add_crud_handler(config, 'admin_' + model.__name__, url_pattern_prefix + '/' + model.__tablename__, CC)
+            add_crud_handler(config, route_name_prefix + model.__name__, url_pattern_prefix + '/' + model.__tablename__, CC)
     
 class AdminController(object):
     """
-    Enables automatic Admin interface generation from database models. The :class:`pyck.ext.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
+    Enables automatic Admin interface generation from database models. The :class:`pyck.ext.admin_controller.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
     
     
-    1. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
+    1. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.ext.admin_controller.add_admin_handler` function for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
     
         from pyck.ext import AdminController, add_admin_handler
         from puck.lib import get_models
@@ -84,6 +89,9 @@ class AdminController(object):
     
     models = []
     db_session = None
+    route_prefix = ''
+    base_template = 'admin_base.mako'
+    
     
     __autoexpose__ = None
     
@@ -96,6 +104,6 @@ class AdminController(object):
     @action(renderer='pyck:templates/admin/index.mako')
     def index(self):
         
-        return {'base_template': 'admin_base.mako', 'models': self.models}
+        return {'base_template': self.base_template, 'models': self.models, 'route_prefix': self.route_prefix}
     
     

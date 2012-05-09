@@ -22,7 +22,6 @@ pyck/controllers/crud_controller.py
 pyck/controllers/crud_controller.pyc
 pyck/ext/__init__.py
 pyck/ext/__init__.pyc
-pyck/ext/admin.pyc
 pyck/ext/admin_controller.py
 pyck/ext/admin_controller.pyc
 pyck/forms/__init__.py

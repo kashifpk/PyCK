@@ -1,3 +1,4 @@
+## -*- coding: utf-8 -*-
 %if form._use_csrf_protection:
 <input type="hidden" name="csrf_token" value="${form._csrf_token}" />
 %endif
@@ -32,6 +33,7 @@ ${field_errors} \
 % endif
 \
 ${field} \
+\
 % if 'bottom' == labels_position:
 <br />${field.label} \
 % endif

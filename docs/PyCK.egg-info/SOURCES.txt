@@ -1,0 +1,7 @@
+PyCK.egg-info/PKG-INFO
+PyCK.egg-info/SOURCES.txt
+PyCK.egg-info/dependency_links.txt
+PyCK.egg-info/entry_points.txt
+PyCK.egg-info/not-zip-safe
+PyCK.egg-info/requires.txt
+PyCK.egg-info/top_level.txt

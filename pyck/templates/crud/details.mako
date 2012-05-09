@@ -1,7 +1,5 @@
 <%inherit file="${context.get('base_template')}" />
-<%! import itertools %>
 <%
-row_class_cycler = itertools.cycle(['oddrow', 'evenrow']);
 def insert_keyword_values(s):
     return s.replace('{friendly_name}', friendly_name)
 
@@ -33,7 +31,7 @@ def insert_per_rec_keyword_values(s, R):
     <div class="align-left">
         <table>
         %for column in columns:
-            <tr class="${row_class_cycler.next()}">
+            <tr class="${loop.cycle('oddrow', 'evenrow')}">
                 <th>${column}</th>
                 <td>${getattr(R, column)}</td>
             </tr>

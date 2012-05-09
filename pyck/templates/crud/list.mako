@@ -1,7 +1,5 @@
 <%inherit file="${context.get('base_template')}" />
-<%! import itertools %>
 <%
-row_class_cycler = itertools.cycle(['oddrow', 'evenrow']);
 def insert_keyword_values(s):
     return s.replace('{friendly_name}', friendly_name)
 
@@ -59,7 +57,7 @@ def insert_per_rec_keyword_values(s, R):
         %if records.count()>0:
             <tr class="tr_heading">
             %for column in columns:
-                <th>${column.title()}</th>
+                <th>${column.replace("_", " ").title()}</th>
             %endfor
             %if len(per_record_actions)>0:
                 <th>   </th>
@@ -67,12 +65,12 @@ def insert_per_rec_keyword_values(s, R):
             </tr>
         %endif
         %for R in records:
-            <tr class="${row_class_cycler.next()}">
+            <tr class="${loop.cycle('oddrow', 'evenrow')}">
             %for column in columns:
-                <td style="word-break: break-all;">${getattr(R, column)}</td>
+                <td>${getattr(R, column)}</td>
             %endfor
             %if len(per_record_actions)>0:
-                <td>
+                <td style="text-align: right;">
                 <%
                 actions_str = ''
                 for action in per_record_actions:

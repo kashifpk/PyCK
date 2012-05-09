@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.controllers Package &mdash; PyCK 0.4.3 documentation</title>
+    <title>The pyck.controllers Package &mdash; PyCK 0.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.3',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,9 +25,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.4.3 documentation" href="index.html" />
-    <link rel="next" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv" href="mod_wsgi_virtualenv.html" />
-    <link rel="prev" title="The pyck.lib Package" href="pyck-forms.html" /> 
+    <link rel="top" title="PyCK 0.5.0 documentation" href="index.html" />
+    <link rel="next" title="The PyCK Admin Interface" href="pyck-admin.html" />
+    <link rel="prev" title="The pyck.forms Package" href="pyck-forms.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,12 +40,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
+          <a href="pyck-admin.html" title="The PyCK Admin Interface"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pyck-forms.html" title="The pyck.lib Package"
+          <a href="pyck-forms.html" title="The pyck.forms Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.4.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -94,7 +94,6 @@
 <li><strong>friendly_name</strong> &#8211; A human-friendly name of the model. If given this is used in the templates instead of the model name</li>
 <li><strong>add_edit_exclude</strong> &#8211; A list of fields that should not be displayed in add or edit operations</li>
 <li><strong>list_recs_per_page</strong> &#8211; Number of records to display in a listing page. Default 10.</li>
-<li><strong>list_max_pages</strong> &#8211; Maximum number of pages to display in page links. Default 10.</li>
 <li><strong>list_only</strong> &#8211; List of fields that are to be displayed on listing page, all other fields are ignored.</li>
 <li><strong>list_exclude</strong> &#8211; List of fields to be exluded in listing page</li>
 <li><strong>list_actions</strong> &#8211; <p>list of actions that are to be displayed in listing page, example:</p>
@@ -191,6 +190,8 @@ add_crud_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)</pre>
 <li><strong>config</strong> &#8211; The application config object</li>
 <li><strong>route_name_prefix</strong> &#8211; Optional string prefix to add to all route names. Useful if you&#8217;re adding multiple CRUD controllers and want to avoid route name conflicts.</li>
 <li><strong>url_pattern_prefix</strong> &#8211; Optional string prefix to add to all crud related url patterns</li>
+<li><strong>exclude</strong> &#8211; An optional iterable with the property names that should be excluded
+from the form. All other properties will have fields.</li>
 <li><strong>handler_class</strong> &#8211; The handler class that is used to handle CRUD requests. Must be sub-class of <a class="reference internal" href="#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a></li>
 </ul>
 </td>
@@ -209,10 +210,10 @@ add_crud_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)</pre>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="pyck-forms.html"
-                        title="previous chapter">The pyck.lib Package</a></p>
+                        title="previous chapter">The pyck.forms Package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="mod_wsgi_virtualenv.html"
-                        title="next chapter">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></p>
+  <p class="topless"><a href="pyck-admin.html"
+                        title="next chapter">The PyCK Admin Interface</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/pyck-controllers.txt"
@@ -245,12 +246,12 @@ add_crud_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)</pre>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
+          <a href="pyck-admin.html" title="The PyCK Admin Interface"
              >next</a> |</li>
         <li class="right" >
-          <a href="pyck-forms.html" title="The pyck.lib Package"
+          <a href="pyck-forms.html" title="The pyck.forms Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.4.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

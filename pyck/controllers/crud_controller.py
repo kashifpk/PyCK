@@ -44,9 +44,6 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
                        url_pattern_prefix + '/{action}/{PK}',
                        handler=handler_class)
     
-    
-    
-    
 
 class CRUDController(object):
     """
@@ -64,7 +61,7 @@ class CRUDController(object):
     2. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
     
         from pyck.controllers import add_crud_handler
-        from controllers.views import MyCRDUController
+        from controllers.views import WikiCRDUController
         
         # Place this with the config.add_route calls
         add_crud_handler(config, 'mymodel_crud', '/mymodel', WikiCRUDController)
@@ -81,7 +78,11 @@ class CRUDController(object):
     
     :param friendly_name: A human-friendly name of the model. If given this is used in the templates instead of the model name
     
+    :param base_template: An alternate base template to use for the CRUD handler instead of the default base template of the application
+    
     :param add_edit_exclude: A list of fields that should not be displayed in add or edit operations
+    
+    :param add_edit_field_args: A dictionary of field arguments with field name as key and args and key-value pairs dict.
     
     :param list_recs_per_page: Number of records to display in a listing page. Default 10.
     
@@ -115,6 +116,8 @@ class CRUDController(object):
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
                    ]
     
+    :param template_extra_params: A dictionary containing any other parameters required to be passed to the CRUD templates
+    
     **TODO**
     
     * More documentation of various options and methods
@@ -133,6 +136,8 @@ class CRUDController(object):
     
     #Add and edit page settings
     add_edit_exclude = None
+    
+    add_edit_field_args = {}
     
     #Listing page related settings
     list_recs_per_page = 10
@@ -154,7 +159,9 @@ class CRUDController(object):
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
                    ]
     
-    _base_template = '/base.mako'
+    base_template = '/base.mako'
+    
+    template_extra_params = {}
     
     
     def __init__(self, request):
@@ -164,7 +171,7 @@ class CRUDController(object):
             raise ValueError("Must provide a SQLAlchemy database session object as db_session")
         
         if self.friendly_name is None:
-            self.friendly_name = self.model.__tablename__
+            self.friendly_name = self.model.__tablename__.replace("_", " ").title()
     
     
     def _get_rec_from_pk_val(self):
@@ -223,12 +230,12 @@ class CRUDController(object):
         # determine primary key columns
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
         
-        
-        return {'base_template': self._base_template, 'friendly_name': self.friendly_name,
+        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'records': records, 'pages': pages, 'current_page': p,
                 'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
                 'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions}
+        return dict(ret_dict.items() + self.template_extra_params.items())
     
     @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def add(self):
@@ -236,7 +243,7 @@ class CRUDController(object):
         The add record view
         """
         
-        ModelForm = model_form(self.model, exclude=self.add_edit_exclude)
+        ModelForm = model_form(self.model, exclude=self.add_edit_exclude, field_args=self.add_edit_field_args)
         f = ModelForm(self.request.POST, request_obj=self.request, use_csrf_protection=True)
         
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
@@ -248,7 +255,8 @@ class CRUDController(object):
                 self.request.session.flash(self.friendly_name + " added successfully!")
                 return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
         
-        return {'base_template': self._base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "add" }
+        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "add" }
+        return dict(ret_dict.items() + self.template_extra_params.items())
     
     @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def edit(self):
@@ -270,7 +278,8 @@ class CRUDController(object):
                 self.request.session.flash(self.friendly_name + " updated successfully!")
                 return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
         
-        return {'base_template': self._base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit" }
+        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit" }
+        return dict(ret_dict.items() + self.template_extra_params.items())
     
     @action()
     def delete(self):
@@ -300,7 +309,8 @@ class CRUDController(object):
         columns = self.model.__table__.columns.keys()
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
         
-        return {'base_template': self._base_template, 'R': R, 'friendly_name': self.friendly_name,
+        ret_dict = {'base_template': self.base_template, 'R': R, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'actions': self.detail_actions}
+        return dict(ret_dict.items() + self.template_extra_params.items())
     
