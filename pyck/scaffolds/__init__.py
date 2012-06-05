@@ -16,7 +16,7 @@ class PyCKTemplate(PyramidTemplate):
         self.out('\n  Extracting the new app creation templates\n')
         pkg_name = vars['package']
         
-        extract_path = "%s/%s/scripts/" % (pkg_name, pkg_name)
+        extract_path = "%s/%s/scripts" % (pkg_name, pkg_name)
         zipfilepath = "%s/newapp_scaffold.zip" % extract_path
         
         z = zipfile.ZipFile(zipfilepath)

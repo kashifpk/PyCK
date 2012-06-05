@@ -7,11 +7,11 @@ Installing **PyCK** is as easy as installing any other python package using eith
 
 1. (optional) Install pip if you don't already have it::
 
-    easy_install pip
+    sudo easy_install pip
 
 2. Install virtualenv if you don't have it already::
 
-    pip install virtualenv
+    sudo pip install virtualenv
 
 3. Create a virtual environment for your pip applications::
 
