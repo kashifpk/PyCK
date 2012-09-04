@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.forms Package &mdash; PyCK 0.5.0 documentation</title>
+    <title>The pyck.forms Package &mdash; PyCK 0.5.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.5.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.5.1 documentation" href="index.html" />
     <link rel="next" title="The pyck.controllers Package" href="pyck-controllers.html" />
     <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
   </head>
@@ -37,15 +37,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.5.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,113 +51,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pyck.forms">
-<span id="the-pyck-forms-package"></span><span id="pyck-forms"></span><h1>The pyck.forms Package<a class="headerlink" href="#module-pyck.forms" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-pyck.forms"></span><p>The PyCK Forms Package</p>
-<dl class="class">
-<dt id="pyck.forms.Form">
-<em class="property">class </em><tt class="descclassname">pyck.forms.</tt><tt class="descname">Form</tt><big>(</big><em>formdata=None</em>, <em>obj=None</em>, <em>prefix=''</em>, <em>request_obj=None</em>, <em>use_csrf_protection=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyck.forms.Form" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Form base class, extends from WTForms.Form</p>
-<p>This class provides some additional features to the base wtforms.Form class. These include:</p>
-<ul>
-<li><dl class="first docutils">
-<dt>Methods to render the form in HTML</dt>
-<dd><ul class="first last simple">
-<li>as_p to render form using p tags</li>
-<li>as_table to render using html table</li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p class="first">CSRF protection availability</p>
-</li>
-<li><p class="first">TODO: Since WTForms wants presentation attributes (like rows and cols for textarea) to be set on</p>
-</li>
-</ul>
-<p>instantiated form instances (not the class itself), allow some way to specify field attributes
-that are then read at field display time. Possibly a field_attrs dict??? May be reimplementing sub-classes of some fields to make use of it would be a could idea??</p>
-<dl class="method">
-<dt id="pyck.forms.Form.as_p">
-<tt class="descname">as_p</tt><big>(</big><em>labels='top'</em>, <em>errors='right'</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_p" title="Permalink to this definition">¶</a></dt>
-<dd><p>Output each form field as html <strong>p</strong> tags. By default labels are displayed on top of the form fields
-and validation erros are displayed on the right of the form fields. Both these behaviors can be
-changed by settings values for the labels and errors parameters.</p>
-<p>Values can be left, top, right or bottom</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>labels</strong> &#8211; Placement of labels relative to the field</li>
-<li><strong>errors</strong> &#8211; Placement of validation errors (if any) relative to the field</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyck.forms.Form.as_table">
-<tt class="descname">as_table</tt><big>(</big><em>labels='left'</em>, <em>errors='top'</em>, <em>include_table_tag=False</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Output the form as HTML Table, optionally add the table tags too if include_table_tag is set to True (default False)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>labels</strong> &#8211; Placement of labels relative to the field</li>
-<li><strong>errors</strong> &#8211; Placement of validation errors (if any) relative to the field</li>
-<li><strong>include_table_tag</strong> &#8211; Whether to include the html &lt;table&gt; and &lt;/table&gt; tags in the output or not</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyck.forms.Form.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="headerlink" href="#pyck.forms.Form.validate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate form fields and check for CSRF token match if use_csrf_protection was set to true when
-initializing the form.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="pyck.forms.model_form">
-<tt class="descclassname">pyck.forms.</tt><tt class="descname">model_form</tt><big>(</big><em>model</em>, <em>base_class=&lt;class 'pyck.forms.form.Form'&gt;</em>, <em>only=None</em>, <em>exclude=None</em>, <em>field_args=None</em>, <em>converter=None</em><big>)</big><a class="headerlink" href="#pyck.forms.model_form" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Wrapper around <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> function to facilitate creating model
-forms using a wtforms compatible model_form call but using <a class="reference internal" href="#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a>
-Create a wtforms Form for a given SQLAlchemy model class:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">model_form</span>
-<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">User</span>
-<span class="n">UserForm</span> <span class="o">=</span> <span class="n">model_form</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>model</strong> &#8211; A SQLAlchemy mapped model class.</li>
-<li><strong>base_class</strong> &#8211; Base form class to extend from. Must be a <tt class="docutils literal"><span class="pre">wtforms.Form</span></tt> subclass.</li>
-<li><strong>only</strong> &#8211; An optional iterable with the property names that should be included in
-the form. Only these properties will have fields.</li>
-<li><strong>exclude</strong> &#8211; An optional iterable with the property names that should be excluded
-from the form. All other properties will have fields.</li>
-<li><strong>field_args</strong> &#8211; An optional dictionary of field names mapping to keyword arguments used
-to construct each field object.</li>
-<li><strong>converter</strong> &#8211; A converter to generate the fields based on the model properties. If
-not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></tt> is used.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+  <div class="section" id="the-pyck-forms-package">
+<span id="pyck-forms"></span><h1>The pyck.forms Package<a class="headerlink" href="#the-pyck-forms-package" title="Permalink to this headline">¶</a></h1>
 <p>Here is an example usage to demonstrate the improvements:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">Form</span>
 <span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">validators</span>
@@ -223,15 +115,12 @@ not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></t
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              >next</a> |</li>
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.5.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

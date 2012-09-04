@@ -12,6 +12,15 @@ def insert_per_rec_keyword_values(s, R):
     
     return s.replace('{PK}', pk_val)
 
+def get_col_value(col_name, R):
+    parts = col_name.split('.')
+    
+    obj = R
+    
+    for p in parts:
+        obj = getattr(obj, p)
+    
+    return obj
 %>
 
 <div class="align-center">
@@ -67,7 +76,12 @@ def insert_per_rec_keyword_values(s, R):
         %for R in records:
             <tr class="${loop.cycle('oddrow', 'evenrow')}">
             %for column in columns:
+                %if column in list_field_args and 'display_field' in list_field_args[column]:
+                <td>${get_col_value(list_field_args[column]['display_field'], R)}</td>
+                %else:
                 <td>${getattr(R, column)}</td>
+                %endif
+                
             %endfor
             %if len(per_record_actions)>0:
                 <td style="text-align: right;">

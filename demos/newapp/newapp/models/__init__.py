@@ -8,8 +8,8 @@ from sqlalchemy.orm import (
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
-from models import Site
+from models import Product, Category
 
-__all__ = ['DBSession', 'Base', 'Site']
+__all__ = ['DBSession', 'Base', 'Product', 'Category']
 
 

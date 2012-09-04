@@ -5,6 +5,26 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.5.1
+-------------------
+
+* Update to CRUDController allowing displaying of related data from another table of a foreign key field. The *add_edit_field_args*
+  property can now take values *choices* and *choices_fields* and the *list_field_args* property takes a key *display_field*, for example::
+  
+    class ProductCRUDController(CRUDController):
+        model = Product
+        db_session = DBSession
+        add_edit_field_args = {
+             'category_id': {'label': 'Category', 'widget': Select(), 'coerce': int,
+                             'choices_fields': [Category.id, Category.name] }
+             #'category_id': {'widget': Select(), 'coerce': int, 'choices': [(1, 'ABC'), (2, 'DEF')] }
+            }
+    
+        list_field_args = {
+                'category_id': {'display_field': 'category.name'}
+                    }
+
+
 Whats new in 0.5
 ----------------
 

@@ -20,7 +20,6 @@ def get_pages(total_recs, current_page, recs_per_page=10, max_pages=10):
         total_pages += 1
     
     pages = []
-    max_pages = 10
     if 0==max_pages%2:
         pages_before = (max_pages/2)-1
     else:

@@ -1,19 +1,28 @@
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy import (
     Column,
     Integer,
+    Unicode,
     UnicodeText,
-    Unicode
+    ForeignKey
     )
 
 from . import DBSession, Base
 
-class Site(Base):
-    __tablename__ = 'site'
+
+class Category(Base):
+    __tablename__ = 'categories'
+
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(200), unique=True)
-    value = Column(Integer)
 
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
 
+class Product(Base):
+    __tablename__ = 'products'
+
+    id = Column(Integer, primary_key=True)
+    category_id = Column(Integer, ForeignKey(Category.id))
+    name = Column(Unicode(200), unique=True)
+    description = Column(UnicodeText)
+
+    category = relationship(Category, backref=backref("products"))

@@ -1,0 +1,34 @@
+        #print(ModelForm.category_id.choices)
+
+        #>>> Product.category_id.property.columns[0].foreign_keys
+        #set([ForeignKey('categories.id')])
+        #>>> Product.name.property.columns[0].foreign_keys
+        #set([])
+        #Product.id.property.columns[0].autoincrement
+        #True
+
+        #>>> Product.id.property.columns[0].primary_key
+        #True
+        #>>> Product.name.property.columns[0].primary_key
+        #False
+
+        #>>> Product.__table__.columns
+        #<sqlalchemy.sql.expression.ImmutableColumnCollection object at 0xa02e7cc>
+        #>>> for c in Product.__table__.columns:
+        #...     print c
+        #...
+        #products.id
+        #products.category_id
+        #products.name
+        #products.description
+
+        #ProductModelForm = model_form(Product, exclude=['id'], field_args = {
+        #                                                    'category_id' : {
+        #                                                    'widget' : Select()
+        #                                                    }
+        #                                                })
+        #ProductModelForm.category_id.field_class = SelectField
+        #
+        #product_form = ProductModelForm(request.POST)
+        #
+        #product_form.category_id.choices = categories

@@ -16,13 +16,14 @@ requires = [
     'mako'
     ]
 
-if sys.version_info[:3] < (2,5,0):
+if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
 
 setup(name='PyCK',
-      version='0.5',
+      version='0.5.1',
       description='Python Code Karigar - Web Framework',
-      long_description='PyCK is an "opinionated" web framework based on Pyramid that makes choices of ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.',
+      long_description="""PyCK is an "opinionated" web framework based on Pyramid that makes choices of
+      ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.""",
       classifiers=[
         "Programming Language :: Python",
         "Framework :: Pylons",
@@ -37,8 +38,8 @@ setup(name='PyCK',
       include_package_data=True,
       zip_safe=False,
       test_suite='combined_apps',
-      install_requires = requires,
-      entry_points = """\
+      install_requires=requires,
+      entry_points="""\
       [pyramid.scaffold]
       pyck=pyck.scaffolds:PyCKTemplate
       """,
