@@ -10,11 +10,12 @@ from .. import project_package, APP_NAME
 
 DBSession = project_package.models.models.DBSession
 
-class RenameTables(DeclarativeMeta): 
-    def __init__(cls, classname, bases, dict_): 
-        if '__tablename__' in dict_: 
-            cls.__tablename__ = dict_['__tablename__'] = APP_NAME + "_" + cls.__tablename__ 
-        
+
+class RenameTables(DeclarativeMeta):
+    def __init__(cls, classname, bases, dict_):
+        if '__tablename__' in dict_:
+            cls.__tablename__ = dict_['__tablename__'] = APP_NAME + "_" + cls.__tablename__
+
         return DeclarativeMeta.__init__(cls, classname, bases, dict_)
 
 Base = declarative_base(metaclass=RenameTables)

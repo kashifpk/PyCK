@@ -11,12 +11,12 @@ from pyramid.paster import (
 
 from ..models import (
     Base,
-    
+
     )
+
 
 def populate_app(engine, db_session):
     Base.metadata.create_all(engine)
     #with transaction.manager:
     #    model = Post('Test', 'Just testing')
     #    db_session.add(model)
-    

@@ -6,6 +6,7 @@ from sqlalchemy import (
 
 from . import DBSession, Base
 
+
 class Site(Base):
     __tablename__ = 'site'
     id = Column(Integer, primary_key=True)
