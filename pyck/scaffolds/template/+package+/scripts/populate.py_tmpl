@@ -10,12 +10,17 @@ from pyramid.paster import (
     )
 
 import importlib
+import hashlib
 from ..apps import enabled_apps
 from .. import load_project_settings
 
 from ..models import (
     DBSession,
     Site,
+    User,
+    Permission,
+    RoutePermission,
+    UserPermission,
     Base,
     )
 
@@ -42,6 +47,12 @@ def main(argv=sys.argv):
     with transaction.manager:
         model = Site(name='one', value=1)
         DBSession.add(model)
+
+        #Authentication related basic user and permission setup
+        DBSession.add(User('admin', hashlib.sha1('admin').hexdigest()))
+        DBSession.add(Permission('manage', 'Manage administrative section'))
+        DBSession.add(UserPermission('admin', 'manage'))
+        DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
 
     #populate application models
     for app_name in enabled_apps:

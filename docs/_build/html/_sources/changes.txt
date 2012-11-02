@@ -5,6 +5,24 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.6
+----------------
+
+* Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
+  permissions and assigning them to different routes. A default login and logout route is now also present in the
+  initial scaffold.
+  
+  Simply create a new project, run the populate script for the project and then go to::
+  
+    http://0.0.0.0:6543/auth
+  
+  to access the authentication manager.
+
+* Minor changes to code for making it cleaner and more compliant to PEP guidelines
+
+* Renamed controllers/views.py to controllers/controllers.py since views.py was confusing in the MVC context
+  
+
 Whats new in 0.5.1
 -------------------
 

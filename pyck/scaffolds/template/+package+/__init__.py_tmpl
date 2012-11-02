@@ -22,12 +22,21 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     config = Configurator(session_factory=session_factory, settings=settings)
+    config.add_tween('{{package}}.auth.authenticator')
     config.include('pyramid_handlers')
     config.add_view('pyramid.view.append_slash_notfound_view',
                 context='pyramid.httpexceptions.HTTPNotFound')
     config.add_static_view('static', 'static', cache_max_age=3600)
+
     config.add_route('home', '/')
     config.add_route('contact', '/contact')
+
+    config.add_route('pyckauth_login', '/login')
+    config.add_route('pyckauth_logout', '/logout')
+    config.add_route('pyckauth_manager', '/auth')
+    config.add_route('pyckauth_users', '/auth/users')
+    config.add_route('pyckauth_permissions', '/auth/permissions')
+    config.add_route('pyckauth_routes', '/auth/routes')
 
     configure_app_routes(config)
 

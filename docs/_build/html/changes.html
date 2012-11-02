@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.5.1 documentation</title>
+    <title>Changes &mdash; PyCK 0.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.1',
+        VERSION:     '0.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.5.1 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.6.0 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -37,12 +37,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.5.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,6 +57,23 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-6">
+<h2>Whats new in 0.6<a class="headerlink" href="#whats-new-in-0-6" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
+permissions and assigning them to different routes. A default login and logout route is now also present in the
+initial scaffold.</p>
+<p>Simply create a new project, run the populate script for the project and then go to:</p>
+<div class="highlight-python"><pre>http://0.0.0.0:6543/auth</pre>
+</div>
+<p>to access the authentication manager.</p>
+</li>
+<li><p class="first">Minor changes to code for making it cleaner and more compliant to PEP guidelines</p>
+</li>
+<li><p class="first">Renamed controllers/views.py to controllers/controllers.py since views.py was confusing in the MVC context</p>
+</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-5-1">
 <h2>Whats new in 0.5.1<a class="headerlink" href="#whats-new-in-0-5-1" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -79,10 +99,10 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <div class="section" id="whats-new-in-0-5">
 <h2>Whats new in 0.5<a class="headerlink" href="#whats-new-in-0-5" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Automatic Admin Interface - Enables automatic Admin interface generation from database models. The <tt class="xref py py-class docutils literal"><span class="pre">pyck.ext.admin_controller.AdminController</span></tt> allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.</p>
+<li><p class="first">Automatic Admin Interface - Enables automatic Admin interface generation from database models. The <a class="reference internal" href="pyck-admin.html#pyck.ext.admin_controller.AdminController" title="pyck.ext.admin_controller.AdminController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.ext.admin_controller.AdminController</span></tt></a> allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">In your application&#8217;s routes settings, specify the url where the Admin interface should be displayed. You can use the <tt class="xref py py-func docutils literal"><span class="pre">pyck.ext.admin_controller.add_admin_handler()</span></tt> function for it. For example in your __init__.py; put code like:</p>
+<li><p class="first">In your application&#8217;s routes settings, specify the url where the Admin interface should be displayed. You can use the <a class="reference internal" href="pyck-admin.html#pyck.ext.admin_controller.add_admin_handler" title="pyck.ext.admin_controller.add_admin_handler"><tt class="xref py py-func docutils literal"><span class="pre">pyck.ext.admin_controller.add_admin_handler()</span></tt></a> function for it. For example in your __init__.py; put code like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.ext</span> <span class="kn">import</span> <span class="n">AdminController</span><span class="p">,</span> <span class="n">add_admin_handler</span>
 <span class="kn">from</span> <span class="nn">pyck.lib</span> <span class="kn">import</span> <span class="n">get_models</span>
 <span class="c"># Place this with the config.add_route calls</span>
@@ -118,7 +138,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <div class="section" id="whats-new-in-0-4">
 <h2>Whats new in 0.4<a class="headerlink" href="#whats-new-in-0-4" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">CRUDController - Enables automatic CRUD interface generation from database models. The <tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt> allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.</p>
+<li><p class="first">CRUDController - Enables automatic CRUD interface generation from database models. The <a class="reference internal" href="pyck-controllers.html#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a> allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.</p>
 <blockquote>
 <div><ol class="arabic">
 <li><p class="first">Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session:</p>
@@ -131,7 +151,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </pre></div>
 </div>
 </li>
-<li><p class="first">In your application&#8217;s routes settings, specify the url where the CRUD interface should be displayed. You can use the <tt class="xref py py-func docutils literal"><span class="pre">pyck.controllers.add_crud_handler()</span></tt> method for it. For example in your __init__.py (if you&#8217;re enabling CRUD for a model without your main project) or in your routes.py (if you&#8217;re enabling CRUD for a model within an app in your project) put code like:</p>
+<li><p class="first">In your application&#8217;s routes settings, specify the url where the CRUD interface should be displayed. You can use the <a class="reference internal" href="pyck-controllers.html#pyck.controllers.add_crud_handler" title="pyck.controllers.add_crud_handler"><tt class="xref py py-func docutils literal"><span class="pre">pyck.controllers.add_crud_handler()</span></tt></a> method for it. For example in your __init__.py (if you&#8217;re enabling CRUD for a model without your main project) or in your routes.py (if you&#8217;re enabling CRUD for a model within an app in your project) put code like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.controllers</span> <span class="kn">import</span> <span class="n">add_crud_handler</span>
 <span class="kn">from</span> <span class="nn">controllers.views</span> <span class="kn">import</span> <span class="n">MyCRUDController</span>
 
@@ -149,7 +169,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <div class="section" id="whats-new-in-0-3">
 <h2>Whats new in 0.3<a class="headerlink" href="#whats-new-in-0-3" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Model Forms - Ability to generate forms automatically from database models. We now have a <tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.model_form()</span></tt> function that behaves exactly like <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> but uses <tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt> as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example:</p>
+<li><p class="first">Model Forms - Ability to generate forms automatically from database models. We now have a <a class="reference internal" href="pyck-forms.html#pyck.forms.model_form" title="pyck.forms.model_form"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.model_form()</span></tt></a> function that behaves exactly like <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> but uses <a class="reference internal" href="pyck-forms.html#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">model_form</span>
 <span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="n">UserForm</span> <span class="o">=</span> <span class="n">model_form</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
@@ -173,7 +193,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </pre></div>
 </div>
 </li>
-<li><p class="first">Form objects now have an as_table <tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_table()</span></tt> method that allows displaying the form in a table similar to the <tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_p()</span></tt> method added in previous release. This method also accepts labels and errors positions (left, right, top, bottom) and optionally allows you to insert the html &lt;table&gt; tag within the method instead of putting it in your template by setting <strong>include_table_tag parameter</strong> to <strong>True</strong></p>
+<li><p class="first">Form objects now have an as_table <a class="reference internal" href="pyck-forms.html#pyck.forms.Form.as_table" title="pyck.forms.Form.as_table"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_table()</span></tt></a> method that allows displaying the form in a table similar to the <a class="reference internal" href="pyck-forms.html#pyck.forms.Form.as_p" title="pyck.forms.Form.as_p"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_p()</span></tt></a> method added in previous release. This method also accepts labels and errors positions (left, right, top, bottom) and optionally allows you to insert the html &lt;table&gt; tag within the method instead of putting it in your template by setting <strong>include_table_tag parameter</strong> to <strong>True</strong></p>
 </li>
 </ul>
 </div>
@@ -181,16 +201,16 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <h2>Whats new in 0.2.3<a class="headerlink" href="#whats-new-in-0-2-3" title="Permalink to this headline">¶</a></h2>
 <p>Till now almost all updates were to the scaffold generated by a PyCK project, so in a sense till now PyCK could be considered another scraffold for Pyramid. With this version, things are starting to change a bit.</p>
 <ul>
-<li><p class="first">A new package <tt class="xref py py-mod docutils literal"><span class="pre">pyck.forms</span></tt> that serves as a wrapper on top of WTForms (will try to maintain code usage compatibility with wtforms) so instead of using normal <strong>wtforms.Form</strong> class instances, PyCK developers can use <tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt> instances in the same way. But these forms come with some additional features</p>
+<li><p class="first">A new package <a class="reference internal" href="pyck-forms.html#module-pyck.forms" title="pyck.forms: Wrapper on top of WTForms to further ease up forms usage"><tt class="xref py py-mod docutils literal"><span class="pre">pyck.forms</span></tt></a> that serves as a wrapper on top of WTForms (will try to maintain code usage compatibility with wtforms) so instead of using normal <strong>wtforms.Form</strong> class instances, PyCK developers can use <a class="reference internal" href="pyck-forms.html#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> instances in the same way. But these forms come with some additional features</p>
 <blockquote>
 <div><ul class="simple">
-<li>Currently the form can be display using html p tags using <tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_p()</span></tt> method. This method supports displaying labels and validation errors on either direction of the field control (top, bottom, left, right).</li>
+<li>Currently the form can be display using html p tags using <a class="reference internal" href="pyck-forms.html#pyck.forms.Form.as_p" title="pyck.forms.Form.as_p"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.Form.as_p()</span></tt></a> method. This method supports displaying labels and validation errors on either direction of the field control (top, bottom, left, right).</li>
 <li>The associated sample app code has been updated along with new app scaffold to use pyck.forms, the code already has become much simpler.</li>
 <li>It is important to note that these forms can be used in the same way as WTForms so if you want to layout your form the way you want (as you normally do in WTForms); you are still able to do it.</li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Basic tests have been implemented for <tt class="xref py py-mod docutils literal"><span class="pre">pyck.forms</span></tt> and nosetests are being used for automated testing. Keeping the code quality high is one of the aims here so I&#8217;ll try to write tests for all of the additions to pyck itself.</p>
+<li><p class="first">Basic tests have been implemented for <a class="reference internal" href="pyck-forms.html#module-pyck.forms" title="pyck.forms: Wrapper on top of WTForms to further ease up forms usage"><tt class="xref py py-mod docutils literal"><span class="pre">pyck.forms</span></tt></a> and nosetests are being used for automated testing. Keeping the code quality high is one of the aims here so I&#8217;ll try to write tests for all of the additions to pyck itself.</p>
 </li>
 </ul>
 </div>
@@ -268,6 +288,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-6">Whats new in 0.6</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-5-1">Whats new in 0.5.1</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-5">Whats new in 0.5</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-4-3">Whats new in 0.4.3</a></li>
@@ -320,16 +341,19 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="installation.html" title="Installation"
              >next</a> |</li>
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.5.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011, Kashif Iftikhar.
+        &copy; Copyright 2011, 2012 Kashif Iftikhar.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

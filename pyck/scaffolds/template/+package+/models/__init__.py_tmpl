@@ -9,6 +9,7 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 from models import Site
+from auth import Permission, User, UserPermission, RoutePermission
 
 # Place additional model names here for ease of importing.
-__all__ = ['DBSession', 'Base', 'Site']
+__all__ = ['DBSession', 'Base', 'Site', 'Permission', 'User', 'UserPermission', 'RoutePermission']
