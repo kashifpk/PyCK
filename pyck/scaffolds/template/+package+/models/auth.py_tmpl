@@ -25,7 +25,7 @@ class RoutePermission(Base):
     __tablename__ = 'route_permissions'
 
     route_name = Column(Unicode(200), primary_key=True)
-    method = Column(Unicode(30), default='ALL', primary_key=True)
+    method = Column(Unicode(30), default=u'ALL', primary_key=True)
     permission = Column(Unicode(100), ForeignKey(Permission.permission), primary_key=True)
 
     def __init__(self, route_name='', method='', permission=''):
