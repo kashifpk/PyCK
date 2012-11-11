@@ -43,6 +43,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
+    DBSession.autoflush = True
     Base.metadata.create_all(engine)
     with transaction.manager:
         model = Site(name='one', value=1)
@@ -50,9 +51,13 @@ def main(argv=sys.argv):
 
         #Authentication related basic user and permission setup
         DBSession.add(User('admin', hashlib.sha1('admin').hexdigest()))
+        DBSession.flush()
         DBSession.add(Permission('manage', 'Manage administrative section'))
+        DBSession.flush()
         DBSession.add(UserPermission('admin', 'manage'))
+        DBSession.flush()
         DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
+        DBSession.flush()
 
     #populate application models
     for app_name in enabled_apps:

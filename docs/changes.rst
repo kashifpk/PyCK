@@ -5,6 +5,13 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.6.3
+-------------------
+
+* Fixed minor issue with the populate script that prevented proper population of posgresql and possibly mysql databases.
+  This does not seem to happen with SQLite.
+
+
 Whats new in 0.6
 ----------------
 
