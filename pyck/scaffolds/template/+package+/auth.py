@@ -10,6 +10,7 @@ def authenticator(handler, registry):
     def auth_request(request):
         #print(request.registry)
         response = None
+
         logged_in_user = request.session.get('logged_in_user', None)
 
         protected_routes = []
@@ -33,14 +34,18 @@ def authenticator(handler, registry):
 
         # Check routes from protected routes here.
         if matched_routename and matched_routename in protected_routes:
-            if not logged_in_user:
-                return HTTPForbidden()
-
-            # get user permissions
+            # first check if there is any static permission given and if yes then validate routes against that permission
             user_permissions = []
-            UPs = DBSession.query(UserPermission.permission).filter_by(user_id=logged_in_user).all()
-            for UP in UPs:
-                user_permissions.append(UP[0])
+            if request.session.get('auth_static_permission', None):
+                user_permissions.append(request.session.get('auth_static_permission', None))
+            else:
+                if not logged_in_user:
+                    return HTTPForbidden()
+
+                # get user permissions
+                UPs = DBSession.query(UserPermission.permission).filter_by(user_id=logged_in_user).all()
+                for UP in UPs:
+                    user_permissions.append(UP[0])
 
             # get route permissions for the current route
             # match if there are any common permissions and check for all matching request methods
@@ -49,7 +54,6 @@ def authenticator(handler, registry):
                                             or_(RoutePermission.method == 'ALL',
                                                 RoutePermission.method == request.method)).filter(
                                             RoutePermission.permission.in_(user_permissions)).scalar()
-            #print("Has permission: %s" % str(has_permission))
 
             if has_permission > 0:
                 return handler(request)

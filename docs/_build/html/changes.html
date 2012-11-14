@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.6.0 documentation</title>
+    <title>Changes &mdash; PyCK 0.6.4 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.0',
+        VERSION:     '0.6.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.6.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.6.4 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,6 +57,23 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-6-4">
+<h2>Whats new in 0.6.4<a class="headerlink" href="#whats-new-in-0-6-4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
+for a route but you don&#8217;t have to assign any user to that permission. This is meant to allow authentication from user databases other
+than PyCK&#8217;s users table. Developers just need to set the permission name in a request.session key named <strong>auth_static_permission</strong> in
+their login verification controllers. This way the users can be authenticated any way the developer wants and still their access
+to the whole application can be controlled by PyCK&#8217;s authentication manager.</li>
+</ul>
+</div>
+<div class="section" id="whats-new-in-0-6-3">
+<h2>Whats new in 0.6.3<a class="headerlink" href="#whats-new-in-0-6-3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed minor issue with the populate script that prevented proper population of posgresql and possibly mysql databases.
+This does not seem to happen with SQLite.</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-6">
 <h2>Whats new in 0.6<a class="headerlink" href="#whats-new-in-0-6" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -288,6 +305,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-6-4">Whats new in 0.6.4</a></li>
+<li><a class="reference internal" href="#whats-new-in-0-6-3">Whats new in 0.6.3</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6">Whats new in 0.6</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-5-1">Whats new in 0.5.1</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-5">Whats new in 0.5</a></li>
@@ -349,7 +368,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

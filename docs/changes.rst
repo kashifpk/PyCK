@@ -5,6 +5,16 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.6.4
+-------------------
+
+* Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
+  for a route but you don't have to assign any user to that permission. This is meant to allow authentication from user databases other
+  than PyCK's users table. Developers just need to set the permission name in a request.session key named **auth_static_permission** in
+  their login verification controllers. This way the users can be authenticated any way the developer wants and still their access
+  to the whole application can be controlled by PyCK's authentication manager.
+
+
 Whats new in 0.6.3
 -------------------
 
