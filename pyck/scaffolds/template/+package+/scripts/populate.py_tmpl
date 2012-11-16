@@ -50,14 +50,21 @@ def main(argv=sys.argv):
         DBSession.add(model)
 
         #Authentication related basic user and permission setup
-        DBSession.add(User('admin', hashlib.sha1('admin').hexdigest()))
-        DBSession.flush()
-        DBSession.add(Permission('manage', 'Manage administrative section'))
-        DBSession.flush()
-        DBSession.add(UserPermission('admin', 'manage'))
-        DBSession.flush()
-        DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
-        DBSession.flush()
+        if 0 == DBSession.query(User).count():
+            DBSession.add(User('admin', hashlib.sha1('admin').hexdigest()))
+            DBSession.flush()
+
+        if 0 == DBSession.query(Permission).count():
+            DBSession.add(Permission('manage', 'Manage administrative section'))
+            DBSession.flush()
+
+        if 0 == DBSession.query(UserPermission).count():
+            DBSession.add(UserPermission('admin', 'manage'))
+            DBSession.flush()
+
+        if 0 == DBSession.query(RoutePermission).count():
+            DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
+            DBSession.flush()
 
     #populate application models
     for app_name in enabled_apps:
