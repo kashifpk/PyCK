@@ -181,6 +181,14 @@ def login(request):
 
             request.session['logged_in_user'] = U.user_id
 
+            #Get user permissions and store them into request.session['auth_user_permissions']
+            user_permissions = []
+            UPs = DBSession.query(UserPermission.permission).filter_by(user_id=U.user_id).all()
+            for UP in UPs:
+                user_permissions.append(UP[0])
+
+            request.session['auth_user_permissions'] = user_permissions
+
             if request.session.get('came_from', None):
                 return HTTPFound(location=request.session.get('came_from'))
             else:
@@ -193,5 +201,7 @@ def login(request):
 
 @view_config(route_name='pyckauth_logout')
 def logout(request):
-    request.session['logged_in'] = False
+    del request.session['logged_in_user']
+    del request.session['auth_user_permissions']
+
     return HTTPFound(location=request.route_url('home'))
