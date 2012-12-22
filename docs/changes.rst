@@ -5,6 +5,12 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.6.8
+-------------------
+
+* CRUDController now uses wtdojo to display fields using dojo.
+  
+
 Whats new in 0.6.6
 -------------------
 
@@ -16,7 +22,7 @@ Whats new in 0.6.6
 Whats new in 0.6.5
 ------------------
 
-* Don't really know what happened to 0.6.5. I guess it got lost somewhere :-)
+* dojo_model_forms support
 
 
 Whats new in 0.6.4

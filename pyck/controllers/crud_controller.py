@@ -10,7 +10,7 @@ from wtforms import validators
 
 from pyramid.httpexceptions import HTTPFound
 
-from pyck.forms import model_form
+from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns
 
@@ -304,7 +304,7 @@ class CRUDController(object):
         #print("************************")
         #print(self.add_edit_field_args)
         #print(self._get_modelform_field_args())
-        ModelForm = model_form(self.model, exclude=exclude_list, field_args=self._get_modelform_field_args())
+        ModelForm = dojo_model_form(self.model, exclude=exclude_list, field_args=self._get_modelform_field_args())
 
         #check for field data and set proper attributes accordingly
         for field_name, field_data in self.add_edit_field_args.iteritems():
