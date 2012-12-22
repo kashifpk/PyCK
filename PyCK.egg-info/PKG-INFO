@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: PyCK
+Version: 0.6.6
+Summary: Python Code Karigar - Web Framework
+Home-page: http://pypi.python.org/pypi/PyCK
+Author: Kashif Iftikhar
+Author-email: kashif@compulife.com.pk
+License: UNKNOWN
+Description: PyCK is an "opinionated" web framework based on Pyramid that makes choices of
+              ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.
+Keywords: web wsgi bfg pylons pyramid
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Framework :: Pylons
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application

@@ -5,6 +5,20 @@ Changes
 
 This document lists the changes as versions progress
 
+Whats new in 0.6.6
+-------------------
+
+* Minor improvement in the authentication framework. Instead of fetching user permissions from the DB for each url request; user
+  permissions are fetched only once during login time and stored in session. The auth.authenticator tween just used the list of
+  user permissions present in session instead of fetching them each time.
+
+
+Whats new in 0.6.5
+------------------
+
+* Don't really know what happened to 0.6.5. I guess it got lost somewhere :-)
+
+
 Whats new in 0.6.4
 -------------------
 

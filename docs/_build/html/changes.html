@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.6.4 documentation</title>
+    <title>Changes &mdash; PyCK 0.6.6 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.4',
+        VERSION:     '0.6.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.6.4 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.6.6 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,6 +57,20 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-6-6">
+<h2>Whats new in 0.6.6<a class="headerlink" href="#whats-new-in-0-6-6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Minor improvement in the authentication framework. Instead of fetching user permissions from the DB for each url request; user
+permissions are fetched only once during login time and stored in session. The auth.authenticator tween just used the list of
+user permissions present in session instead of fetching them each time.</li>
+</ul>
+</div>
+<div class="section" id="whats-new-in-0-6-5">
+<h2>Whats new in 0.6.5<a class="headerlink" href="#whats-new-in-0-6-5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Don&#8217;t really know what happened to 0.6.5. I guess it got lost somewhere :-)</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-6-4">
 <h2>Whats new in 0.6.4<a class="headerlink" href="#whats-new-in-0-6-4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -305,6 +319,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-6-6">Whats new in 0.6.6</a></li>
+<li><a class="reference internal" href="#whats-new-in-0-6-5">Whats new in 0.6.5</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6-4">Whats new in 0.6.4</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6-3">Whats new in 0.6.3</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6">Whats new in 0.6</a></li>
@@ -368,7 +384,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

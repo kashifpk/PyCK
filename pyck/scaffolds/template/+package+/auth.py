@@ -43,9 +43,7 @@ def authenticator(handler, registry):
                     return HTTPForbidden()
 
                 # get user permissions
-                UPs = DBSession.query(UserPermission.permission).filter_by(user_id=logged_in_user).all()
-                for UP in UPs:
-                    user_permissions.append(UP[0])
+                user_permissions = request.session.get('auth_user_permissions', [])
 
             # get route permissions for the current route
             # match if there are any common permissions and check for all matching request methods
