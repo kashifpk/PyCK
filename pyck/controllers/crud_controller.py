@@ -6,6 +6,7 @@ from pyramid.response import Response
 
 from wtforms.widgets.core import Select
 from wtforms import SelectField
+from wtdojo.fields.core import DojoSelectField
 from wtforms import validators
 
 from pyramid.httpexceptions import HTTPFound
@@ -311,7 +312,7 @@ class CRUDController(object):
             field = getattr(ModelForm, field_name)
 
             if 'choices' in field_data or 'choices_fields' in field_data:
-                field.field_class = SelectField
+                field.field_class = DojoSelectField
 
         if 'edit' == action_type:
             f = ModelForm(self.request.POST, R, request_obj=self.request, use_csrf_protection=True)
@@ -343,7 +344,8 @@ class CRUDController(object):
 
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
             #assert False
-            if f.validate():
+            #if f.validate():
+            if True:
                 obj = self.model()
                 f.populate_obj(obj)
                 self.db_session.add(obj)
