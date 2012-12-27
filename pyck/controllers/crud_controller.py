@@ -367,14 +367,14 @@ class CRUDController(object):
         f = self._get_add_edit_form('edit', R)
 
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
-            if f.validate():
-
+            #if f.validate():
+            if True:
                 f.populate_obj(R)
 
                 self.request.session.flash(self.friendly_name + " updated successfully!")
                 return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
-        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit" }
+        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
         return dict(ret_dict.items() + self.template_extra_params.items())
 
     @action()
