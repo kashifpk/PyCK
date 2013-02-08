@@ -228,7 +228,14 @@
       filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
     }
     </style>
-  
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dijit//themes/claro/claro.css" type="text/css" charset="utf-8" />
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: true"></script>
+    <script type="text/javascript">
+        require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
+          parser.parse();
+          });});
+    </script>
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>

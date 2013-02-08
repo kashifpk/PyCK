@@ -14,6 +14,7 @@ from pyramid.httpexceptions import HTTPFound
 
 import pyck
 from pyck.forms import model_form
+from pyck.lib.models import get_columns
 from pyck.controllers import CRUDController, add_crud_handler
 
 
@@ -25,9 +26,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
 
         from pyck.ext import add_admin_handler, AdminController
 
-        .
-        .
-        .
+        # later inside your application's main function
         add_admin_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)
 
     :param config:
@@ -57,24 +56,26 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
                                                         }
                                         },
                             }
-    #>>> Product.category_id.property.columns[0].foreign_keys
--        #set([ForeignKey('categories.id')])
--        #>>> Product.name.property.columns[0].foreign_keys
--        #set([])
--        #Product.id.property.columns[0].autoincrement
--        #True
--
--        #ProductModelForm = model_form(Product, exclude=['id'], field_args = {
--        #                                                    'category_id' : {
--        #                                                    'widget' : Select()
--        #                                                    }
--        #                                                })
--        #ProductModelForm.category_id.field_class = SelectField
--        #
--        #product_form = ProductModelForm(request.POST)
--        #
--        #product_form.category_id.choices = categories
     """
+
+    #>>> Product.category_id.property.columns[0].foreign_keys
+    #set([ForeignKey('categories.id')])
+    #>>> Product.name.property.columns[0].foreign_keys
+    #set([])
+    #Product.id.property.columns[0].autoincrement
+    #True
+    #list(d_id.foreign_keys)[0].column.table
+
+    #ProductModelForm = model_form(Product, exclude=['id'], field_args = {
+    #                                                    'category_id' : {
+    #                                                    'widget' : Select()
+    #                                                    }
+    #                                                })
+    #ProductModelForm.category_id.field_class = SelectField
+    #
+    #product_form = ProductModelForm(request.POST)
+    #
+    #product_form.category_id.choices = categories
 
     handler_class.db_session = db_session
     handler_class.models = models
@@ -91,15 +92,43 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
 
     if models:
         for model in models:
+            # TODO: Do model_field_args processing here.
+
+            add_edit_field_args = {}
+            list_field_args = {}
+            FK_cols = get_columns(model, 'foreign_key')
+            for FK in FK_cols:
+                db_col = list(FK.foreign_keys)[0].column.name
+                display_col = db_col
+
+                # If target column is integer, set the column next to it as display column,
+                # for non-int columns keep the display column same as the db column
+                if int == list(FK.foreign_keys)[0].column.table.columns[db_col].type.python_type:
+                    table_cols = list(FK.foreign_keys)[0].column.table.columns.keys()
+                    d_idx = table_cols.index(db_col) + 1
+                    if len(table_cols) > d_idx:
+                        display_col = table_cols[d_idx]
+
+                db_col = list(FK.foreign_keys)[0].column.table.columns[db_col]
+                display_col = list(FK.foreign_keys)[0].column.table.columns[display_col]
+                add_edit_field_args[FK.name] = dict(choices_fields=[db_col, display_col])
+
+                # See if there is any relationship for current FK col, if yes, add reference to target
+                # column in target table using that relationship
+                for RS in model.__mapper__.relationships:
+                    r_col = list(RS.local_columns)[0]
+                    if r_col.name == FK.name:
+                        list_field_args[FK.name] = dict(display_field="%s.%s" % (RS.key, display_col.name))
+                        break
 
             CC = type(model.__name__ + 'CRUDController', (pyck.controllers.CRUDController,),
                       {'model': model, 'db_session': db_session,
                        'base_template': handler_class.base_template,
+                       'add_edit_field_args': add_edit_field_args,
+                       'list_field_args': list_field_args,
                        'template_extra_params': {'models': models, 'route_prefix': route_name_prefix}
                       }
                      )
-
-            CC.add_edit_field_args = {}
 
             add_crud_handler(config, route_name_prefix + model.__name__,
                              url_pattern_prefix + '/' + model.__tablename__, CC)

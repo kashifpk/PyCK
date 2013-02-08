@@ -1,7 +1,7 @@
 import os
 import sys
 
-import optparse
+import argparse
 
 from pyramid.paster import (
     get_appsettings,
@@ -16,20 +16,22 @@ from pyramid.scripts.pcreate import PCreateCommand
 
 
 class TempCommand(object):
-    parser = optparse.OptionParser()
-    parser.add_option('--simulate',
-                      dest='simulate',
-                      action='store_true',
-                      help='Simulate but do no work')
 
-    parser.add_option('--interactive',
-                      dest='interactive',
-                      action='store_true',
-                      help='When a file would be overwritten, interrogate')
+    parser = argparse.ArgumentParser(description="Create a app for your project")
+
+    parser.add_argument('-s', '--simulate',
+                        dest='simulate',
+                        action='store_true',
+                        help='Simulate but do no work')
+
+    parser.add_argument('-i', '--interactive',
+                        dest='interactive',
+                        action='store_true',
+                        help='When a file would be overwritten, interrogate')
 
     def __init__(self):
         self.options, self.args = self.parser.parse_args()
-        self.verbosity=1
+        self.verbosity = 1
 
 
 class NewAppTemplate(Template):
@@ -56,7 +58,7 @@ def main(argv=sys.argv):
 
     new_appname = sys.argv[1]
     here_parent = os.path.dirname(os.path.dirname(__file__))
-    apps_path = here_parent+'/apps'
+    apps_path = here_parent + '/apps'
     #sys.path.insert(0, here_parent+'/apps')
     #sys.path.insert(0, here_parent)
     print("creating %s" % new_appname)

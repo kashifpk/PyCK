@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.forms Package &mdash; PyCK 0.6.6 documentation</title>
+    <title>The pyck.forms Package &mdash; PyCK 0.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.6',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.7.0 documentation" href="index.html" />
     <link rel="next" title="The pyck.controllers Package" href="pyck-controllers.html" />
     <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -164,7 +164,7 @@ not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></t
 
 <dl class="function">
 <dt id="pyck.forms.dojo_model_form">
-<tt class="descclassname">pyck.forms.</tt><tt class="descname">dojo_model_form</tt><big>(</big><em>model</em>, <em>db_session=None</em>, <em>base_class=&lt;class 'pyck.forms.form.Form'&gt;</em>, <em>only=None</em>, <em>exclude=None</em>, <em>field_args=None</em>, <em>converter=None</em>, <em>exclude_pk=True</em>, <em>exclude_fk=True</em>, <em>type_name=None</em><big>)</big><a class="headerlink" href="#pyck.forms.dojo_model_form" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyck.forms.</tt><tt class="descname">dojo_model_form</tt><big>(</big><em>model</em>, <em>db_session=None</em>, <em>base_class=&lt;class 'pyck.forms.form.Form'&gt;</em>, <em>only=None</em>, <em>exclude=None</em>, <em>field_args=None</em>, <em>converter=None</em>, <em>exclude_pk=False</em>, <em>exclude_fk=False</em>, <em>type_name=None</em><big>)</big><a class="headerlink" href="#pyck.forms.dojo_model_form" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Wrapper around <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> function to facilitate creating model
 forms using a wtforms compatible model_form call but using <a class="reference internal" href="#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> and <a href="#id1"><span class="problematic" id="id2">:module:`WTDojo`</span></a>
 form components</p>
@@ -189,6 +189,9 @@ from the form. All other properties will have fields.</li>
 to construct each field object.</li>
 <li><strong>converter</strong> &#8211; A converter to generate the fields based on the model properties. If
 not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></tt> is used.</li>
+<li><strong>exclude_pk</strong> &#8211; An optional boolean to force primary key exclusion.</li>
+<li><strong>exclude_fk</strong> &#8211; An optional boolean to force foreign keys exclusion.</li>
+<li><strong>type_name</strong> &#8211; An optional string to set returned type name.</li>
 </ul>
 </td>
 </tr>
@@ -266,7 +269,7 @@ not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></t
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

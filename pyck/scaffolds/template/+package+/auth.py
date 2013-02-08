@@ -8,8 +8,12 @@ import types
 def authenticator(handler, registry):
 
     def auth_request(request):
-        #print(request.registry)
+
         response = None
+
+        # ignore static routes for authentication
+        if 'static' in request.path.split('/'):
+            return handler(request)
 
         logged_in_user = request.session.get('logged_in_user', None)
 

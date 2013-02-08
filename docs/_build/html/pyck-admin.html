@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyCK Admin Interface &mdash; PyCK 0.6.6 documentation</title>
+    <title>The PyCK Admin Interface &mdash; PyCK 0.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.6',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.7.0 documentation" href="index.html" />
     <link rel="next" title="The pyck.lib Package" href="pyck-lib.html" />
     <link rel="prev" title="The pyck.controllers Package" href="pyck-controllers.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -90,46 +90,32 @@ like:</p>
 <dl class="function">
 <dt id="pyck.ext.admin_controller.add_admin_handler">
 <tt class="descclassname">pyck.ext.admin_controller.</tt><tt class="descname">add_admin_handler</tt><big>(</big><em>config</em>, <em>db_session</em>, <em>models=None</em>, <em>route_name_prefix=''</em>, <em>url_pattern_prefix=''</em>, <em>handler_class=None</em>, <em>models_field_args={}</em><big>)</big><a class="headerlink" href="#pyck.ext.admin_controller.add_admin_handler" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>A utility function to quickly add all admin related routes and set them to the admin handler class with one function</dt>
-<dd><p class="first">call, for example:</p>
-<div class="highlight-python"><pre>from pyck.ext import add_admin_handler, AdminController
+<dd><p>A utility function to quickly add all admin related routes and set them to the admin handler class with one function
+call, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.ext</span> <span class="kn">import</span> <span class="n">add_admin_handler</span><span class="p">,</span> <span class="n">AdminController</span>
 
-.
-.
-.
-add_admin_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)</pre>
+<span class="c"># later inside your application&#39;s main function</span>
+<span class="n">add_admin_handler</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">APP_NAME</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;/crud&#39;</span><span class="p">,</span> <span class="n">WikiCRUDController</span><span class="p">)</span>
+</pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param config:</th><td class="field-body"><p class="first">The application config object</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param route_name_prefix:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Optional string prefix to add to all route names. Useful if you&#8217;re adding multiple CRUD controllers and want to
-avoid route name conflicts.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param url_pattern_prefix:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Optional string prefix to add to all crud related url patterns</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param handler_class:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">The handler class that is used to handle CRUD requests. Must be sub-class of <a class="reference internal" href="pyck-controllers.html#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param models_field_args:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">A dictionary with key being the model name and value being the field args value for that model.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> &#8211; The application config object</li>
+<li><strong>route_name_prefix</strong> &#8211; Optional string prefix to add to all route names. Useful if you&#8217;re adding multiple CRUD controllers and want to
+avoid route name conflicts.</li>
+<li><strong>url_pattern_prefix</strong> &#8211; Optional string prefix to add to all crud related url patterns</li>
+<li><strong>handler_class</strong> &#8211; The handler class that is used to handle CRUD requests. Must be sub-class of <a class="reference internal" href="pyck-controllers.html#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a></li>
+<li><strong>models_field_args</strong> &#8211; <p>A dictionary with key being the model name and value being the field args value for that model.</p>
 <p>Example:</p>
-<dl class="last docutils">
+<dl class="docutils">
 <dt>model_field_args = {&#8216;Product&#8217;: {&#8216;category_id&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">{</span></dt>
 <dd><blockquote class="first">
 <div><blockquote>
 <div><blockquote>
-<div><p>&#8216;widget&#8217; : Select()</p>
-</div></blockquote>
+<div>&#8216;widget&#8217; : Select()</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p>},</p>
@@ -138,8 +124,7 @@ avoid route name conflicts.</p>
 <dt>&#8216;Category&#8217;: {&#8216;description&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">{</span></dt>
 <dd><blockquote class="first">
 <div><blockquote>
-<div><p>&#8216;widget&#8217; : TextArea()</p>
-</div></blockquote>
+<div>&#8216;widget&#8217; : TextArea()</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p class="last">},</p>
@@ -148,31 +133,12 @@ avoid route name conflicts.</p>
 <p class="last">}</p>
 </dd>
 </dl>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="last">#&gt;&gt;&gt; Product.category_id.property.columns[0].foreign_keys</p>
-</dd>
-</dl>
-<ul class="simple">
-<li>#set([ForeignKey(&#8216;categories.id&#8217;)])</li>
-<li>#&gt;&gt;&gt; Product.name.property.columns[0].foreign_keys</li>
-<li>#set([])</li>
-<li>#Product.id.property.columns[0].autoincrement</li>
-<li>#True</li>
-<li></li>
-<li>#ProductModelForm = model_form(Product, exclude=[&#8216;id&#8217;], field_args = {</li>
-<li>#                                                    &#8216;category_id&#8217; : {</li>
-<li>#                                                    &#8216;widget&#8217; : Select()</li>
-<li>#                                                    }</li>
-<li>#                                                })</li>
-<li>#ProductModelForm.category_id.field_class = SelectField</li>
-<li>#</li>
-<li>#product_form = ProductModelForm(request.POST)</li>
-<li>#</li>
-<li>#product_form.category_id.choices = categories</li>
-</ul>
 </dd></dl>
 
 </div>
@@ -235,7 +201,7 @@ avoid route name conflicts.</p>
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

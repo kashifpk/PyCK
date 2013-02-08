@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.6.6 documentation</title>
+    <title>Changes &mdash; PyCK 0.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.6',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.7.0 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Introduction" href="README.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="README.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,6 +57,43 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="whats-new-in-0-7">
+<h2>Whats new in 0.7<a class="headerlink" href="#whats-new-in-0-7" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Static routes (routes normally used for JS, images, CSS etc) are now ignored for authentication checking. Using Javascript
+frameworks like Dojo requires accessing quite a lot of files for a page and this can slow down the application checking for
+permissions for each of the static resource. Of course, you can disable it by commenting out the relevant code in your
+project&#8217;s auth.py</p>
+</li>
+<li><p class="first">The newapp script now uses argparse instead of optparse to avoid deprecation warnings.</p>
+</li>
+<li><p class="first">Minor fix to admin controller to get rid of add errors for some models.</p>
+</li>
+<li><p class="first">Inclusion of dojo from google&#8217;s CDN by default into admin and application base templates.</p>
+</li>
+<li><p class="first">Admin controller</p>
+<blockquote>
+<div><ul class="simple">
+<li>now ignores relationship properties of a model while display add/edit forms.</li>
+<li>Add and edit forms in admin controller now display combo boxes for foreign keys instead of plain text boxes, and if
+the foreign_key column is integer then the value displayed in the combo box is from the field that comes after the
+field pointed to by the foreign key column. So if you have a foreign key product_id referring to a products table
+with fields id and name then the drop down displays product names while the backend values are prodcut ids from the
+products table</li>
+<li>If there is any relationship for a foreign key field present in the current model displays the column next to the
+references column from the target table. So if you have a foreign key product_id referring to a products table
+with fields id and name then product names are displayed in listings</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="whats-new-in-0-6-8">
+<h2>Whats new in 0.6.8<a class="headerlink" href="#whats-new-in-0-6-8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CRUDController now uses wtdojo to display fields using dojo.</li>
+</ul>
+</div>
 <div class="section" id="whats-new-in-0-6-6">
 <h2>Whats new in 0.6.6<a class="headerlink" href="#whats-new-in-0-6-6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -68,7 +105,7 @@ user permissions present in session instead of fetching them each time.</li>
 <div class="section" id="whats-new-in-0-6-5">
 <h2>Whats new in 0.6.5<a class="headerlink" href="#whats-new-in-0-6-5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Don&#8217;t really know what happened to 0.6.5. I guess it got lost somewhere :-)</li>
+<li>dojo_model_forms support</li>
 </ul>
 </div>
 <div class="section" id="whats-new-in-0-6-4">
@@ -319,6 +356,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#whats-new-in-0-7">Whats new in 0.7</a></li>
+<li><a class="reference internal" href="#whats-new-in-0-6-8">Whats new in 0.6.8</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6-6">Whats new in 0.6.6</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6-5">Whats new in 0.6.5</a></li>
 <li><a class="reference internal" href="#whats-new-in-0-6-4">Whats new in 0.6.4</a></li>
@@ -384,7 +423,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="README.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.6.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

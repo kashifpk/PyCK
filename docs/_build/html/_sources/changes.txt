@@ -5,6 +5,42 @@ Changes
 
 This document lists the changes as versions progress
 
+
+Whats new in 0.7
+-----------------
+
+* Static routes (routes normally used for JS, images, CSS etc) are now ignored for authentication checking. Using Javascript
+  frameworks like Dojo requires accessing quite a lot of files for a page and this can slow down the application checking for
+  permissions for each of the static resource. Of course, you can disable it by commenting out the relevant code in your
+  project's auth.py
+
+* The newapp script now uses argparse instead of optparse to avoid deprecation warnings.
+
+* Minor fix to admin controller to get rid of add errors for some models.
+
+* Inclusion of dojo from google's CDN by default into admin and application base templates.
+
+* Admin controller
+
+    * now ignores relationship properties of a model while display add/edit forms.
+
+    * Add and edit forms in admin controller now display combo boxes for foreign keys instead of plain text boxes, and if
+      the foreign_key column is integer then the value displayed in the combo box is from the field that comes after the
+      field pointed to by the foreign key column. So if you have a foreign key product_id referring to a products table
+      with fields id and name then the drop down displays product names while the backend values are prodcut ids from the
+      products table
+
+    * If there is any relationship for a foreign key field present in the current model displays the column next to the
+      references column from the target table. So if you have a foreign key product_id referring to a products table
+      with fields id and name then product names are displayed in listings
+
+
+Whats new in 0.6.8
+-------------------
+
+* CRUDController now uses wtdojo to display fields using dojo.
+  
+
 Whats new in 0.6.6
 -------------------
 
@@ -16,7 +52,7 @@ Whats new in 0.6.6
 Whats new in 0.6.5
 ------------------
 
-* Don't really know what happened to 0.6.5. I guess it got lost somewhere :-)
+* dojo_model_forms support
 
 
 Whats new in 0.6.4

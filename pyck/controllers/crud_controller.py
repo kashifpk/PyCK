@@ -241,13 +241,14 @@ class CRUDController(object):
         if self.add_edit_exclude:
             return self.add_edit_exclude
 
-        exclude_list = []
+        # exclude any relationships
+        exclude_list = self.model.__mapper__.relationships.keys()
 
         if 'add' == action_type:
-            #get the columns and add any primary key columns to the exlude list if their autoincrement is True
+            # get the columns and add any primary key columns to the exlude list if their autoincrement is True
             cols = get_columns(self.model, 'primary_key')
             for c in cols:
-                if True == c.property.columns[0].autoincrement:
+                if int == c.property.columns[0].type.python_type:
                     exclude_list.append(c.key)
 
         return exclude_list
@@ -305,7 +306,10 @@ class CRUDController(object):
         #print("************************")
         #print(self.add_edit_field_args)
         #print(self._get_modelform_field_args())
-        ModelForm = dojo_model_form(self.model, exclude=exclude_list, field_args=self._get_modelform_field_args())
+
+        cols = get_columns(self.model, 'primary_key')
+        ModelForm = dojo_model_form(self.model, self.db_session, exclude=exclude_list,
+                                    field_args=self._get_modelform_field_args())
 
         #check for field data and set proper attributes accordingly
         for field_name, field_data in self.add_edit_field_args.iteritems():

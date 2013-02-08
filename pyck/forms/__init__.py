@@ -105,7 +105,6 @@ class DojoModelConverter(ModelConverter):
 def model_form(model, db_session=None, base_class=Form, only=None,
     exclude=None, field_args=None, converter=None, exclude_pk=True,
     exclude_fk=True, type_name=None):
-    #def model_form(model, base_class=Form, only=None, exclude=None, field_args=None, converter=None):
     """
     A Wrapper around :func:`wtforms.ext.sqlalchemy.orm.model_form` function to facilitate creating model
     forms using a wtforms compatible model_form call but using :class:`pyck.forms.Form`
@@ -136,40 +135,10 @@ def model_form(model, db_session=None, base_class=Form, only=None,
     field_dict = model_fields(model, db_session, only, exclude, field_args, converter)
     return type(model.__name__ + 'Form', (base_class, ), field_dict)
 
-#
-#def dojo_model_fields(model, db_session=None, only=None, exclude=None,
-#                      field_args=None, converter=None):
-#    """
-#    Generate a dictionary of fields for a given SQLAlchemy model.
-#
-#    See `model_form` docstring for description of parameters.
-#    """
-#    if not hasattr(model, '_sa_class_manager'):
-#        raise TypeError('model must be a sqlalchemy mapped model')
-#
-#    mapper = model._sa_class_manager.mapper
-#    converter = converter or DojoModelConverter()
-#    field_args = field_args or {}
-#
-#    properties = ((p.key, p) for p in mapper.iterate_properties)
-#    if only:
-#        properties = (x for x in properties if x[0] in only)
-#    elif exclude:
-#        properties = (x for x in properties if x[0] not in exclude)
-#
-#    field_dict = {}
-#    for name, prop in properties:
-#        field = converter.convert(model, mapper, prop,
-#            field_args.get(name), db_session)
-#        if field is not None:
-#            field_dict[name] = field
-#
-#    return field_dict
-
 
 def dojo_model_form(model, db_session=None, base_class=Form, only=None,
-    exclude=None, field_args=None, converter=None, exclude_pk=True,
-    exclude_fk=True, type_name=None):
+    exclude=None, field_args=None, converter=None, exclude_pk=False,
+    exclude_fk=False, type_name=None):
     """
     A Wrapper around :func:`wtforms.ext.sqlalchemy.orm.model_form` function to facilitate creating model
     forms using a wtforms compatible model_form call but using :class:`pyck.forms.Form` and :module:`WTDojo`
@@ -197,11 +166,41 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
     :param converter:
         A converter to generate the fields based on the model properties. If
         not set, ``ModelConverter`` is used.
+    :param exclude_pk:
+        An optional boolean to force primary key exclusion.
+    :param exclude_fk:
+        An optional boolean to force foreign keys exclusion.
+    :param type_name:
+        An optional string to set returned type name.
 
     """
+
+    class DojoModelForm(base_class):
+        """Sets object as form attribute."""
+        def __init__(self, *args, **kwargs):
+            if 'obj' in kwargs:
+                self._obj = kwargs['obj']
+            super(DojoModelForm, self).__init__(*args, **kwargs)
+
+    if not exclude:
+        exclude = []
+    model_mapper = model.__mapper__
+
+    for prop in model_mapper.iterate_properties:
+
+        if not hasattr(prop, 'direction') and prop.columns[0].primary_key:
+            if exclude_pk:
+                exclude.append(prop.key)
+        if hasattr(prop, 'direction') and  exclude_fk and \
+                prop.direction.name != 'MANYTOMANY':
+            for pair in prop.local_remote_pairs:
+                exclude.append(pair[0].key)
+
+    type_name = type_name or str(model.__name__ + 'Form')
     converter = converter or DojoModelConverter()
     field_dict = model_fields(model, db_session, only, exclude, field_args, converter)
-    return type(model.__name__ + 'Form', (base_class, ), field_dict)
+
+    return type(type_name, (base_class, ), field_dict)
 
 
 __all__ = ['Form', 'model_form', 'dojo_model_form']
