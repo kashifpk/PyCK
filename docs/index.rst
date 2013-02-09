@@ -26,6 +26,7 @@ Contents:
     pyck-lib
     
     mod_wsgi_virtualenv
+    nginx_uwsgi_virtualenv
 
 
 Indices and tables

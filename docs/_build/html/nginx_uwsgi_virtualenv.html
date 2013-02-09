@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Running PyCK Applications with Nginx, uwsgi and Virtualenv &mdash; PyCK 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyCK 0.7.0 documentation" href="index.html" />
+    <link rel="prev" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv" href="mod_wsgi_virtualenv.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="running-pyck-applications-with-nginx-uwsgi-and-virtualenv">
+<span id="nginx-uwsgi-virtualenv"></span><h1>Running PyCK Applications with Nginx, uwsgi and Virtualenv<a class="headerlink" href="#running-pyck-applications-with-nginx-uwsgi-and-virtualenv" title="Permalink to this headline">¶</a></h1>
+<p>Assuming you have followed the <a class="reference internal" href="installation.html#installation"><em>Installation</em></a> section and created a virtualenv named pyckenv,
+we&#8217;ll now setup Nginx to use this virtualenv alongwith uwsgi for deploying our pyck applications.
+Nginx is quite lightweight compared to apache and uwsgi offer far greater performance compared to mod_wsgi.
+This document describes the most basic setup. A more high performance setup suitable for high-load sites might
+include supervisord and also we may need https support. Both of this are covered in a separate document.</p>
+<ol class="arabic">
+<li><p class="first">Make sure you have installed nginx and uwsgi. uwsgi can be installed even within your virtualenv:</p>
+<div class="highlight-python"><pre>sudo apt-get install nginx
+pip install uwsgi       # within your virtualenv</pre>
+</div>
+</li>
+<li><p class="first">In your project&#8217;s development.ini or production.ini file, add a uwsgi section:</p>
+<div class="highlight-python"><pre>[uwsgi]
+socket = /tmp/myapp.sock
+master = true
+processes = 5</pre>
+</div>
+<p>You can adjust the number of processes to your liking. You probably should change myapp.sock to represent
+the name of your application.</p>
+</li>
+<li><p class="first">Run uswsgi:</p>
+<div class="highlight-python"><pre>uwsgi --ini-paste production.ini --virtualenv /path/to/pyckenv/ --daemonize2 --</pre>
+</div>
+</li>
+<li><p class="first">Make sure that the uwsgi socket is readable by nginx:</p>
+<div class="highlight-python"><pre>chmod 777 /tmp/myapp.sock</pre>
+</div>
+</li>
+</ol>
+<ol class="arabic" start="4">
+<li><p class="first">Add a section or server for your site in nginx config. A good way to do this is to create a separate file in
+nginx&#8217;s sites-available folder (normally /etc/nginx/sites-available), for example you can create a file names myapp there:</p>
+<div class="highlight-python"><pre>server {
+   listen 8000;
+   server_name localhost;
+
+   location / {
+            include uwsgi_params;
+            uwsgi_pass unix:///tmp/myapp.sock;
+   }
+}</pre>
+</div>
+<p>Above is just an example, you probably would want to listen on a different port and give a different value for server_name.</p>
+</li>
+<li><p class="first">Enable this site by linking it to the sites-enabled folder:</p>
+<div class="highlight-python"><pre>cd /etc/nginx/sites-enabled
+sudo ln -s ../sites-available/myapp .</pre>
+</div>
+</li>
+<li><p class="first">Start or restart nginx:</p>
+<div class="highlight-python"><pre>sudo service nginx restart</pre>
+</div>
+</li>
+</ol>
+<p>Thats all now you can test your application at: <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mod_wsgi_virtualenv.html"
+                        title="previous chapter">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/nginx_uwsgi_virtualenv.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
+             >previous</a> |</li>
+        <li><a href="index.html">PyCK 0.7.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, 2012 Kashif Iftikhar.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
