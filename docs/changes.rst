@@ -31,7 +31,7 @@ Whats new in 0.7
       products table
 
     * If there is any relationship for a foreign key field present in the current model displays the column next to the
-      references column from the target table. So if you have a foreign key product_id referring to a products table
+      referenced column from the target table. So if you have a foreign key product_id referring to a products table
       with fields id and name then product names are displayed in listings
 
 
