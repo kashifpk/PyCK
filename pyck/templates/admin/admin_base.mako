@@ -74,7 +74,7 @@
     
     .admin_page_content{
         width: 100%;
-        
+	vertical-align: top;
     }
     .errors {color: #ff0000; font-weight: bold;}
     .flash {background-color: #0E3A00; color: #fff; font-size: 16pt; alignment-adjust: middle; text-align: center}

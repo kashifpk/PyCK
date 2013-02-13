@@ -4,17 +4,29 @@
 {{package}} - Login
 </%def>
 
-<div>
-<h1>Login</h1>
+<%def name="header()">
+  <div id="top" style="text-align: center">
+    <br /><br />
+    <img src="${request.static_url('newapp:static/pyck-admin.png')}"  alt="pyck"/>
+  </div>
+</%def>
 
-<form action="${request.route_url('pyckauth_login')}" method="POST">
-    <label for="user_id">Username</label>
-    <input type="text" name="user_id" /><br />
-    
-    <label for="password">Password</label>
-    <input type="password" name="password" /><br />
-    
-    <input type="submit" name="form.submitted" value="Login" />
-</form>
-<br /><br /><br /><br /><br /><br />
-</div>
+<%def name="main_menu()"></%def>
+<%def name="footer()"></%def>
+
+<%def name="body_class()">login_page</%def>
+
+<br />
+<center>
+    <div class="loginbox">
+        <div class="loginbox_inner">
+            <form action="${request.route_url('pyckauth_login')}" method="POST">
+            <div class="loginbox_content">
+                <input type="text" name="user_id" class="username" />
+                <input type="password" name="password" class="password" />
+                <button type="submit" name="form.submitted">Login</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</center>

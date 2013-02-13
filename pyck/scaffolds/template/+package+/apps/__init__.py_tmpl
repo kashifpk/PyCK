@@ -3,6 +3,6 @@
 
 import importlib
 
-enabled_apps = ['myapp']
+enabled_apps = []
 PROJECT_NAME = '{{package}}'
 project_package = importlib.import_module("{{package}}")

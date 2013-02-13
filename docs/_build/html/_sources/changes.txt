@@ -6,6 +6,23 @@ Changes
 This document lists the changes as versions progress
 
 
+Whats new in 0.7.1
+-------------------
+
+* Updates to documentation
+
+* Design changes to make the default generated application look a bit better
+
+* Removal of the default sample app and Site Model since now the auth models already provide the sample models required
+
+* New PyCK Logos, new style for the login page
+
+* If AdminController is enabled then successful login redirects to admin interface if not otherwise directed by 'came_from'
+  session variable
+
+* Minor CSS fix so that footer is properly bottom-aligned in the page
+
+
 Whats new in 0.7
 -----------------
 
@@ -31,7 +48,7 @@ Whats new in 0.7
       products table
 
     * If there is any relationship for a foreign key field present in the current model displays the column next to the
-      references column from the target table. So if you have a foreign key product_id referring to a products table
+      referenced column from the target table. So if you have a foreign key product_id referring to a products table
       with fields id and name then product names are displayed in listings
 
 

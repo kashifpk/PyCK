@@ -3,6 +3,6 @@
 
 import importlib
 
-enabled_apps = ['blog', 'wiki']
+enabled_apps = []
 PROJECT_NAME = 'newapp'
 project_package = importlib.import_module("newapp")

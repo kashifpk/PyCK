@@ -10,11 +10,16 @@ from pyramid.paster import (
     )
 
 import importlib
+import hashlib
 from ..apps import enabled_apps
 from .. import load_project_settings
 
 from ..models import (
     DBSession,
+    User,
+    Permission,
+    RoutePermission,
+    UserPermission,
     Base,
     )
 
@@ -37,10 +42,26 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
+    DBSession.autoflush = True
     Base.metadata.create_all(engine)
-    #with transaction.manager:
-    #    model = Site(name='one', value=1)
-    #    DBSession.add(model)
+    with transaction.manager:
+
+        #Authentication related basic user and permission setup
+        if 0 == DBSession.query(User).count():
+            DBSession.add(User('admin', hashlib.sha1('admin').hexdigest()))
+            DBSession.flush()
+
+        if 0 == DBSession.query(Permission).count():
+            DBSession.add(Permission('manage', 'Manage administrative section'))
+            DBSession.flush()
+
+        if 0 == DBSession.query(UserPermission).count():
+            DBSession.add(UserPermission('admin', 'manage'))
+            DBSession.flush()
+
+        if 0 == DBSession.query(RoutePermission).count():
+            DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
+            DBSession.flush()
 
     #populate application models
     for app_name in enabled_apps:

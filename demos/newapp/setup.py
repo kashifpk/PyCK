@@ -19,13 +19,13 @@ requires = [
     'wtforms'
     ]
 
-if sys.version_info[:3] < (2,5,0):
+if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
 
 setup(name='newapp',
       version='0.0',
       description='newapp',
-      long_description=README + '\n\n' +  CHANGES,
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
         "Framework :: Pylons",
@@ -40,8 +40,8 @@ setup(name='newapp',
       include_package_data=True,
       zip_safe=False,
       test_suite='newapp',
-      install_requires = requires,
-      entry_points = """\
+      install_requires=requires,
+      entry_points="""\
       [paste.app_factory]
       main = newapp:main
       [console_scripts]

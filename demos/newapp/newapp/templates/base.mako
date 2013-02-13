@@ -1,17 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<!DOCTYPE html>
+<html>
 <head>
   
   <title>${self.title()}</title>
   ${self.meta()}
   
   <link rel="shortcut icon" href="${request.static_url('newapp:static/favicon.ico')}" />
-  <link rel="stylesheet" href="${request.static_url('newapp:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="${request.static_url('newapp:static/pyck.css')}" type="text/css" media="screen" charset="utf-8" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
   <!--[if lte IE 6]>
   <link rel="stylesheet" href="${request.static_url('newapp:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dijit//themes/claro/claro.css" type="text/css" charset="utf-8" />
+  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+        require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
+          parser.parse();
+          });});
+  </script>
+
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
@@ -22,6 +31,7 @@
   ${self.footer()}
   </div>
 </body>
+</html>
 
 <%def name="title()">The PyCK Web Application Development Framework</%def>
 
@@ -55,8 +65,6 @@
 <%def name="main_menu()">
 <p>
   <a href="${request.route_url('home')}">Home</a> |
-  <a href="${request.route_url('blog.home')}">My Blog</a> |
-  <a href="${request.route_url('wiki.home')}">My Wiki</a> |
   <a href="${request.route_url('contact')}">Contact Us</a>
 </p>
 </%def>
@@ -65,8 +73,4 @@
     <div class="footer">&copy; Copyright 2008-2012, Set your company name here</div>
   </div>
 </%def>
-    
-  
-  
-</body>
-</html>
+

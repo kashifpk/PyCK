@@ -12,7 +12,6 @@ Contents:
     :maxdepth: 2
     
     README
-    changes
     
     installation
     start-project
@@ -27,6 +26,8 @@ Contents:
     
     mod_wsgi_virtualenv
     nginx_uwsgi_virtualenv
+    
+    changes
 
 
 Indices and tables

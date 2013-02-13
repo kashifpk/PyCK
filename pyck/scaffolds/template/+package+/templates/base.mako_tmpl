@@ -6,7 +6,7 @@
   ${self.meta()}
   
   <link rel="shortcut icon" href="${request.static_url('{{package}}:static/favicon.ico')}" />
-  <link rel="stylesheet" href="${request.static_url('{{package}}:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="${request.static_url('{{package}}:static/pyck.css')}" type="text/css" media="screen" charset="utf-8" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
   <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
   <!--[if lte IE 6]>
@@ -24,12 +24,12 @@
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
-  <div id="wrap">
+  
   ${self.header()}
-  ${self.main_menu()}
+  
   ${self.content_wrapper()}
   ${self.footer()}
-  </div>
+  
 </body>
 </html>
 
@@ -46,7 +46,10 @@
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
-  <div id="top-small"><img src="${request.static_url('{{package}}:static/pyck-small.png')}"  alt="pyck"/></div>
+  <div id="top-small">
+    <img src="${request.static_url('{{package}}:static/pyck-small.png')}"  alt="pyck"/>
+    ${self.main_menu()}
+  </div>
 </%def>
   
 <%def name="content_wrapper()">
@@ -65,7 +68,6 @@
 <%def name="main_menu()">
 <p>
   <a href="${request.route_url('home')}">Home</a> |
-  <a href="${request.route_url('myapp.home')}">A sample App</a> |
   <a href="${request.route_url('contact')}">Contact Us</a>
 </p>
 </%def>

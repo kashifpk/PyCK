@@ -10,12 +10,6 @@ from models import DBSession
 import importlib
 from apps import enabled_apps
 
-from pyck.controllers import add_crud_handler
-from pyck.ext import add_admin_handler, AdminController
-from pyck.lib import get_models
-import newapp
-from controllers.views import ProductCRUDController
-
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -27,17 +21,22 @@ def main(global_config, **settings):
 
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
-
     config = Configurator(session_factory=session_factory, settings=settings)
+    config.add_tween('newapp.auth.authenticator')
     config.include('pyramid_handlers')
     config.add_view('pyramid.view.append_slash_notfound_view',
                 context='pyramid.httpexceptions.HTTPNotFound')
     config.add_static_view('static', 'static', cache_max_age=3600)
+
     config.add_route('home', '/')
     config.add_route('contact', '/contact')
 
-    add_crud_handler(config, 'products', '/products_crud', ProductCRUDController)
-    add_admin_handler(config, DBSession, get_models(newapp), 'admin.', '/admin', AdminController)
+    config.add_route('pyckauth_login', '/login')
+    config.add_route('pyckauth_logout', '/logout')
+    config.add_route('pyckauth_manager', '/auth')
+    config.add_route('pyckauth_users', '/auth/users')
+    config.add_route('pyckauth_permissions', '/auth/permissions')
+    config.add_route('pyckauth_routes', '/auth/routes')
 
     configure_app_routes(config)
 
@@ -71,15 +70,14 @@ def configure_app_routes(config):
 
     # The app_route_prefixes dictionary for overriding app route prefixes
     app_route_prefixes = {
-        'blog': '/myblog'
+        #'blog': '/myblog'
     }
 
     for app_name in enabled_apps:
-        app_route_prefix = app_route_prefixes.get(app_name, '/%s'%app_name)
+        app_route_prefix = app_route_prefixes.get(app_name, '/%s' % app_name)
         app_module = importlib.import_module(".apps.%s" % app_name, "newapp")
 
         try:
             config.include(app_module.application_routes, route_prefix=app_route_prefix)
         except Exception, e:
             print(repr(e))
-
