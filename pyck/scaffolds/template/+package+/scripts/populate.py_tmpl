@@ -52,15 +52,15 @@ def main(argv=sys.argv):
             DBSession.flush()
 
         if 0 == DBSession.query(Permission).count():
-            DBSession.add(Permission('manage', 'Manage administrative section'))
+            DBSession.add(Permission('admin', 'Manage administrative section'))
             DBSession.flush()
 
         if 0 == DBSession.query(UserPermission).count():
-            DBSession.add(UserPermission('admin', 'manage'))
+            DBSession.add(UserPermission('admin', 'admin'))
             DBSession.flush()
 
         if 0 == DBSession.query(RoutePermission).count():
-            DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'manage'))
+            DBSession.add(RoutePermission('pyckauth_manager', 'ALL', 'admin'))
             DBSession.flush()
 
     #populate application models

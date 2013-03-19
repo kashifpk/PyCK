@@ -51,7 +51,7 @@ PyCK Web Development Framework
               <a href="http://compulife.com.pk/oss/pyck">PyCK Website</a>
             </li>
             <li>
-              <a href="http://packages.python.org/PyCK/">Documentation</a>
+              <a href="http://pythonhosted.org/PyCK">Documentation</a>
             </li>
             <li>
               <a href="http://pypi.python.org/pypi/PyCK">PyCK at PyPi</a>

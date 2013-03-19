@@ -6,6 +6,14 @@ Changes
 This document lists the changes as versions progress
 
 
+Whats new in 0.7.2
+-------------------
+
+* The default admin permission was renamed from manage to admin since this name makes more sense
+
+* Added wtdojo to requires for new projects
+
+
 Whats new in 0.7.1
 -------------------
 

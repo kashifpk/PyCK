@@ -16,7 +16,8 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_handlers',
     'zope.sqlalchemy',
-    'wtforms'
+    'wtforms',
+    'wtdojo'
     ]
 
 if sys.version_info[:3] < (2, 5, 0):

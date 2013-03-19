@@ -189,7 +189,7 @@ def login(request):
 
             request.session['auth_user_permissions'] = user_permissions
 
-           if request.session.get('came_from', None):
+            if request.session.get('came_from', None):
                 return HTTPFound(location=request.session.get('came_from'))
             else:
                 try:
