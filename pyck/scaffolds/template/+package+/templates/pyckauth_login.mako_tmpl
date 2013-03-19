@@ -7,7 +7,7 @@
 <%def name="header()">
   <div id="top" style="text-align: center">
     <br /><br />
-    <img src="${request.static_url('newapp:static/pyck-admin.png')}"  alt="pyck"/>
+    <img src="${request.static_url('{{package}}:static/pyck-admin.png')}"  alt="pyck"/>
   </div>
 </%def>
 
