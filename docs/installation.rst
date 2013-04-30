@@ -13,7 +13,7 @@ Installing **PyCK** is as easy as installing any other python package using eith
 
     sudo pip install virtualenv
 
-3. Create a virtual environment for your pip applications::
+3. Create a virtual environment for your PyCK applications::
 
     virtualenv --no-site-packages pyckenv
 
