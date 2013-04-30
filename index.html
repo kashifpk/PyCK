@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="PyCK : Python Code Karigar - A web framework aimed at being easy to use and powerful" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>PyCK</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kashifpk/PyCK">View on GitHub</a>
+
+          <h1 id="project_title">PyCK</h1>
+          <h2 id="project_tagline">Python Code Karigar - A web framework aimed at being easy to use and powerful</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/kashifpk/PyCK/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/kashifpk/PyCK/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Introduction</h1>
+
+<p><strong>PyCK</strong> (Python Code Karigar); prounounced '*pick*' is a web development framework
+aiming to provide an easy to use yet powerful and flexible web framework for python developers.</p>
+
+<p>Documentation for the project can be found at <a href="http://pythonhosted.org/PyCK/">PyCK Documentation</a></p>
+
+<h2>Background</h2>
+
+<p>Of course, there are already a lot of great frameworks present for python like <a href="http://docs.pylonsproject.org/en/latest/docs/pylons.html">Pylons</a>, <a href="https://www.djangoproject.com/">Django</a>, <a href="http://docs.pylonsproject.org/en/latest/docs/pyramid.html">Pyramid</a>, <a href="http://bluebream.zope.org/">BlueBream (Previously Zope)</a>, <a href="http://turbogears.org/">TurboGears2</a> that provide really cool
+features for developing web applications in python, I feel like there was still something missing for my taste. So you can say that this project is starting to satisfy a personal itch.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Uses <strong>SQLAlchemy as the ORM</strong>
+</li>
+<li>Uses <strong>Mako as the templating language</strong>
+</li>
+<li>Uses <strong>URLDispatch as the resource location</strong> - URL to code mapping mechanism</li>
+<li>Very easy to use plug-n-play <strong>Authentication and Authorization mechanism</strong>
+</li>
+<li>
+<strong>Pluggable applications</strong> similar to Djano</li>
+<li>
+<strong>Extendible admin panel and CRUD Controller</strong> like an admin panel, etc</li>
+<li>Uses <a href="http://dojotoolkit.org/">Dojo</a> for UI components via <a href="https://github.com/kashifpk/wtdojo">WTDojo</a>
+</li>
+<li><strong>Automatic form generation from database/SQLAlchemy models</strong></li>
+</ul><h2>Why Create PyCK?</h2>
+
+<p>Of all the frameworks mentioned above I liked some features of one framework and other features of another framework. Unfortunately I wasn't able to find all those features I like in any existing framework. For example Django probably is the most popular framework in python and for good reason, it has pluggable apps, extensible extensions like its admin panel, a lot of useful documentation and great community support. One of its biggest strengths is that a lot of apps are available for it which can be "plugged" into a new project to get things started really quickly. The problem is that django is very "opnionated", the choices like ORM, templating language, URL dispatching mechanism are all made for the developer and you are mostly stuck with them unless you are willing to put in a lot of extra effort into it.</p>
+
+<p>Consider the following scenario, my favorite ORM is <a href="http://www.sqlalchemy.org/">SQLAlchemy</a> and for good reason. I can develop command line applications, traditional GUIs in GUI toolkits like Qt, GTK etc all using SQLAlchemy as the ORM to interact with the database. Now if I decide to use django, I need to learn and use its ORM, why can't I use the one I already am familiar and proficient with? Though I can but that breaks a lot of stuff in Django.</p>
+
+<p>Pylons and Pyramid on the other hand are very "non-opinionated" frameworks. They both are very flexible and I really like the way things are done in these frameworks. I can use SQLAlchemy or any other ORM like SQLObject etc if I like. I can choose the templating language I want to use (which BTW would be <a href="http://www.makotemplates.org/">Mako</a>). I can choose the URL handling mechanism (in Pyramid) be it URLDispatch or Traversal. But this flexiblity comes at a cost, building "ready-made" components for such frameworks isn't easily possible because we are not sure what the framework user will pick as technologies. So having pluggable apps or pre-built admin panels etc because tough.</p>
+
+<p>So the solution? at least for me; I decided to build a framework based on Pyramid that makes the choices for the developers. If your choices are the same as mine, this framework would be ideal for you. Or if you are a new developer looking into python frameworks you can start here (just not right now since the work has only started yet).</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">PyCK maintained by <a href="https://github.com/kashifpk">kashifpk</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
