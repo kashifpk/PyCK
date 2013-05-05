@@ -6,6 +6,18 @@ Changes
 This document lists the changes as versions progress
 
 
+Whats new in 0.7.5
+-------------------
+
+* Admin Controller is enabled by default under /admin for new PyCK projects
+
+* Links to login, logout, admin and authentication section are included in the header
+
+* Documentation fixes
+
+* Minor refactoring
+
+
 Whats new in 0.7.2
 -------------------
 
