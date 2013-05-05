@@ -1,3 +1,7 @@
+<%!
+from newapp.auth import is_allowed
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,8 +71,23 @@
     
 <%def name="main_menu()">
 <p>
+  
   <a href="${request.route_url('home')}">Home</a> |
-  <a href="${request.route_url('contact')}">Contact Us</a>
+  <a href="${request.route_url('contact')}">Contact Us</a> |
+  %if is_allowed(request, 'pyckauth_manager'):
+  <a href="${request.route_url('pyckauth_manager')}">Auth Manager</a> |
+  %endif
+  
+  %if is_allowed(request, 'admin.admin_index'):
+  <a href="${request.route_url('admin.admin_index')}">Admin Section</a> |
+  %endif
+  
+  %if request.session.get('logged_in_user', None):
+  <a href="${request.route_url('pyckauth_logout')}">Logout</a>
+  %else:
+  <a href="${request.route_url('pyckauth_login')}">Login</a>
+  %endif
+  
 </p>
 </%def>
 <%def name="footer()">

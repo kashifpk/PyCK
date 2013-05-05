@@ -41,7 +41,7 @@ def authenticator(handler, registry):
             if not logged_in_user:
                 return HTTPForbidden()
 
-            if is_allowed(request, matched_routename, ['ALL', request.method]):
+            if is_allowed(request, matched_routename, method=['ALL', request.method], check_route=False):
                 return handler(request)
             else:
                 return HTTPForbidden()
@@ -52,11 +52,18 @@ def authenticator(handler, registry):
     return auth_request
 
 
-def is_allowed(request, routename, method='ALL'):
+def is_allowed(request, routename, method='ALL', check_route=True):
     """
     Given a request_object, routename and method; returns True if current user has access to that route,
     otherwise returns False.
+
+    If check_route if False, does not check the DB to see if the route is in the list of protected routes
     """
+
+    if check_route:
+        route = DBSession.query(RoutePermission).filter_by(route_name=routename).first()
+        if not route:
+            return True
 
     if not isinstance(method, list):
         method = [method, ]
