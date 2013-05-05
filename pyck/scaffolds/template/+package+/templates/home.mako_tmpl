@@ -9,6 +9,7 @@ PyCK Web Development Framework
     <br /><br />
     <img src="${request.static_url('{{package}}:static/pyck-admin.png')}"  alt="pyck"/>
   </div>
+  ${self.main_menu()}
 </%def>
     
     <div>
