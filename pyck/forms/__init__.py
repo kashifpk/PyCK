@@ -137,8 +137,8 @@ def model_form(model, db_session=None, base_class=Form, only=None,
 
 
 def dojo_model_form(model, db_session=None, base_class=Form, only=None,
-    exclude=None, field_args=None, converter=None, exclude_pk=False,
-    exclude_fk=False, type_name=None):
+                    exclude=None, field_args=None, converter=None, exclude_pk=False,
+                    exclude_fk=False, type_name=None):
     """
     A Wrapper around :func:`wtforms.ext.sqlalchemy.orm.model_form` function to facilitate creating model
     forms using a wtforms compatible model_form call but using :class:`pyck.forms.Form` and :module:`WTDojo`

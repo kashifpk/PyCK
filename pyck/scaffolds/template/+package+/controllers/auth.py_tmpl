@@ -193,7 +193,7 @@ def login(request):
                 return HTTPFound(location=request.session.get('came_from'))
             else:
                 try:
-                    return HTTPFound(location=request.route_url('adminadmin_index'))
+                    return HTTPFound(location=request.route_url('admin.admin_index'))
                 except Exception:
                     return HTTPFound(location=request.route_url('home'))
         else:

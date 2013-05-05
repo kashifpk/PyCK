@@ -25,22 +25,30 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
     call, for example::
 
         from pyck.ext import add_admin_handler, AdminController
+        from pyck.lib import get_models
+        import my_application_package_name_here
 
-        # later inside your application's main function
-        add_admin_handler(config, APP_NAME + '.', '/crud', WikiCRUDController)
+        # Place this with the config.add_route calls
+        add_admin_handler(config, DBSession, get_models(my_application_package_name_here), 'admin', '/admin',
+                          AdminController)
 
     :param config:
         The application config object
 
+    :param DBSession:
+        The database session object
+
+    :param models:
+        List of models for to include in the admin panel. get_models funcion can be used to include all models.
+
     :param route_name_prefix:
-        Optional string prefix to add to all route names. Useful if you're adding multiple CRUD controllers and want to
-        avoid route name conflicts.
+        Optional string prefix to add to all route names generated inside the admin panel.
 
     :param url_pattern_prefix:
-        Optional string prefix to add to all crud related url patterns
+        Optional string prefix to add to all admin section related url patterns
 
     :param handler_class:
-        The handler class that is used to handle CRUD requests. Must be sub-class of :class:`pyck.controllers.CRUDController`
+        The AdminController handler class. 
 
     :param models_field_args:
         A dictionary with key being the model name and value being the field args value for that model.
@@ -57,25 +65,6 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='', url
                                         },
                             }
     """
-
-    #>>> Product.category_id.property.columns[0].foreign_keys
-    #set([ForeignKey('categories.id')])
-    #>>> Product.name.property.columns[0].foreign_keys
-    #set([])
-    #Product.id.property.columns[0].autoincrement
-    #True
-    #list(d_id.foreign_keys)[0].column.table
-
-    #ProductModelForm = model_form(Product, exclude=['id'], field_args = {
-    #                                                    'category_id' : {
-    #                                                    'widget' : Select()
-    #                                                    }
-    #                                                })
-    #ProductModelForm.category_id.field_class = SelectField
-    #
-    #product_form = ProductModelForm(request.POST)
-    #
-    #product_form.category_id.choices = categories
 
     handler_class.db_session = db_session
     handler_class.models = models
@@ -147,15 +136,17 @@ class AdminController(object):
 
         from pyck.ext import AdminController, add_admin_handler
         from pyck.lib import get_models
+        import my_application_package_name_here
+
         # Place this with the config.add_route calls
-        add_admin_handler(config, db_session, get_models(myapplicationpackagenamehere), 'admin', '/admin',
+        add_admin_handler(config, DBSession, get_models(my_application_package_name_here), 'admin', '/admin',
                           AdminController)
 
     and that's all you need to do to get a fully operation Admin interface.
 
     **Configuration Options**
 
-    These parameters are to be set as class properties in a sub-class of CRUDController
+    These parameters are to be set as class properties in a sub-class of AdminController
 
     **TODO**
 

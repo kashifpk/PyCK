@@ -2,7 +2,6 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPForbidden
 from models import DBSession, Permission, User, UserPermission, RoutePermission
 from pyramid.urldispatch import _compile_route
 from sqlalchemy import or_, func
-import types
 
 
 def authenticator(handler, registry):
@@ -31,7 +30,7 @@ def authenticator(handler, registry):
 
             matcher, generator = _compile_route(R['pattern'])
 
-            if type(matcher(request.path)) == types.DictionaryType:
+            if isinstance(matcher(request.path), dict):
                 #print(R['name'] + ':' + R['pattern'])
                 matched_routename = R['name']
                 break
@@ -39,25 +38,10 @@ def authenticator(handler, registry):
         # Check routes from protected routes here.
         if matched_routename and matched_routename in protected_routes:
             # first check if there is any static permission given and if yes then validate routes against that permission
-            user_permissions = []
-            if request.session.get('auth_static_permission', None):
-                user_permissions.append(request.session.get('auth_static_permission', None))
-            else:
-                if not logged_in_user:
-                    return HTTPForbidden()
+            if not logged_in_user:
+                return HTTPForbidden()
 
-                # get user permissions
-                user_permissions = request.session.get('auth_user_permissions', [])
-
-            # get route permissions for the current route
-            # match if there are any common permissions and check for all matching request methods
-            has_permission = DBSession.query(func.count(RoutePermission.permission)).filter(
-                                            RoutePermission.route_name == matched_routename).filter(
-                                            or_(RoutePermission.method == 'ALL',
-                                                RoutePermission.method == request.method)).filter(
-                                            RoutePermission.permission.in_(user_permissions)).scalar()
-
-            if has_permission > 0:
+            if is_allowed(request, matched_routename, ['ALL', request.method]):
                 return handler(request)
             else:
                 return HTTPForbidden()
@@ -66,3 +50,27 @@ def authenticator(handler, registry):
             return handler(request)
 
     return auth_request
+
+
+def is_allowed(request, routename, method='ALL'):
+    """
+    Given a request_object, routename and method; returns True if current user has access to that route,
+    otherwise returns False.
+    """
+
+    if not isinstance(method, list):
+        method = [method, ]
+
+    user_permissions = request.session.get('auth_user_permissions', [])
+    if request.session.get('auth_static_permission', None):
+        user_permissions.append(request.session.get('auth_static_permission', None))
+
+    has_permission = DBSession.query(func.count(RoutePermission.permission)).filter(
+                                            RoutePermission.route_name == routename).filter(
+                                            RoutePermission.method.in_(method)).filter(
+                                            RoutePermission.permission.in_(user_permissions)).scalar()
+
+    if has_permission > 0:
+        return True
+    else:
+        return False
