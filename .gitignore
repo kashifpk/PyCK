@@ -4,3 +4,8 @@
 *.swp
 *.komodoproject
 *cache*
+dist/
+build/
+docs/_build
+PyCK.egg-info/
+
