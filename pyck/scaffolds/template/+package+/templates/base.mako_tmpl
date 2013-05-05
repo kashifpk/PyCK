@@ -1,5 +1,5 @@
 <%!
-from newapp.auth import is_allowed
+from {{package}}.auth import is_allowed
 %>
 
 <!DOCTYPE html>
