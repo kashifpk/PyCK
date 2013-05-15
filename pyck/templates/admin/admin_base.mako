@@ -265,8 +265,7 @@
   <meta name="description" content="PyCK web application" />
 </%def>
 
-<%def name="body_class()">
-</%def>
+<%def name="body_class()">claro</%def>
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
