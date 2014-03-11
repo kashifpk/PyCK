@@ -2,7 +2,8 @@
 PyCK Admin Extension
 ====================
 
-Admin extension that automtically creates CRUD interfaces for all database models (or a selected list of models)
+Admin extension that automtically creates CRUD interfaces for all database models
+(or a selected list of models)
 
 """
 
@@ -18,8 +19,8 @@ from pyck.lib.models import get_columns
 from pyck.controllers import CRUDController, add_crud_handler
 
 
-def add_admin_handler(config, db_session, models=None, route_name_prefix='', url_pattern_prefix='', handler_class=None,
-                      models_field_args={}):
+def add_admin_handler(config, db_session, models=None, route_name_prefix='',
+                      url_pattern_prefix='', handler_class=None, models_field_args={}):
     """
     A utility function to quickly add all admin related routes and set them to the admin handler class with one function
     call, for example::
@@ -148,7 +149,7 @@ class AdminController(object):
 
     These parameters are to be set as class properties in a sub-class of AdminController
 
-    **TODO**
+    ** TODO **
 
     * More documentation of various options and methods
     * An AdminController tutorial
