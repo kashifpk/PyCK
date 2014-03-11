@@ -6,6 +6,14 @@ Changes
 This document lists the changes as versions progress
 
 
+Whats new in 0.7.6
+-------------------
+
+* Use 127.0.0.1 as ip for development.ini. For development.ini don't use 0.0.0.0 as it causes some issues
+  requiring reloading on firefox (specially when using proxies). Just use 127.0.0.1, production.ini still
+  uses 0.0.0.0
+
+
 Whats new in 0.7.5
 -------------------
 

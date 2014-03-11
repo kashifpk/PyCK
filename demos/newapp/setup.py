@@ -16,7 +16,9 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_handlers',
     'zope.sqlalchemy',
-    'wtforms'
+    'waitress',
+    'wtforms',
+    'wtdojo'
     ]
 
 if sys.version_info[:3] < (2, 5, 0):
@@ -28,7 +30,7 @@ setup(name='newapp',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
-        "Framework :: Pylons",
+        "Framework :: PyCK",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
@@ -45,7 +47,7 @@ setup(name='newapp',
       [paste.app_factory]
       main = newapp:main
       [console_scripts]
-      populate_newapp = newapp.scripts.populate:main
+      newapp_populate = newapp.scripts.populate:main
       newapp_newapp = newapp.scripts.newapp:main
       """,
       )
