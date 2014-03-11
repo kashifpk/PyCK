@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.7.2 documentation</title>
+    <title>Changes &mdash; PyCK 0.8.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.7.2 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.8.0 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,8 +53,20 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
-<div class="section" id="whats-new-in-0-7-5">
-<h2>Whats new in 0.7.5<a class="headerlink" href="#whats-new-in-0-7-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-8">
+<h2>What&#8217;s new in 0.8<a class="headerlink" href="#what-s-new-in-0-8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use 127.0.0.1 as ip for development.ini. For development.ini don&#8217;t use 0.0.0.0 as it causes some issues
+requiring reloading on firefox (specially when using proxies). Just use 127.0.0.1, production.ini still
+uses 0.0.0.0</li>
+<li>Use <a class="reference external" href="http://docs.pylonsproject.org/projects/waitress/en/latest/">waitress</a> HTTP server</li>
+<li>Renamed populate_projname command to projname_initdb, all commands of a project starting from the project&#8217;s
+name make more sense.</li>
+<li>Documentation updates</li>
+</ul>
+</div>
+<div class="section" id="what-s-new-in-0-7-5">
+<h2>What&#8217;s new in 0.7.5<a class="headerlink" href="#what-s-new-in-0-7-5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Admin Controller is enabled by default under /admin for new PyCK projects</li>
 <li>Links to login, logout, admin and authentication section are included in the header</li>
@@ -62,15 +74,15 @@
 <li>Minor refactoring</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-7-2">
-<h2>Whats new in 0.7.2<a class="headerlink" href="#whats-new-in-0-7-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-7-2">
+<h2>What&#8217;s new in 0.7.2<a class="headerlink" href="#what-s-new-in-0-7-2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>The default admin permission was renamed from manage to admin since this name makes more sense</li>
 <li>Added wtdojo to requires for new projects</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-7-1">
-<h2>Whats new in 0.7.1<a class="headerlink" href="#whats-new-in-0-7-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-7-1">
+<h2>What&#8217;s new in 0.7.1<a class="headerlink" href="#what-s-new-in-0-7-1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Updates to documentation</li>
 <li>Design changes to make the default generated application look a bit better</li>
@@ -81,8 +93,8 @@ session variable</li>
 <li>Minor CSS fix so that footer is properly bottom-aligned in the page</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-7">
-<h2>Whats new in 0.7<a class="headerlink" href="#whats-new-in-0-7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-7">
+<h2>What&#8217;s new in 0.7<a class="headerlink" href="#what-s-new-in-0-7" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Static routes (routes normally used for JS, images, CSS etc) are now ignored for authentication checking. Using Javascript
 frameworks like Dojo requires accessing quite a lot of files for a page and this can slow down the application checking for
@@ -112,28 +124,28 @@ with fields id and name then product names are displayed in listings</li>
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6-8">
-<h2>Whats new in 0.6.8<a class="headerlink" href="#whats-new-in-0-6-8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6-8">
+<h2>What&#8217;s new in 0.6.8<a class="headerlink" href="#what-s-new-in-0-6-8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>CRUDController now uses wtdojo to display fields using dojo.</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6-6">
-<h2>Whats new in 0.6.6<a class="headerlink" href="#whats-new-in-0-6-6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6-6">
+<h2>What&#8217;s new in 0.6.6<a class="headerlink" href="#what-s-new-in-0-6-6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Minor improvement in the authentication framework. Instead of fetching user permissions from the DB for each url request; user
 permissions are fetched only once during login time and stored in session. The auth.authenticator tween just used the list of
 user permissions present in session instead of fetching them each time.</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6-5">
-<h2>Whats new in 0.6.5<a class="headerlink" href="#whats-new-in-0-6-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6-5">
+<h2>What&#8217;s new in 0.6.5<a class="headerlink" href="#what-s-new-in-0-6-5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>dojo_model_forms support</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6-4">
-<h2>Whats new in 0.6.4<a class="headerlink" href="#whats-new-in-0-6-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6-4">
+<h2>What&#8217;s new in 0.6.4<a class="headerlink" href="#what-s-new-in-0-6-4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
 for a route but you don&#8217;t have to assign any user to that permission. This is meant to allow authentication from user databases other
@@ -142,15 +154,15 @@ their login verification controllers. This way the users can be authenticated an
 to the whole application can be controlled by PyCK&#8217;s authentication manager.</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6-3">
-<h2>Whats new in 0.6.3<a class="headerlink" href="#whats-new-in-0-6-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6-3">
+<h2>What&#8217;s new in 0.6.3<a class="headerlink" href="#what-s-new-in-0-6-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Fixed minor issue with the populate script that prevented proper population of posgresql and possibly mysql databases.
 This does not seem to happen with SQLite.</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-6">
-<h2>Whats new in 0.6<a class="headerlink" href="#whats-new-in-0-6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-6">
+<h2>What&#8217;s new in 0.6<a class="headerlink" href="#what-s-new-in-0-6" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
 permissions and assigning them to different routes. A default login and logout route is now also present in the
@@ -166,8 +178,8 @@ initial scaffold.</p>
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-5-1">
-<h2>Whats new in 0.5.1<a class="headerlink" href="#whats-new-in-0-5-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-5-1">
+<h2>What&#8217;s new in 0.5.1<a class="headerlink" href="#what-s-new-in-0-5-1" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Update to CRUDController allowing displaying of related data from another table of a foreign key field. The <em>add_edit_field_args</em>
 property can now take values <em>choices</em> and <em>choices_fields</em> and the <em>list_field_args</em> property takes a key <em>display_field</em>, for example:</p>
@@ -188,8 +200,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-5">
-<h2>Whats new in 0.5<a class="headerlink" href="#whats-new-in-0-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-5">
+<h2>What&#8217;s new in 0.5<a class="headerlink" href="#what-s-new-in-0-5" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Automatic Admin Interface - Enables automatic Admin interface generation from database models. The <a class="reference internal" href="pyck-admin.html#pyck.ext.admin_controller.AdminController" title="pyck.ext.admin_controller.AdminController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.ext.admin_controller.AdminController</span></tt></a> allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.</p>
 <blockquote>
@@ -208,27 +220,27 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-4-3">
-<h2>Whats new in 0.4.3<a class="headerlink" href="#whats-new-in-0-4-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-4-3">
+<h2>What&#8217;s new in 0.4.3<a class="headerlink" href="#what-s-new-in-0-4-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Updates to the CRUDController for better template integration</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-4-2">
-<h2>Whats new in 0.4.2<a class="headerlink" href="#whats-new-in-0-4-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-4-2">
+<h2>What&#8217;s new in 0.4.2<a class="headerlink" href="#what-s-new-in-0-4-2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Pagination fixes for limiting the number of pages displayed</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-4-1">
-<h2>Whats new in 0.4.1<a class="headerlink" href="#whats-new-in-0-4-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-4-1">
+<h2>What&#8217;s new in 0.4.1<a class="headerlink" href="#what-s-new-in-0-4-1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Fixed edit interface bug in CRUDController</li>
 <li>Added instructions for setting up pyck with Apache+mod_wsgi</li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-4">
-<h2>Whats new in 0.4<a class="headerlink" href="#whats-new-in-0-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-4">
+<h2>What&#8217;s new in 0.4<a class="headerlink" href="#what-s-new-in-0-4" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">CRUDController - Enables automatic CRUD interface generation from database models. The <a class="reference internal" href="pyck-controllers.html#pyck.controllers.CRUDController" title="pyck.controllers.CRUDController"><tt class="xref py py-class docutils literal"><span class="pre">pyck.controllers.CRUDController</span></tt></a> allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.</p>
 <blockquote>
@@ -258,8 +270,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-3">
-<h2>Whats new in 0.3<a class="headerlink" href="#whats-new-in-0-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-3">
+<h2>What&#8217;s new in 0.3<a class="headerlink" href="#what-s-new-in-0-3" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Model Forms - Ability to generate forms automatically from database models. We now have a <a class="reference internal" href="pyck-forms.html#pyck.forms.model_form" title="pyck.forms.model_form"><tt class="xref py py-func docutils literal"><span class="pre">pyck.forms.model_form()</span></tt></a> function that behaves exactly like <tt class="xref py py-func docutils literal"><span class="pre">wtforms.ext.sqlalchemy.orm.model_form()</span></tt> but uses <a class="reference internal" href="pyck-forms.html#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.forms</span> <span class="kn">import</span> <span class="n">model_form</span>
@@ -277,8 +289,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-2-4">
-<h2>Whats new in 0.2.4<a class="headerlink" href="#whats-new-in-0-2-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-2-4">
+<h2>What&#8217;s new in 0.2.4<a class="headerlink" href="#what-s-new-in-0-2-4" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Automated CSRF Protection in forms. While disabled by default (to maintain compatibility with WTForms), CSRF protection can be enabled for a form by passing the form two extra keyword arguments <strong>request_obj</strong> and <strong>use_csrf_protection</strong> set to <strong>True</strong> when initializing it. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">ContactForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request_obj</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">use_csrf_protection</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -289,8 +301,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-2-3">
-<h2>Whats new in 0.2.3<a class="headerlink" href="#whats-new-in-0-2-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-2-3">
+<h2>What&#8217;s new in 0.2.3<a class="headerlink" href="#what-s-new-in-0-2-3" title="Permalink to this headline">¶</a></h2>
 <p>Till now almost all updates were to the scaffold generated by a PyCK project, so in a sense till now PyCK could be considered another scraffold for Pyramid. With this version, things are starting to change a bit.</p>
 <ul>
 <li><p class="first">A new package <a class="reference internal" href="pyck-forms.html#module-pyck.forms" title="pyck.forms: Wrapper on top of WTForms to further ease up forms usage"><tt class="xref py py-mod docutils literal"><span class="pre">pyck.forms</span></tt></a> that serves as a wrapper on top of WTForms (will try to maintain code usage compatibility with wtforms) so instead of using normal <strong>wtforms.Form</strong> class instances, PyCK developers can use <a class="reference internal" href="pyck-forms.html#pyck.forms.Form" title="pyck.forms.Form"><tt class="xref py py-class docutils literal"><span class="pre">pyck.forms.Form</span></tt></a> instances in the same way. But these forms come with some additional features</p>
@@ -306,8 +318,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-2-2">
-<h2>Whats new in 0.2.2<a class="headerlink" href="#whats-new-in-0-2-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-2-2">
+<h2>What&#8217;s new in 0.2.2<a class="headerlink" href="#what-s-new-in-0-2-2" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Sessions support - Sessions come pre-configured now with a new PyCK project and the sample included has also been updated accordingly</p>
 </li>
@@ -323,10 +335,10 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <li><p class="first">Flash messaging support is also in. Look at the contact form example (specifically its template and the home and base templates) to see flash messages in action.</p>
 </li>
 </ul>
-<p><strong>Whats next?</strong> Focus now is to make forms more easy to use within PyCK. Upcoming versions are expected to contain more enhancements related to forms.</p>
+<p><strong>What&#8217;s next?</strong> Focus now is to make forms more easy to use within PyCK. Upcoming versions are expected to contain more enhancements related to forms.</p>
 </div>
-<div class="section" id="whats-new-in-0-2-1">
-<h2>Whats new in 0.2.1<a class="headerlink" href="#whats-new-in-0-2-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-2-1">
+<h2>What&#8217;s new in 0.2.1<a class="headerlink" href="#what-s-new-in-0-2-1" title="Permalink to this headline">¶</a></h2>
 <p>Some code refactoring to ease up a few things</p>
 <ul>
 <li><p class="first">Moved sys.path addition settings to a seperate function named load_project_settings in project&#8217;s __init__.py. This function is called by __init__.py&#8217;s main function to load project specific settings and also called by the populate script. So the code is at one place instead of two places.</p>
@@ -348,8 +360,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-2-0">
-<h2>Whats new in 0.2.0<a class="headerlink" href="#whats-new-in-0-2-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-2-0">
+<h2>What&#8217;s new in 0.2.0<a class="headerlink" href="#what-s-new-in-0-2-0" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">tables created from models in apps are automatically prefixed by app name. For example: if you have an app named blog and it has a model Post where you have specified:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;posts&#39;</span>
@@ -358,13 +370,13 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 <p>it will automatically be created as <strong>blog_posts</strong> in the database. Your access to the table through the model remained same without any changes.</p>
 </li>
 <li><p class="first">Once you run python setup.py develop for your new project, a new command for creating an app becomes availabe to you. Instead of copying the sample app provided and adjusting it, now the whole struture is created for you. For details see</p>
-<p><a class="reference internal" href="adding-apps.html#adding-apps"><em>Adding an Application</em></a></p>
+<p><em class="xref std std-ref">adding-apps</em></p>
 <p>This feature is the reason that the version number bumped upto 0.2 :-)</p>
 </li>
 </ul>
 </div>
-<div class="section" id="whats-new-in-0-1-6">
-<h2>Whats new in 0.1.6<a class="headerlink" href="#whats-new-in-0-1-6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-1-6">
+<h2>What&#8217;s new in 0.1.6<a class="headerlink" href="#what-s-new-in-0-1-6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>First fully operational version with pluggable apps along with their database models etc.</li>
 </ul>
@@ -380,29 +392,30 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
-<li><a class="reference internal" href="#whats-new-in-0-7-5">Whats new in 0.7.5</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-7-2">Whats new in 0.7.2</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-7-1">Whats new in 0.7.1</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-7">Whats new in 0.7</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6-8">Whats new in 0.6.8</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6-6">Whats new in 0.6.6</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6-5">Whats new in 0.6.5</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6-4">Whats new in 0.6.4</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6-3">Whats new in 0.6.3</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-6">Whats new in 0.6</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-5-1">Whats new in 0.5.1</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-5">Whats new in 0.5</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-4-3">Whats new in 0.4.3</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-4-2">Whats new in 0.4.2</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-4-1">Whats new in 0.4.1</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-4">Whats new in 0.4</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-3">Whats new in 0.3</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-2-4">Whats new in 0.2.4</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-2-3">Whats new in 0.2.3</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-2-2">Whats new in 0.2.2</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-2-1">Whats new in 0.2.1</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-2-0">Whats new in 0.2.0</a></li>
-<li><a class="reference internal" href="#whats-new-in-0-1-6">Whats new in 0.1.6</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-8">What&#8217;s new in 0.8</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-7-5">What&#8217;s new in 0.7.5</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-7-2">What&#8217;s new in 0.7.2</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-7-1">What&#8217;s new in 0.7.1</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-7">What&#8217;s new in 0.7</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6-8">What&#8217;s new in 0.6.8</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6-6">What&#8217;s new in 0.6.6</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6-5">What&#8217;s new in 0.6.5</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6-4">What&#8217;s new in 0.6.4</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6-3">What&#8217;s new in 0.6.3</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-6">What&#8217;s new in 0.6</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-5-1">What&#8217;s new in 0.5.1</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-5">What&#8217;s new in 0.5</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-4-3">What&#8217;s new in 0.4.3</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-4-2">What&#8217;s new in 0.4.2</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-4-1">What&#8217;s new in 0.4.1</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-4">What&#8217;s new in 0.4</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-3">What&#8217;s new in 0.3</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-2-4">What&#8217;s new in 0.2.4</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-2-3">What&#8217;s new in 0.2.3</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-2-2">What&#8217;s new in 0.2.2</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-2-1">What&#8217;s new in 0.2.1</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-2-0">What&#8217;s new in 0.2.0</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-1-6">What&#8217;s new in 0.1.6</a></li>
 </ul>
 </li>
 </ul>
@@ -444,11 +457,11 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011, 2012 Kashif Iftikhar.
+        &copy; Copyright 2011 - 2014 Kashif Iftikhar.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

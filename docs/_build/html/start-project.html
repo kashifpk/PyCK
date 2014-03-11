@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting a Project &mdash; PyCK 0.7.2 documentation</title>
+    <title>Starting a Project &mdash; PyCK 0.8.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.2',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.7.2 documentation" href="index.html" />
-    <link rel="next" title="Adding an Application" href="adding-apps.html" />
+    <link rel="top" title="PyCK 0.8.0 documentation" href="index.html" />
+    <link rel="next" title="Pluggable application in PyCK" href="pluggable-apps-howto.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
   <body>
@@ -40,12 +40,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="adding-apps.html" title="Adding an Application"
+          <a href="pluggable-apps-howto.html" title="Pluggable application in PyCK"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,7 +61,7 @@
 <li><p class="first">Move to the folder where you want to create your project&#8217;s base folder.</p>
 </li>
 <li><p class="first">Create the project structure using:</p>
-<div class="highlight-python"><pre>pcreate -t pyck myproject</pre>
+<div class="highlight-python"><pre>pcreate -s pyck myproject</pre>
 </div>
 <p>Replace myproject with the name of your project. This creates the basic structure for your project including configuration files for both development and production, adding project package and sub foldres for controllers/view, models, templates, scripts, tests etc. Your project has support for pluggable applications which can be placed in the apps folder under your project&#8217;s package. The generated code already contains one app there with its basic structure ready to use. If you like, you can copy this structure to create more apps.</p>
 </li>
@@ -74,7 +74,7 @@
 </div>
 </li>
 <li><p class="first">Now you should create any database models under &lt;yourprojectname&gt;/models/models.py that you wish to use, once done (or even if you don&#8217;t want to create any models yet), run:</p>
-<div class="highlight-python"><pre>populate_myproject development.ini</pre>
+<div class="highlight-python"><pre>myproject_initdb development.ini</pre>
 </div>
 <p>Remember to replace myproject with the name of your project. This script automatically creates tables in the database specified in development.ini configuration file. By default a SQLite file with the same name as your project is used, you can change the <strong>sqlalchemy.url</strong> parameter in development.ini (or production.ini in case you&#8217;re changing the backend DB for production). Remember that this populate script needs to be executed again in case you add/change your models in either your main project or in any of its sub-applications. When re-running the populate script, you may need to delete the existing records/tables from your DB for this script to execute without errors.</p>
 </li>
@@ -91,7 +91,7 @@ Starting HTTP server on http://0.0.0.0:6543</pre>
 <li><p class="first">Open your browser and type:</p>
 <div class="highlight-python"><pre>http://localhost:6543</pre>
 </div>
-<p>and congratulations you should see the initial page saing Welcome and displaying a link to <strong>My Application</strong> in the middle. Clicking this link opens up a view from My Application just for demonstrating the use of pluggable apps.</p>
+<p>and congratulations you should see the initial page saying Welcome.</p>
 </li>
 </ol>
 <p>From here on you can start developing your project however you like :-)</p>
@@ -107,8 +107,8 @@ Starting HTTP server on http://0.0.0.0:6543</pre>
   <p class="topless"><a href="installation.html"
                         title="previous chapter">Installation</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="adding-apps.html"
-                        title="next chapter">Adding an Application</a></p>
+  <p class="topless"><a href="pluggable-apps-howto.html"
+                        title="next chapter">Pluggable application in PyCK</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/start-project.txt"
@@ -141,16 +141,16 @@ Starting HTTP server on http://0.0.0.0:6543</pre>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="adding-apps.html" title="Adding an Application"
+          <a href="pluggable-apps-howto.html" title="Pluggable application in PyCK"
              >next</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011, 2012 Kashif Iftikhar.
+        &copy; Copyright 2011 - 2014 Kashif Iftikhar.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

@@ -34,18 +34,21 @@ Discussion on various aspects of PyCK
 
 :ref:`pluggable-apps`
 
-Feature Plan
-------------
+Current Features
+-----------------
 
 And what exactly are the choices?
 
-* Use **SQLAlchemy as the ORM**
-* Use **Mako as the templating language**
-* Use **URLDispatch as the resource location** - URL to code mapping mechanism
-* Design should support **Pluggable applications** similar to Djano
-* Should have easily **extendible components** like an admin panel, etc
-* Allow web applications to be easily **Themable**
-* Use `Dojo <http://dojotoolkit.org/>`_ for UI components, AJAX etc
-* Ability to easily specify **separate view templates for mobile devices** (using Dojox.mobile)
-* **Automatic form generation from database/SQLAlchemy models** (looking into possible options like sprox, formalchemy, wtforms, deform, etc)
+* Uses **SQLAlchemy as the ORM**
+* Uses **Mako as the templating language**
+* Uses **URLDispatch as the resource location** - URL to code mapping mechanism
+* Design supports **Pluggable applications** similar to Django
+* Has easily **extendible components** like an admin panel, etc
+* Uses `Dojo <http://dojotoolkit.org/>`_ for UI components, AJAX etc
+* **Automatic form generation from database/SQLAlchemy models** (Using WTForms and custom code created on top of WTForms)
 
+Future Plan
+-----------
+
+* Allow web applications to be easily **Themable**
+* Ability to easily specify **separate view templates for mobile devices** (which may use specific libraries like Dojox.mobile)

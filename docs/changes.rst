@@ -5,16 +5,21 @@ Changes
 
 This document lists the changes as versions progress
 
-
-Whats new in 0.7.6
--------------------
+What's new in 0.8
+------------------
 
 * Use 127.0.0.1 as ip for development.ini. For development.ini don't use 0.0.0.0 as it causes some issues
   requiring reloading on firefox (specially when using proxies). Just use 127.0.0.1, production.ini still
   uses 0.0.0.0
 
+* Use `waitress <http://docs.pylonsproject.org/projects/waitress/en/latest/>`_ HTTP server
 
-Whats new in 0.7.5
+* Renamed populate_projname command to projname_initdb, all commands of a project starting from the project's
+  name make more sense.
+
+* Documentation updates
+
+What's new in 0.7.5
 -------------------
 
 * Admin Controller is enabled by default under /admin for new PyCK projects
@@ -26,7 +31,7 @@ Whats new in 0.7.5
 * Minor refactoring
 
 
-Whats new in 0.7.2
+What's new in 0.7.2
 -------------------
 
 * The default admin permission was renamed from manage to admin since this name makes more sense
@@ -34,7 +39,7 @@ Whats new in 0.7.2
 * Added wtdojo to requires for new projects
 
 
-Whats new in 0.7.1
+What's new in 0.7.1
 -------------------
 
 * Updates to documentation
@@ -51,7 +56,7 @@ Whats new in 0.7.1
 * Minor CSS fix so that footer is properly bottom-aligned in the page
 
 
-Whats new in 0.7
+What's new in 0.7
 -----------------
 
 * Static routes (routes normally used for JS, images, CSS etc) are now ignored for authentication checking. Using Javascript
@@ -80,13 +85,13 @@ Whats new in 0.7
       with fields id and name then product names are displayed in listings
 
 
-Whats new in 0.6.8
+What's new in 0.6.8
 -------------------
 
 * CRUDController now uses wtdojo to display fields using dojo.
   
 
-Whats new in 0.6.6
+What's new in 0.6.6
 -------------------
 
 * Minor improvement in the authentication framework. Instead of fetching user permissions from the DB for each url request; user
@@ -94,13 +99,13 @@ Whats new in 0.6.6
   user permissions present in session instead of fetching them each time.
 
 
-Whats new in 0.6.5
+What's new in 0.6.5
 ------------------
 
 * dojo_model_forms support
 
 
-Whats new in 0.6.4
+What's new in 0.6.4
 -------------------
 
 * Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
@@ -110,14 +115,14 @@ Whats new in 0.6.4
   to the whole application can be controlled by PyCK's authentication manager.
 
 
-Whats new in 0.6.3
+What's new in 0.6.3
 -------------------
 
 * Fixed minor issue with the populate script that prevented proper population of posgresql and possibly mysql databases.
   This does not seem to happen with SQLite.
 
 
-Whats new in 0.6
+What's new in 0.6
 ----------------
 
 * Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
@@ -135,7 +140,7 @@ Whats new in 0.6
 * Renamed controllers/views.py to controllers/controllers.py since views.py was confusing in the MVC context
   
 
-Whats new in 0.5.1
+What's new in 0.5.1
 -------------------
 
 * Update to CRUDController allowing displaying of related data from another table of a foreign key field. The *add_edit_field_args*
@@ -155,7 +160,7 @@ Whats new in 0.5.1
                     }
 
 
-Whats new in 0.5
+What's new in 0.5
 ----------------
 
 * Automatic Admin Interface - Enables automatic Admin interface generation from database models. The :class:`pyck.ext.admin_controller.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
@@ -170,23 +175,23 @@ Whats new in 0.5
     
     and that's all you need to do to get a fully operation Admin interface.
     
-Whats new in 0.4.3
+What's new in 0.4.3
 ------------------
 
 * Updates to the CRUDController for better template integration
 
-Whats new in 0.4.2
+What's new in 0.4.2
 ------------------
 
 * Pagination fixes for limiting the number of pages displayed
 
-Whats new in 0.4.1
+What's new in 0.4.1
 ------------------
 
 * Fixed edit interface bug in CRUDController
 * Added instructions for setting up pyck with Apache+mod_wsgi 
 
-Whats new in 0.4
+What's new in 0.4
 ----------------
 
 * CRUDController - Enables automatic CRUD interface generation from database models. The :class:`pyck.controllers.CRUDController` allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.
@@ -211,7 +216,7 @@ Whats new in 0.4
     and that's all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.
 
 
-Whats new in 0.3
+What's new in 0.3
 ----------------
 
 * Model Forms - Ability to generate forms automatically from database models. We now have a :func:`pyck.forms.model_form` function that behaves exactly like :func:`wtforms.ext.sqlalchemy.orm.model_form` but uses :class:`pyck.forms.Form` as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example::
@@ -228,7 +233,7 @@ Whats new in 0.3
 
 * A more operational blog app in the newapp given in demos that uses the model_form feature to add blog posts.
 
-Whats new in 0.2.4
+What's new in 0.2.4
 ------------------
 
 * Automated CSRF Protection in forms. While disabled by default (to maintain compatibility with WTForms), CSRF protection can be enabled for a form by passing the form two extra keyword arguments **request_obj** and **use_csrf_protection** set to **True** when initializing it. For example::
@@ -237,7 +242,7 @@ Whats new in 0.2.4
 
 * Form objects now have an as_table :func:`pyck.forms.Form.as_table` method that allows displaying the form in a table similar to the :func:`pyck.forms.Form.as_p` method added in previous release. This method also accepts labels and errors positions (left, right, top, bottom) and optionally allows you to insert the html <table> tag within the method instead of putting it in your template by setting **include_table_tag parameter** to **True**
 
-Whats new in 0.2.3
+What's new in 0.2.3
 ------------------
 
 Till now almost all updates were to the scaffold generated by a PyCK project, so in a sense till now PyCK could be considered another scraffold for Pyramid. With this version, things are starting to change a bit.
@@ -254,7 +259,7 @@ Till now almost all updates were to the scaffold generated by a PyCK project, so
 
 
 
-Whats new in 0.2.2
+What's new in 0.2.2
 ------------------
 
 * Sessions support - Sessions come pre-configured now with a new PyCK project and the sample included has also been updated accordingly
@@ -267,10 +272,10 @@ Whats new in 0.2.2
 
 * Flash messaging support is also in. Look at the contact form example (specifically its template and the home and base templates) to see flash messages in action.
 
-**Whats next?** Focus now is to make forms more easy to use within PyCK. Upcoming versions are expected to contain more enhancements related to forms.
+**What's next?** Focus now is to make forms more easy to use within PyCK. Upcoming versions are expected to contain more enhancements related to forms.
 
 
-Whats new in 0.2.1
+What's new in 0.2.1
 ------------------
 
 Some code refactoring to ease up a few things
@@ -291,7 +296,7 @@ Some code refactoring to ease up a few things
 
     from myapp.models import MyModel
 
-Whats new in 0.2.0
+What's new in 0.2.0
 ------------------
 
 * tables created from models in apps are automatically prefixed by app name. For example: if you have an app named blog and it has a model Post where you have specified::
@@ -307,7 +312,7 @@ Whats new in 0.2.0
   This feature is the reason that the version number bumped upto 0.2 :-)
 
 
-Whats new in 0.1.6
+What's new in 0.1.6
 ------------------
 
 * First fully operational version with pluggable apps along with their database models etc.

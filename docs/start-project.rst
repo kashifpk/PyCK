@@ -10,7 +10,7 @@ Once you have successfully installed PyCK and have optionally activated a virtau
 
 2. Create the project structure using::
 
-    pcreate -t pyck myproject
+    pcreate -s pyck myproject
     
    Replace myproject with the name of your project. This creates the basic structure for your project including configuration files for both development and production, adding project package and sub foldres for controllers/view, models, templates, scripts, tests etc. Your project has support for pluggable applications which can be placed in the apps folder under your project's package. The generated code already contains one app there with its basic structure ready to use. If you like, you can copy this structure to create more apps.
 
@@ -24,7 +24,7 @@ Once you have successfully installed PyCK and have optionally activated a virtau
 
 5. Now you should create any database models under <yourprojectname>/models/models.py that you wish to use, once done (or even if you don't want to create any models yet), run::
 
-    populate_myproject development.ini
+    myproject_initdb development.ini
 
    Remember to replace myproject with the name of your project. This script automatically creates tables in the database specified in development.ini configuration file. By default a SQLite file with the same name as your project is used, you can change the **sqlalchemy.url** parameter in development.ini (or production.ini in case you're changing the backend DB for production). Remember that this populate script needs to be executed again in case you add/change your models in either your main project or in any of its sub-applications. When re-running the populate script, you may need to delete the existing records/tables from your DB for this script to execute without errors.
 
@@ -44,6 +44,6 @@ Once you have successfully installed PyCK and have optionally activated a virtau
 
     http://localhost:6543
     
-   and congratulations you should see the initial page saing Welcome and displaying a link to **My Application** in the middle. Clicking this link opens up a view from My Application just for demonstrating the use of pluggable apps.
+   and congratulations you should see the initial page saying Welcome.
 
 From here on you can start developing your project however you like :-)

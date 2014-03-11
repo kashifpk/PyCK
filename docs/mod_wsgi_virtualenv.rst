@@ -32,7 +32,7 @@ Assuming you have followed the :ref:`installation` section and created a virtual
     cd wsgi_test
     python setup.py develop
     python setup.py install
-    populate_wsgi_test
+    wsgi_test_initdb
 
 6. Create the wsgi file for use with mod_wsgi, lets name it **myapp.wsgi**::
 
