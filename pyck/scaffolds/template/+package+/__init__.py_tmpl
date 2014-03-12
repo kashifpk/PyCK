@@ -9,9 +9,10 @@ from models import DBSession
 
 import importlib
 from apps import enabled_apps
+import apps
 
 from pyck.ext import add_admin_handler, AdminController
-from pyck.lib import get_models
+from pyck.lib import get_models, get_submodules
 import {{package}}
 
 
@@ -47,7 +48,14 @@ def main(global_config, **settings):
 
     configure_app_routes(config)
 
-    config.scan()
+    all_apps = get_submodules(apps)
+
+    ignored_apps = []
+    for app in all_apps:
+        if app['is_package'] and app['name'] not in enabled_apps:
+            ignored_apps.append('.apps.' + app['name'])
+
+    config.scan(ignore=ignored_apps)
 
     return config.make_wsgi_app()
 
