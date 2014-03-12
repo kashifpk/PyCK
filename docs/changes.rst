@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.8.1
+--------------------
+
+* Fixed issue where app created but not included in enabled_apps causes project start-up failure
+
 What's new in 0.8
 ------------------
 
