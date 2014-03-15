@@ -19,35 +19,36 @@ requires = [
     'waitress',
     'wtforms',
     'wtdojo'
-    ]
+]
 
 if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
 
-setup(name='newapp',
-      version='0.0',
-      description='newapp',
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+setup(
+    name='newapp',
+    version='0.0',
+    description='newapp',
+    long_description=README + '\n\n' + CHANGES,
+    classifiers=[
         "Programming Language :: Python",
         "Framework :: PyCK",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
-      author='',
-      author_email='',
-      url='',
-      keywords='web wsgi bfg pylons pyramid',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      test_suite='newapp',
-      install_requires=requires,
-      entry_points="""\
-      [paste.app_factory]
-      main = newapp:main
-      [console_scripts]
-      newapp_initdb = newapp.scripts.populate:main
-      newapp_newapp = newapp.scripts.newapp:main
-      """,
-      )
+    ],
+    author='',
+    author_email='',
+    url='',
+    keywords='web wsgi bfg pylons pyramid',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    test_suite='newapp',
+    install_requires=requires,
+    entry_points="""\
+    [paste.app_factory]
+    main = newapp:main
+    [console_scripts]
+    newapp_populate = newapp.scripts.populate:main
+    newapp_newapp = newapp.scripts.newapp:main
+    """,
+)

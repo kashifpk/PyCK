@@ -6,6 +6,7 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 from sqlalchemy import engine_from_config
 
 from models import DBSession
+from routes import application_routes
 
 import importlib
 from apps import enabled_apps
@@ -31,20 +32,10 @@ def main(global_config, **settings):
     config.include('pyramid_handlers')
     config.add_view('pyramid.view.append_slash_notfound_view',
                     context='pyramid.httpexceptions.HTTPNotFound')
-    config.add_static_view('static', 'static', cache_max_age=3600)
-
-    config.add_route('home', '/')
-    config.add_route('contact', '/contact')
-
-    config.add_route('pyckauth_login', '/login')
-    config.add_route('pyckauth_logout', '/logout')
-    config.add_route('pyckauth_manager', '/auth')
-    config.add_route('pyckauth_users', '/auth/users')
-    config.add_route('pyckauth_permissions', '/auth/permissions')
-    config.add_route('pyckauth_routes', '/auth/routes')
 
     add_admin_handler(config, DBSession, get_models(newapp), 'admin.', '/admin', AdminController)
 
+    application_routes(config)
     configure_app_routes(config)
 
     all_apps = get_submodules(apps)

@@ -19,35 +19,36 @@ requires = [
     'waitress',
     'wtforms',
     'wtdojo'
-    ]
+]
 
 if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
 
-setup(name='{{project}}',
-      version='0.0',
-      description='{{project}}',
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+setup(
+    name='{{project}}',
+    version='0.0',
+    description='{{project}}',
+    long_description=README + '\n\n' + CHANGES,
+    classifiers=[
         "Programming Language :: Python",
         "Framework :: PyCK",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
-      author='',
-      author_email='',
-      url='',
-      keywords='web PyCK framework pylons pyramid',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      test_suite='{{package}}',
-      install_requires=requires,
-      entry_points="""\
-      [paste.app_factory]
-      main = {{package}}:main
-      [console_scripts]
-      {{project}}_initdb = {{package}}.scripts.populate:main
-      {{package}}_newapp = {{package}}.scripts.newapp:main
-      """,
-      )
+    ],
+    author='',
+    author_email='',
+    url='',
+    keywords='web PyCK framework pylons pyramid',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    test_suite='{{package}}',
+    install_requires=requires,
+    entry_points="""\
+    [paste.app_factory]
+    main = {{package}}:main
+    [console_scripts]
+    {{project}}_populate = {{package}}.scripts.populate:main
+    {{package}}_newapp = {{package}}.scripts.newapp:main
+    """,
+)
