@@ -5,6 +5,13 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.8.2
+--------------------
+
+* Colored logging on console. Now console actions like serving through pserve  or other methods outputs log
+  messages in color. INFO messages are displayed in green, DEBUG messages are in blue, WARNING messages in
+  yellow and ERROR messages in red.
+
 What's new in 0.8.1
 --------------------
 
