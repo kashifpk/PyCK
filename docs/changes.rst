@@ -11,6 +11,8 @@ What's new in 0.8.1
 * Fixed issue where app created but not included in enabled_apps causes project start-up failure
 * Top-level application routes now reside in routes.py instead of __init__.py similar to sub-apps.
 * {projname}_initdb renamed to {projname}_populate
+* Renamed DBSession to db (it's more pythonic and shorter)
+* Fixed bug - admin interface causes errors with non numeric primary keys
 
 What's new in 0.8
 ------------------

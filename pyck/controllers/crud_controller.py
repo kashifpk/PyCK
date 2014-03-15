@@ -205,7 +205,8 @@ class CRUDController(object):
             pass
         else:
             pk_name = primary_key_columns[0]
-            R = self.db_session.query(self.model).filter("%s=%s" % (pk_name, pk_val)).one()
+            #R = self.db_session.query(self.model).filter("%s=%s" % (pk_name, pk_val)).one()
+            R = self.db_session.query(self.model).filter('"%s"=:pk_val' % (pk_name)).params(pk_val=pk_val).one()
 
         return R
 
@@ -250,7 +251,6 @@ class CRUDController(object):
         """
 
         p = int(self.request.params.get('p', '1'))
-        page_size = int(self.request.params.get('page_size', '25'))
 
         start_idx = self.list_recs_per_page * (p - 1)
 
@@ -282,12 +282,14 @@ class CRUDController(object):
         # determine primary key columns
         primary_key_columns = self.model.__table__.primary_key.columns.keys()
 
-        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
-                'columns': columns, 'primary_key_columns': primary_key_columns,
-                'records': records, 'pages': pages, 'current_page': p,
-                'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
-                'list_field_args': self.list_field_args,
-                'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions}
+        ret_dict = {
+            'base_template': self.base_template, 'friendly_name': self.friendly_name,
+            'columns': columns, 'primary_key_columns': primary_key_columns,
+            'records': records, 'pages': pages, 'current_page': p,
+            'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
+            'list_field_args': self.list_field_args,
+            'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
+        }
 
         return dict(ret_dict.items() + self.template_extra_params.items())
 
