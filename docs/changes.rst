@@ -13,6 +13,14 @@ What's new in 0.8.1
 * {projname}_initdb renamed to {projname}_populate
 * Renamed DBSession to db (it's more pythonic and shorter)
 * Fixed bug - admin interface causes errors with non numeric primary keys
+* In sub-app initialization now using::
+
+    from .. import PROJECT_NAME, project_package
+
+instead of::
+
+    from apps import PROJECT_NAME, project_package
+
 
 What's new in 0.8
 ------------------
