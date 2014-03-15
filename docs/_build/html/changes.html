@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.8.0 documentation</title>
+    <title>Changes &mdash; PyCK 0.8.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8.0',
+        VERSION:     '0.8.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.8.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.8.1 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,6 +53,30 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-8-1">
+<h2>What&#8217;s new in 0.8.1<a class="headerlink" href="#what-s-new-in-0-8-1" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Fixed issue where app created but not included in enabled_apps causes project start-up failure</p>
+</li>
+<li><p class="first">Top-level application routes now reside in routes.py instead of __init__.py similar to sub-apps.</p>
+</li>
+<li><p class="first">{projname}_initdb renamed to {projname}_populate</p>
+</li>
+<li><p class="first">Renamed DBSession to db (it&#8217;s more pythonic and shorter)</p>
+</li>
+<li><p class="first">Fixed bug - admin interface causes errors with non numeric primary keys</p>
+</li>
+<li><p class="first">In sub-app initialization now using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">PROJECT_NAME</span><span class="p">,</span> <span class="n">project_package</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">apps</span> <span class="kn">import</span> <span class="n">PROJECT_NAME</span><span class="p">,</span> <span class="n">project_package</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-8">
 <h2>What&#8217;s new in 0.8<a class="headerlink" href="#what-s-new-in-0-8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -392,6 +416,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#what-s-new-in-0-8-1">What&#8217;s new in 0.8.1</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-8">What&#8217;s new in 0.8</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-7-5">What&#8217;s new in 0.7.5</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-7-2">What&#8217;s new in 0.7.2</a></li>
@@ -457,7 +482,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

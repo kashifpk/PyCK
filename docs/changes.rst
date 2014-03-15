@@ -17,7 +17,7 @@ What's new in 0.8.1
 
     from .. import PROJECT_NAME, project_package
 
-instead of::
+  instead of::
 
     from apps import PROJECT_NAME, project_package
 

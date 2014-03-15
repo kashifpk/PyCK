@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.controllers Package &mdash; PyCK 0.8.0 documentation</title>
+    <title>The pyck.controllers Package &mdash; PyCK 0.8.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8.0',
+        VERSION:     '0.8.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.8.0 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.8.1 documentation" href="index.html" />
     <link rel="next" title="The PyCK Admin Interface" href="pyck-admin.html" />
     <link rel="prev" title="The pyck.forms Package" href="pyck-forms.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="pyck-forms.html" title="The pyck.forms Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -65,11 +65,11 @@ these steps must be followed.</p>
 <ol class="arabic">
 <li><p class="first">Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.controllers</span> <span class="kn">import</span> <span class="n">CRUDController</span>
-<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">MyModel</span><span class="p">,</span> <span class="n">DBSession</span>
+<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">MyModel</span><span class="p">,</span> <span class="n">db</span>
 
 <span class="k">class</span> <span class="nc">MyCRUDController</span><span class="p">(</span><span class="n">CRUDController</span><span class="p">):</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span>
-    <span class="n">db_session</span> <span class="o">=</span> <span class="n">DBSession</span><span class="p">()</span>
+    <span class="n">db_session</span> <span class="o">=</span> <span class="n">db</span>
 </pre></div>
 </div>
 </li>
@@ -263,7 +263,7 @@ avoid route name conflicts.</li>
         <li class="right" >
           <a href="pyck-forms.html" title="The pyck.forms Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
