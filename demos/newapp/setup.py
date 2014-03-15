@@ -38,7 +38,7 @@ setup(
     author='',
     author_email='',
     url='',
-    keywords='web wsgi bfg pylons pyramid',
+    keywords='web PyCK framework pylons pyramid',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

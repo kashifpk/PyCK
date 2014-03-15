@@ -5,7 +5,7 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 from sqlalchemy import engine_from_config
 
-from models import DBSession
+from models import db
 from routes import application_routes
 
 import importlib
@@ -26,14 +26,14 @@ def main(global_config, **settings):
     session_factory = UnencryptedCookieSessionFactoryConfig(settings.get('session.secret', 'hello'))
 
     engine = engine_from_config(settings, 'sqlalchemy.')
-    DBSession.configure(bind=engine)
+    db.configure(bind=engine)
     config = Configurator(session_factory=session_factory, settings=settings)
     config.add_tween('newapp.auth.authenticator')
     config.include('pyramid_handlers')
     config.add_view('pyramid.view.append_slash_notfound_view',
-                    context='pyramid.httpexceptions.HTTPNotFound')
+                context='pyramid.httpexceptions.HTTPNotFound')
 
-    add_admin_handler(config, DBSession, get_models(newapp), 'admin.', '/admin', AdminController)
+    add_admin_handler(config, db, get_models(newapp), 'admin.', '/admin', AdminController)
 
     application_routes(config)
     configure_app_routes(config)

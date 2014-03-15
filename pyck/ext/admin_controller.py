@@ -30,13 +30,13 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
         import my_application_package_name_here
 
         # Place this with the config.add_route calls
-        add_admin_handler(config, DBSession, get_models(my_application_package_name_here), 'admin', '/admin',
+        add_admin_handler(config, db, get_models(my_application_package_name_here), 'admin', '/admin',
                           AdminController)
 
     :param config:
         The application config object
 
-    :param DBSession:
+    :param db:
         The database session object
 
     :param models:
@@ -140,7 +140,7 @@ class AdminController(object):
         import my_application_package_name_here
 
         # Place this with the config.add_route calls
-        add_admin_handler(config, DBSession, get_models(my_application_package_name_here), 'admin', '/admin',
+        add_admin_handler(config, db, get_models(my_application_package_name_here), 'admin', '/admin',
                           AdminController)
 
     and that's all you need to do to get a fully operation Admin interface.

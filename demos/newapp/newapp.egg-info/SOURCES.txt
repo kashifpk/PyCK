@@ -7,6 +7,7 @@ setup.cfg
 setup.py
 newapp/__init__.py
 newapp/auth.py
+newapp/routes.py
 newapp.egg-info/PKG-INFO
 newapp.egg-info/SOURCES.txt
 newapp.egg-info/dependency_links.txt

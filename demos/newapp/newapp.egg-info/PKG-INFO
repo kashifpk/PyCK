@@ -25,7 +25,7 @@ Description: newapp README
         
         -  Initial version
         
-Keywords: web wsgi bfg pylons pyramid
+Keywords: web PyCK framework pylons pyramid
 Platform: UNKNOWN
 Classifier: Programming Language :: Python
 Classifier: Framework :: PyCK

@@ -28,12 +28,12 @@ from newapp.auth import is_allowed
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
-  <div id="wrap">
+  
   ${self.header()}
-  ${self.main_menu()}
+  
   ${self.content_wrapper()}
   ${self.footer()}
-  </div>
+  
 </body>
 </html>
 
@@ -50,7 +50,10 @@ from newapp.auth import is_allowed
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
-  <div id="top-small"><img src="${request.static_url('newapp:static/pyck-small.png')}"  alt="pyck"/></div>
+  <div id="top-small">
+    <img src="${request.static_url('newapp:static/pyck-small.png')}"  alt="pyck"/>
+    ${self.main_menu()}
+  </div>
 </%def>
   
 <%def name="content_wrapper()">

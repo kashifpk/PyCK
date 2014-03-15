@@ -4,7 +4,7 @@ from sqlalchemy import (
     Unicode,
     )
 
-from . import DBSession, Base
+from . import db, Base
 
 
 # Create your models here.

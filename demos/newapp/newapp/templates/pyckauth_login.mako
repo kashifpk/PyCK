@@ -1,13 +1,14 @@
 <%inherit file="base.mako"/>
 
 <%def name="title()">
-Newapp - Login
+newapp - Login
 </%def>
 
 <%def name="header()">
-<div class="loginlogo">
-  <img src="${request.static_url('newapp:static/pyck-admin.png')}" style="padding-left: 20px;" alt="pyck"/>
-</div>
+  <div id="top" style="text-align: center">
+    <br /><br />
+    <img src="${request.static_url('newapp:static/pyck-admin.png')}"  alt="pyck"/>
+  </div>
 </%def>
 
 <%def name="main_menu()"></%def>

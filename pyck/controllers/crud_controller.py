@@ -54,16 +54,6 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
                        handler=handler_class)
 
 
-def _get_field_args(model, action_type):
-    field_args = self.add_edit_field_args
-
-    cols = get_columns(self.model, 'foreign_key')
-    for c in cols:
-        pass
-
-    return field_args
-
-
 class CRUDController(object):
     """
     Enables automatic CRUD interface generation from database models. The :class:`pyck.controllers.CRUDController`
@@ -73,11 +63,11 @@ class CRUDController(object):
     1. Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session::
 
         from pyck.controllers import CRUDController
-        from myapp.models import MyModel, DBSession
+        from myapp.models import MyModel, db
 
         class MyCRUDController(CRUDController):
             model = MyModel
-            db_session = DBSession()
+            db_session = db
 
     2. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use
        the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling

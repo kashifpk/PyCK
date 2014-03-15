@@ -9,6 +9,7 @@ PyCK Web Development Framework
     <br /><br />
     <img src="${request.static_url('newapp:static/pyck-admin.png')}"  alt="pyck"/>
   </div>
+  ${self.main_menu()}
 </%def>
     
     <div>
@@ -19,7 +20,7 @@ PyCK Web Development Framework
         </p>
       </div>
     </div>
-    <div>
+    <div id="bottom">
       <div class="bottom">
         <div id="left" class="align-right">
           <h2>Search documentation</h2>
@@ -37,7 +38,7 @@ PyCK Web Development Framework
               <a href="http://pyck.compulife.com.pk">PyCK Website</a>
             </li>
             <li>
-              <a href="http://pythonhosted.org/PyCK">Documentation</a>
+              <a href="http://packages.python.org/PyCK/">Documentation</a>
             </li>
             <li>
               <a href="http://pypi.python.org/pypi/PyCK">PyCK at PyPi</a>
