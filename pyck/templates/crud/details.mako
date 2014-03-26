@@ -14,29 +14,36 @@ def insert_per_rec_keyword_values(s, R):
 
 %>
 
-<div class="align-center">
-    <h1>Displaying ${friendly_name}</h1>
-    
-    <div class="list-actions">
-    <%
-    actions_str = ''
-    for action in actions:
-        actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '">' + action['link_text'] + '</a> | '
-    if '' != actions_str:
-        actions_str = actions_str[:-2]
-    %>
-    ${actions_str | n}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Displaying ${friendly_name}</h1>
     </div>
-    
-    <div class="align-left">
-        <table>
+
+    <div class="panel-body">
+        <div class="btn-group">
+        <%
+        actions_str = ''
+        for action in actions:
+            actions_str += '<a class="btn btn-primary" href="' + insert_per_rec_keyword_values(action['link_url'], R) + '">' + action['link_text'] + '</a>'
+        
+        %>
+        ${actions_str | n}
+        </div>
+        
+        <br /><br /><br />
+        
+        <table class="table table-striped table-hover table-bordered">
         %for column in columns:
-            <tr class="${loop.cycle('oddrow', 'evenrow')}">
+            <tr>
                 <th>${column}</th>
                 <td>${getattr(R, column)}</td>
             </tr>
         %endfor
         </table>
+        
     </div>
+    
+    
+    
 </div>
 <br /><br /><br /><br /><br /><br /><br /><br />

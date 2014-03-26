@@ -23,14 +23,18 @@ def get_col_value(col_name, R):
     return obj
 %>
 
-<div class="align-center">
-    <h1>Displaying ${friendly_name}</h1>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+	<h1>Displaying ${friendly_name}</h1>
+  </div>
     
-    <div class="list-actions">
+  <div class="panel-body">
+    <div class="text-right">
     <%
     actions_str = ''
     for action in actions:
-        actions_str += '<a href="' + action['link_url'] + '">' + insert_keyword_values(action['link_text']) + '</a> | '
+        actions_str += '<a class="btn btn-success" href="' + action['link_url'] + '">' + insert_keyword_values(action['link_text']) + '</a> | '
     if '' != actions_str:
         actions_str = actions_str[:-2]
     %>
@@ -38,21 +42,24 @@ def get_col_value(col_name, R):
     </div>
     
     %if pages>1:
-    <div class="page_links">
-        <span style="float: left">
+    
+        <div class="text-right">
+            <br />
             <%
             last_record = current_page*records_per_page;
             if last_record>total_records:
                   last_record=total_records
             %>
             Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
-        </span>
+        </div>
+        
+    <div class="btn-toolbar">
         Pages: 
         %for p in pages:
             %if p==current_page:
-                <b>${p}</b>
+                <a class="btn btn-default btn-sm" href="${'?p=' + str(p)}"><b>${p}</b></a> 
             %else:
-                <a href="${'?p=' + str(p)}">${p}</a> 
+                <a class="btn btn-default btn-sm" href="${'?p=' + str(p)}">${p}</a> 
             %endif
             
         %endfor
@@ -61,43 +68,49 @@ def get_col_value(col_name, R):
     </div>
     %endif
     
-    <div class="align-left">
-        <table style="width: 100%; ">
-        %if records.count()>0:
-            <tr class="tr_heading">
-            %for column in columns:
-                <th>${column.replace("_", " ").title()}</th>
-            %endfor
-            %if len(per_record_actions)>0:
-                <th>   </th>
-            %endif
-            </tr>
-        %endif
-        %for R in records:
-            <tr class="${loop.cycle('oddrow', 'evenrow')}">
-            %for column in columns:
-                %if column in list_field_args and 'display_field' in list_field_args[column]:
-                <td>${get_col_value(list_field_args[column]['display_field'], R)}</td>
-                %else:
-                <td>${getattr(R, column)}</td>
-                %endif
-                
-            %endfor
-            %if len(per_record_actions)>0:
-                <td style="text-align: right;">
-                <%
-                actions_str = ''
-                for action in per_record_actions:
-                    actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '">' + action['link_text'] + '</a> | '
-                if '' != actions_str:
-                    actions_str = actions_str[:-2]
-                %>
-                ${actions_str | n}
-                </td>
-            %endif
-            </tr>
+    <br />
+    
+    <table class="table table-striped table-hover">
+    %if records.count()>0:
+    <thead>
+        %for column in columns:
+            <th style="font-weight: bold; font-size: larger;">${column.replace("_", " ").title()}</th>
         %endfor
-        </table>
-    </div>
+        %if len(per_record_actions)>0:
+            <th>   </th>
+        %endif
+        </tr>
+    </thead>
+    %endif
+    
+    <tbody>
+    %for R in records:
+        <tr>
+        %for column in columns:
+            %if column in list_field_args and 'display_field' in list_field_args[column]:
+            <td>${get_col_value(list_field_args[column]['display_field'], R)}</td>
+            %else:
+            <td>${getattr(R, column)}</td>
+            %endif
+            
+        %endfor
+        %if len(per_record_actions)>0:
+            <td style="text-align: right;">
+            <%
+            actions_str = ''
+            for action in per_record_actions:
+                actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '">' + action['link_text'] + '</a> | '
+            if '' != actions_str:
+                actions_str = actions_str[:-2]
+            %>
+            ${actions_str | n}
+            </td>
+        %endif
+        </tr>
+    %endfor
+    </tbody>
+    </table>
+    
+  </div>
 </div>
 <br /><br /><br /><br /><br /><br /><br /><br />
