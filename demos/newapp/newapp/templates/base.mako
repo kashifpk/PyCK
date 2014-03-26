@@ -60,13 +60,15 @@ from newapp.auth import is_allowed
   
 <%def name="content_wrapper()">
   <div id="content">
-    <div class="flash">
-      <% flash_msgs = request.session.pop_flash() %>
-      
-      %for flash_msg in flash_msgs:
-        ${flash_msg}<br />
-      %endfor
-    </div>
+    
+    <% flash_msgs = request.session.pop_flash() %>
+    
+    %for flash_msg in flash_msgs:
+      <div class="alert alert-info">
+        ${flash_msg}
+      </div>
+    %endfor
+    
   ${self.body()}
   </div>
 </%def>
