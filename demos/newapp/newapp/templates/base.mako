@@ -10,12 +10,14 @@ from newapp.auth import is_allowed
   ${self.meta()}
   
   <link rel="shortcut icon" href="${request.static_url('newapp:static/favicon.ico')}" />
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="${request.static_url('newapp:static/bootstrap/css/bootstrap.min.css')}">
+  <link rel="stylesheet" href="${request.static_url('newapp:static/bootstrap/css/bootstrap-theme.min.css')}">
+  
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="${request.static_url('newapp:static/pyck.css')}" type="text/css" media="screen" charset="utf-8" />
-  <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/nobile/stylesheet.css" media="screen" />
-  <link rel="stylesheet" href="http://static.pylonsproject.org/fonts/neuton/stylesheet.css" media="screen" />
-  <!--[if lte IE 6]>
-  <link rel="stylesheet" href="${request.static_url('newapp:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
-  <![endif]-->
+  
+  <!-- Dojo -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dijit//themes/claro/claro.css" type="text/css" charset="utf-8" />
   <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: true"></script>
@@ -28,12 +30,12 @@ from newapp.auth import is_allowed
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
-  
+  <div class="container">
   ${self.header()}
   
   ${self.content_wrapper()}
   ${self.footer()}
-  
+  </div>
 </body>
 </html>
 
