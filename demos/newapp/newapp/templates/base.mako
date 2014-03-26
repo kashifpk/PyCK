@@ -48,6 +48,7 @@ from newapp.auth import is_allowed
 </%def>
 
 <%def name="body_class()">
+claro
 </%def>
 <%def name="body_attrs()">
 </%def>
