@@ -53,19 +53,19 @@ def get_col_value(col_name, R):
             Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
         </div>
         
-    <div class="btn-toolbar">
-        Pages: 
+    <ul class="pagination">
         %for p in pages:
+		
             %if p==current_page:
-                <a class="btn btn-default btn-sm" href="${'?p=' + str(p)}"><b>${p}</b></a> 
+                <li class="active"><a href="${'?p=' + str(p)}">${p}</a> </li>
             %else:
-                <a class="btn btn-default btn-sm" href="${'?p=' + str(p)}">${p}</a> 
+                <li><a href="${'?p=' + str(p)}">${p}</a></li> 
             %endif
             
         %endfor
         
         
-    </div>
+    </ul>
     %endif
     
     <br />
