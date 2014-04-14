@@ -91,5 +91,22 @@ class Form(wtforms.Form):
         return tmpl.render(form=self, labels_position=labels.lower(), errors_position=errors.lower(),
                            include_table_tag=include_table_tag)
 
+    def as_div(self):
+        """
+        Output each form field as html **p** tags. By default labels are displayed on top of the form fields
+        and validation erros are displayed on the right of the form fields. Both these behaviors can be
+        changed by settings values for the labels and errors parameters.
 
+        Values can be left, top, right or bottom
+
+        :param labels:
+            Placement of labels relative to the field
+        :param errors:
+            Placement of validation errors (if any) relative to the field
+
+        """
+
+        tmpl = template_lookup.get_template("form_as_div.mako")
+
+        return tmpl.render(form=self)
 

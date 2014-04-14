@@ -73,6 +73,7 @@ def get_col_value(col_name, R):
     <table class="table table-striped table-hover">
     %if records.count()>0:
     <thead>
+        <tr>
         %for column in columns:
             <th style="font-weight: bold; font-size: larger;">${column.replace("_", " ").title()}</th>
         %endfor

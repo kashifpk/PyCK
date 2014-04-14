@@ -10,7 +10,7 @@ elif labels_position in ['top', 'bottom'] and errors_position in ['top', 'bottom
     num_rows = 3
 %>
 %if include_table_tag:
-<table>
+<table class="table table-striped table-hover">
 %endif
 %if form._use_csrf_protection:
     <input type="hidden" name="csrf_token" value="${form._csrf_token}" />

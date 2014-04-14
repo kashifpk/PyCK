@@ -50,7 +50,9 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-	<h1><span class="glyphicon glyphicon-fire"></span> Admin Interface</h1>
+	
+	<h1><a href="/"><span class="glyphicon glyphicon-home"></span></a> &nbsp;
+	<span class="glyphicon glyphicon-fire"></span> Admin Interface</h1>
   </div>
 
 </div>

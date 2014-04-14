@@ -5,6 +5,13 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9
+-----------------
+
+* Startup project template uses bootstrap everywhere (main site, login, admin section & auth manager)
+* Dojo (using WTDojo) controls are used in all forms (contact us, admin section & auth manager)
+
+
 What's new in 0.8.2
 --------------------
 
