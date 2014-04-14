@@ -24,7 +24,7 @@ Once you have successfully installed PyCK and have optionally activated a virtau
 
 5. Now you should create any database models under <yourprojectname>/models/models.py that you wish to use, once done (or even if you don't want to create any models yet), run::
 
-    myproject_initdb development.ini
+    myproject_populate development.ini
 
    Remember to replace myproject with the name of your project. This script automatically creates tables in the database specified in development.ini configuration file. By default a SQLite file with the same name as your project is used, you can change the **sqlalchemy.url** parameter in development.ini (or production.ini in case you're changing the backend DB for production). Remember that this populate script needs to be executed again in case you add/change your models in either your main project or in any of its sub-applications. When re-running the populate script, you may need to delete the existing records/tables from your DB for this script to execute without errors.
 
@@ -36,7 +36,7 @@ Once you have successfully installed PyCK and have optionally activated a virtau
 
     Starting subprocess with file monitor
     Starting server in PID 8191.
-    Starting HTTP server on http://0.0.0.0:6543
+    Starting HTTP server on http://127.0.0.1:6543
 
    Note the listening port and IP can be changed in development.ini.
 

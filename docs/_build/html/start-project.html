@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting a Project &mdash; PyCK 0.8.1 documentation</title>
+    <title>Starting a Project &mdash; PyCK 0.9.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8.1',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.8.1 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.0 documentation" href="index.html" />
     <link rel="next" title="Pluggable application in PyCK" href="pluggable-apps-howto.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -74,7 +74,7 @@
 </div>
 </li>
 <li><p class="first">Now you should create any database models under &lt;yourprojectname&gt;/models/models.py that you wish to use, once done (or even if you don&#8217;t want to create any models yet), run:</p>
-<div class="highlight-python"><pre>myproject_initdb development.ini</pre>
+<div class="highlight-python"><pre>myproject_populate development.ini</pre>
 </div>
 <p>Remember to replace myproject with the name of your project. This script automatically creates tables in the database specified in development.ini configuration file. By default a SQLite file with the same name as your project is used, you can change the <strong>sqlalchemy.url</strong> parameter in development.ini (or production.ini in case you&#8217;re changing the backend DB for production). Remember that this populate script needs to be executed again in case you add/change your models in either your main project or in any of its sub-applications. When re-running the populate script, you may need to delete the existing records/tables from your DB for this script to execute without errors.</p>
 </li>
@@ -84,7 +84,7 @@
 <p>You may see output similar to:</p>
 <div class="highlight-python"><pre>Starting subprocess with file monitor
 Starting server in PID 8191.
-Starting HTTP server on http://0.0.0.0:6543</pre>
+Starting HTTP server on http://127.0.0.1:6543</pre>
 </div>
 <p>Note the listening port and IP can be changed in development.ini.</p>
 </li>
@@ -146,7 +146,7 @@ Starting HTTP server on http://0.0.0.0:6543</pre>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

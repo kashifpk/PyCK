@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The pyck.forms Package &mdash; PyCK 0.8.1 documentation</title>
+    <title>The pyck.forms Package &mdash; PyCK 0.9.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.8.1',
+        VERSION:     '0.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.8.1 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.0 documentation" href="index.html" />
     <link rel="next" title="The pyck.controllers Package" href="pyck-controllers.html" />
     <link rel="prev" title="The Problem (The Why? of Form Library)" href="form-validation-library-choice.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -80,6 +80,27 @@
 <p>instantiated form instances (not the class itself), allow some way to specify field attributes
 that are then read at field display time. Possibly a field_attrs dict??? May be reimplementing sub-classes of some
 fields to make use of it would be a good idea??</p>
+<dl class="method">
+<dt id="pyck.forms.Form.as_div">
+<tt class="descname">as_div</tt><big>(</big><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_div" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output each form field as html <strong>p</strong> tags. By default labels are displayed on top of the form fields
+and validation erros are displayed on the right of the form fields. Both these behaviors can be
+changed by settings values for the labels and errors parameters.</p>
+<p>Values can be left, top, right or bottom</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>labels</strong> &#8211; Placement of labels relative to the field</li>
+<li><strong>errors</strong> &#8211; Placement of validation errors (if any) relative to the field</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyck.forms.Form.as_p">
 <tt class="descname">as_p</tt><big>(</big><em>labels='top'</em>, <em>errors='right'</em><big>)</big><a class="headerlink" href="#pyck.forms.Form.as_p" title="Permalink to this definition">¶</a></dt>
@@ -269,7 +290,7 @@ not set, <tt class="docutils literal"><span class="pre">ModelConverter</span></t
         <li class="right" >
           <a href="form-validation-library-choice.html" title="The Problem (The Why? of Form Library)"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.8.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

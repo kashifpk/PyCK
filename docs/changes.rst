@@ -10,7 +10,10 @@ What's new in 0.9
 
 * Startup project template uses bootstrap everywhere (main site, login, admin section & auth manager)
 * Dojo (using WTDojo) controls are used in all forms (contact us, admin section & auth manager)
-
+* CSS cleanup and removal of no longer required images, css elements, markup etc because of bootstrap usage
+* Admin section now has a link back to project home
+* Auth manager uses the same top menu as the rest of the project
+* Improved mako templates to include menu links using lists and loops and properly checking for the currently active URL
 
 What's new in 0.8.2
 --------------------
