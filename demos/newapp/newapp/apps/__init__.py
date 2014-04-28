@@ -3,6 +3,11 @@
 
 import importlib
 
-enabled_apps = []
 PROJECT_NAME = 'newapp'
 project_package = importlib.import_module("newapp")
+
+#from . import app1, app2
+#enabled_apps = [app1, app2]
+
+enabled_apps = []
+

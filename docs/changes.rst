@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.1
+--------------------
+
+* Improved pluggable apps support allowing usage of pre-installed subapps and the usual placing the app folder within the apps folder
+
 What's new in 0.9
 -----------------
 

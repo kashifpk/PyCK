@@ -41,8 +41,9 @@ def main(global_config, **settings):
     all_apps = get_submodules(apps)
 
     ignored_apps = []
+    enabled_app_names = [subapp.APP_NAME for subapp in enabled_apps]
     for app in all_apps:
-        if app['is_package'] and app['name'] not in enabled_apps:
+        if app['is_package'] and app['name'] not in enabled_app_names:
             ignored_apps.append('.apps.' + app['name'])
 
     config.scan(ignore=ignored_apps)
@@ -79,8 +80,8 @@ def configure_app_routes(config):
     }
 
     for app_name in enabled_apps:
+        app_name = app_module.APP_NAME
         app_route_prefix = app_route_prefixes.get(app_name, '/%s' % app_name)
-        app_module = importlib.import_module(".apps.%s" % app_name, "newapp")
 
         try:
             config.include(app_module.application_routes, route_prefix=app_route_prefix)

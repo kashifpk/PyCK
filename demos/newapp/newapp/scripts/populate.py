@@ -64,8 +64,8 @@ def main(argv=sys.argv):
             db.flush()
 
     #populate application models
-    for app_name in enabled_apps:
-
+    for app in enabled_apps:
+        app_name = app.APP_NAME
         app_module = importlib.import_module("apps.%s.scripts.populate" % app_name)
         #print("App Module: %s\n" % app_module.__name__)
 
