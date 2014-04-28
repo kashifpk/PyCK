@@ -23,7 +23,7 @@ Consider the following scenario, my favorite ORM is `SQLAlchemy <http://www.sqla
 
 Pylons and Pyramid on the other hand are very "non-opinionated" frameworks. They both are very flexible and I really like the way things are done in these frameworks. I can use SQLAlchemy or any other ORM like SQLObject etc if I like. I can choose the templating language I want to use (which BTW would be `Mako <http://www.makotemplates.org/>`_). I can choose the URL handling mechanism (in Pyramid) be it URLDispatch or Traversal. But this flexiblity comes at a cost, building "ready-made" components for such frameworks isn't easily possible because we are not sure what the framework user will pick as technologies. So having pluggable apps or pre-built admin panels etc because tough.
 
-So the solution? at least for me; I decided to build a framework based on Pyramid that makes the choices for the developers. If your choices are the same as mine, this framework would be ideal for you. Or if you are a new developer looking into python frameworks you can start here (just not right now since the work has only started yet).
+So the solution? at least for me; I decided to build a framework based on Pyramid that makes the choices for the developers. If your choices are the same as mine, this framework would be ideal for you. Or if you are a new developer looking into python frameworks you can start here.
 
 Discussion on various aspects of PyCK
 -------------------------------------
