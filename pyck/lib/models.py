@@ -28,7 +28,7 @@ def get_models(application, get_app_models=True):
                 models_module = __import__(application.apps.__name__ + '.' + app + '.models', globals(), locals(), ['__all__'], -1)
             else:
                 models_module = __import__(application.apps.__name__ + '.' + app.APP_NAME + '.models', globals(), locals(), ['__all__'], -1)
-
+            
             for M in models_module.__all__:
                 #models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
                 M = getattr(models_module, M)
