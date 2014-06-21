@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.2
+--------------------
+
+* Updated code to support Pyramid version 1.5.1 that broke backward compatibility by removing mako as default and adding it as a dependency.
+
 What's new in 0.9.1
 --------------------
 

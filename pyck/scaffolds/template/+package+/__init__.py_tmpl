@@ -29,6 +29,7 @@ def main(global_config, **settings):
     db.configure(bind=engine)
     config = Configurator(session_factory=session_factory, settings=settings)
     config.add_tween('{{package}}.auth.authenticator')
+    config.include('pyramid_mako')
     config.include('pyramid_handlers')
     config.add_view('pyramid.view.append_slash_notfound_view',
                 context='pyramid.httpexceptions.HTTPNotFound')
