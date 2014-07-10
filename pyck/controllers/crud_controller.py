@@ -236,7 +236,8 @@ class CRUDController(object):
         exclude_list = self.model.__mapper__.relationships.keys()
 
         if 'add' == action_type:
-            # get the columns and add any primary key columns to the exlude list if their autoincrement is True
+            # get the columns and add any primary key columns to the
+            # exlude list if their autoincrement is True
             cols = get_columns(self.model, 'primary_key')
             for c in cols:
                 if int == c.property.columns[0].type.python_type:
@@ -325,7 +326,16 @@ class CRUDController(object):
                 #field.validators = []
 
             if 'choices_fields' in field_data:
-                field.choices = self.db_session.query(*field_data['choices_fields']).all()
+                recs = self.db_session.query(*field_data['choices_fields']).all()
+
+                table_cols = get_columns(self.model)
+                for table_col in table_cols:
+                    if table_col.property.columns[0].name == field_name and \
+                    table_col.property.columns[0].nullable:
+                        field.validators = []
+                        recs.insert(0, (None, ''))
+
+                field.choices = recs
                 #field.validators = []
 
         return f
@@ -343,7 +353,12 @@ class CRUDController(object):
             #if f.validate():
             if True:
                 obj = self.model()
+                for fname, f_field in f._fields.iteritems():
+                    if hasattr(f_field, 'choices') and '' == f_field.data:
+                        f_field.data = None
+
                 f.populate_obj(obj)
+                #assert False
                 self.db_session.add(obj)
 
                 self.request.session.flash(self.friendly_name + " added successfully!")

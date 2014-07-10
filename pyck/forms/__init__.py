@@ -191,8 +191,7 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
         if not hasattr(prop, 'direction') and prop.columns[0].primary_key:
             if exclude_pk:
                 exclude.append(prop.key)
-        if hasattr(prop, 'direction') and  exclude_fk and \
-                prop.direction.name != 'MANYTOMANY':
+        if hasattr(prop, 'direction') and exclude_fk and prop.direction.name != 'MANYTOMANY':
             for pair in prop.local_remote_pairs:
                 exclude.append(pair[0].key)
 

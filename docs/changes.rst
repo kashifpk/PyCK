@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.3
+--------------------
+
+* Fixed error in admin panel where providing an empty value in a numeric drop down box for add/edit forms caused error.
+
 What's new in 0.9.2
 --------------------
 
