@@ -82,16 +82,48 @@
     %>
 	<li class="${row_class}"><a href="${request.route_url(route_prefix + 'admin_index')}">Admin Home</a></li>
 
-	%for model in models:
-		<%
-		row_class = ""
-		if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url():
-			row_class = "active"
-		%>
+	%if dict == type(models):
+		%if '__main__' in models:
+			%for model in models['__main__']:
+				<%
+				row_class = ""
+				if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url():
+					row_class = "active"
+				%>
+				
+				<li class="${row_class}"><a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}</a></li>
+				
+			%endfor
+		%endif
 		
-		<li class="${row_class}"><a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}</a></li>
+		%for appname, app_models in models.iteritems():
+			%if '__main__' != appname:
+				<h2 class="info">${appname.replace("_", " ").title().replace(" ", "&nbsp;")|n}</h2>
+				%for model in models[appname]:
+					<%
+					row_class = ""
+					if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url():
+						row_class = "active"
+					%>
+					
+					<li class="${row_class}"><a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__[len(appname)+1:].replace("_", " ").title().replace(" ", "&nbsp;")|n}</a></li>
+					
+				%endfor
+			%endif
+		%endfor
 		
-	%endfor	
+	%else:
+		%for model in models:
+			<%
+			row_class = ""
+			if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url():
+				row_class = "active"
+			%>
+			
+			<li class="${row_class}"><a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}</a></li>
+			
+		%endfor
+	%endif
 </ul>
 
 

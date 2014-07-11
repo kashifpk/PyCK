@@ -33,7 +33,7 @@ def main(global_config, **settings):
     config.add_view('pyramid.view.append_slash_notfound_view',
                 context='pyramid.httpexceptions.HTTPNotFound')
 
-    add_admin_handler(config, db, get_models(newapp), 'admin.', '/admin', AdminController)
+    add_admin_handler(config, db, get_models(newapp, return_dict=True), 'admin.', '/admin', AdminController)
 
     application_routes(config)
     configure_app_routes(config)

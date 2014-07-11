@@ -5,7 +5,7 @@ Models related utility functions
 import importlib
 
 
-def get_models(application, get_app_models=True):
+def get_models(application, get_app_models=True, return_dict=False):
     """
     Processes the passed application package and returns all SQLAlchemy models for the application.
 
@@ -13,27 +13,43 @@ def get_models(application, get_app_models=True):
 
     """
 
-    all_models = []
+    if return_dict:
+        all_models = {}
+    else:
+        all_models = []
 
     if hasattr(application, 'models') and hasattr(application.models, '__all__'):
+
+        if return_dict:
+            all_models['__main__'] = []
+
         for M in application.models.__all__:
             models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
             M = getattr(models_module, M)
             if hasattr(M, '__tablename__'):
-                all_models.append(M)
+                if return_dict:
+                    all_models['__main__'].append(M)
+                else:
+                    all_models.append(M)
 
     if get_app_models:
         for app in application.apps.enabled_apps:
             if str == type(app):
-                models_module = __import__(application.apps.__name__ + '.' + app + '.models', globals(), locals(), ['__all__'], -1)
+                app_name = app
             else:
-                models_module = __import__(application.apps.__name__ + '.' + app.APP_NAME + '.models', globals(), locals(), ['__all__'], -1)
-            
+                app_name = app.APP_NAME
+
+            models_module = __import__(application.apps.__name__ + '.' + app_name + '.models', globals(), locals(), ['__all__'], -1)
+            all_models[app_name] = []
+
             for M in models_module.__all__:
                 #models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
                 M = getattr(models_module, M)
                 if hasattr(M, '__tablename__'):
-                    all_models.append(M)
+                    if return_dict:
+                        all_models[app_name].append(M)
+                    else:
+                        all_models.append(M)
 
     return all_models
 

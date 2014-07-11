@@ -9,6 +9,9 @@ What's new in 0.9.3
 --------------------
 
 * Fixed error in admin panel where providing an empty value in a numeric drop down box for add/edit forms caused error.
+* Update to AdminController, if a FK field can be null, the drop down in forms allows selecting an empty value. Previously just all the values from the FK column got displayed and user got no option for not selecting any value.
+* pyck.lib.models.get_models now has the option to return a dict instead of a list.
+* AdminController allows passing a dict of models (with keys being the appnames) and side links are then categorized by app.
 
 What's new in 0.9.2
 --------------------
