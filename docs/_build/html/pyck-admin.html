@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyCK Admin Interface &mdash; PyCK 0.9.1 documentation</title>
+    <title>The PyCK Admin Interface &mdash; PyCK 0.9.3 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.1',
+        VERSION:     '0.9.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.1 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.3 documentation" href="index.html" />
     <link rel="next" title="The pyck.lib Package" href="pyck-lib.html" />
     <link rel="prev" title="The pyck.controllers Package" href="pyck-controllers.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -111,7 +111,9 @@ call, for example:</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> &#8211; The application config object</li>
 <li><strong>db</strong> &#8211; The database session object</li>
-<li><strong>models</strong> &#8211; List of models for to include in the admin panel. get_models funcion can be used to include all models.</li>
+<li><strong>models</strong> &#8211; Note: For backward compatibility this parameter can either be a list (old) or a dictionary (new).
+List/Dictionary of models for to include in the admin panel.
+get_models funcion can be used to include all models.</li>
 <li><strong>route_name_prefix</strong> &#8211; Optional string prefix to add to all route names generated inside the admin panel.</li>
 <li><strong>url_pattern_prefix</strong> &#8211; Optional string prefix to add to all admin section related url patterns</li>
 <li><strong>handler_class</strong> &#8211; The AdminController handler class.</li>
@@ -208,7 +210,7 @@ call, for example:</p>
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
