@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.4
+-------------------
+
+* Bugfix. Ignore non-field columns when trying to assess exclude list for admin panel
+
 What's new in 0.9.3
 --------------------
 
