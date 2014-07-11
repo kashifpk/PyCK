@@ -9,6 +9,7 @@ What's new in 0.9.4
 -------------------
 
 * Bugfix. Ignore non-field columns when trying to assess exclude list for admin panel
+* By default don't display auth tables in admin section. Auth Manager should be used for managing those tables so displaying those in Admin section only encourages issues.
 
 What's new in 0.9.3
 --------------------

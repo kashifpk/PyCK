@@ -5,13 +5,17 @@ Models related utility functions
 import importlib
 
 
-def get_models(application, get_app_models=True, return_dict=False):
+def get_models(application, get_app_models=True,
+               return_dict=False, ignore_auth_tables=True):
     """
     Processes the passed application package and returns all SQLAlchemy models for the application.
 
     :param get_app_models: Indicates if the apps present in the application should also be searched for models (default True)
 
     """
+
+    auth_tables = ('users', 'permissions',
+                   'user_permissions', 'route_permissions')
 
     if return_dict:
         all_models = {}
@@ -27,6 +31,10 @@ def get_models(application, get_app_models=True, return_dict=False):
             models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
             M = getattr(models_module, M)
             if hasattr(M, '__tablename__'):
+                if ignore_auth_tables:
+                    if M.__tablename__ in auth_tables:
+                        continue
+
                 if return_dict:
                     all_models['__main__'].append(M)
                 else:

@@ -20,7 +20,8 @@ from pyck.controllers import CRUDController, add_crud_handler
 
 
 def add_admin_handler(config, db_session, models=None, route_name_prefix='',
-                      url_pattern_prefix='', handler_class=None, models_field_args={}):
+                      url_pattern_prefix='', handler_class=None,
+                      models_field_args={}):
     """
     A utility function to quickly add all admin related routes and set them to the admin handler class with one function
     call, for example::
