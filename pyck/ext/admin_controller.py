@@ -99,6 +99,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
             add_edit_field_args = {}
             list_field_args = {}
             FK_cols = get_columns(model, 'foreign_key')
+
             for FK in FK_cols:
                 db_col = list(FK.foreign_keys)[0].column.name
                 display_col = db_col

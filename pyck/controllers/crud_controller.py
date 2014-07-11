@@ -274,7 +274,6 @@ class CRUDController(object):
             columns = self.model.__table__.columns.keys()
 
         # calculate number of pages
-        # TODO: Would need modifications for composite primary keys
         pk_col = self.model.__table__.primary_key.columns.keys()[0]
         pk_col = self.model.__table__.primary_key.columns[pk_col]
 
