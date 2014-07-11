@@ -186,19 +186,29 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
         exclude = []
     model_mapper = model.__mapper__
 
+    print('*****')
+    print(exclude)
     for prop in model_mapper.iterate_properties:
 
-        if not hasattr(prop, 'direction') and prop.columns[0].primary_key:
+        print(prop)
+        #assert False
+
+        # if it's primary key and is not foreign key
+        if 0 == len(prop.columns[0].foreign_keys) and prop.is_primary():
             if exclude_pk:
                 exclude.append(prop.key)
-        if hasattr(prop, 'direction') and exclude_fk and prop.direction.name != 'MANYTOMANY':
-            for pair in prop.local_remote_pairs:
-                exclude.append(pair[0].key)
+
+        # if it's foreign key but not many to many
+        if len(prop.columns[0].foreign_keys) > 0 and exclude_fk:
+            if not prop.is_primary():
+                exclude.append(prop.key)
 
     type_name = type_name or str(model.__name__ + 'Form')
     converter = converter or DojoModelConverter()
-    field_dict = model_fields(model, db_session, only, exclude, field_args, converter)
-
+    print('##########')
+    print(exclude)
+    field_dict = model_fields(model, db_session, only, exclude, field_args, converter, exclude_pk=exclude_pk, exclude_fk=exclude_fk)
+    print(field_dict)
     return type(type_name, (base_class, ), field_dict)
 
 

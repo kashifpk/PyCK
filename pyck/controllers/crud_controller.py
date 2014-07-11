@@ -232,15 +232,17 @@ class CRUDController(object):
         if self.add_edit_exclude:
             return self.add_edit_exclude
 
+        print('determining exclude list')
         # exclude any relationships
         exclude_list = self.model.__mapper__.relationships.keys()
+        print(exclude_list)
 
         if 'add' == action_type:
             # get the columns and add any primary key columns to the
             # exlude list if their autoincrement is True
             cols = get_columns(self.model, 'primary_key')
             for c in cols:
-                if int == c.property.columns[0].type.python_type:
+                if int == c.property.columns[0].type.python_type and 0 == len(c.property.columns[0].foreign_keys):
                     exclude_list.append(c.key)
 
         return exclude_list
