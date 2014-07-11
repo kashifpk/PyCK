@@ -189,8 +189,10 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
     print('*****')
     print(exclude)
     for prop in model_mapper.iterate_properties:
+        if not hasattr(prop, 'columns'):  # ignore relationships and other non-field columns
+            continue
 
-        print(prop)
+        #print(prop)
         #assert False
 
         # if it's primary key and is not foreign key
