@@ -5,6 +5,12 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.5
+-------------------
+
+* Bugfix: PyCK auth controllers used request.current_route_url() with query strings that caused duplicate actions, like delete a record and then redirecting to the same url (with action delete) and trying to delete it again.
+
+
 What's new in 0.9.4
 -------------------
 

@@ -28,7 +28,7 @@ def auth_users(request):
         db.query(User).filter_by(user_id=request.GET['id']).delete()
 
         request.session.flash("User deleted!")
-        return HTTPFound(location=request.current_route_url())
+        return HTTPFound(location=request.route_url('pyckauth_users'))
 
     if 'edit' == action:
         U = db.query(User).filter_by(user_id=request.GET['id']).first()
@@ -51,7 +51,7 @@ def auth_users(request):
                         db.add(UP)
 
                 request.session.flash("User created!")
-                return HTTPFound(location=request.current_route_url())
+                return HTTPFound(location=request.route_url('pyckauth_users'))
 
             elif 'edit' == action:
                 db.query(UserPermission).filter_by(user_id=request.GET['id']).delete()
@@ -64,7 +64,7 @@ def auth_users(request):
                 f.populate_obj(U)
                 U.password = hashlib.sha1(f.password.data).hexdigest()
                 request.session.flash("User updated!")
-                return HTTPFound(location=request.current_route_url())
+                return HTTPFound(location=request.route_url('pyckauth_users'))
 
     permissions = db.query(Permission).order_by('permission')
     users = db.query(User).order_by('user_id')
@@ -84,7 +84,7 @@ def auth_permissions(request):
         db.query(Permission).filter_by(permission=request.GET['id']).delete()
 
         request.session.flash("Permission deleted!")
-        return HTTPFound(location=request.current_route_url())
+        return HTTPFound(location=request.route_url('pyckauth_permissions'))
 
     if 'edit' == action:
         P = db.query(Permission).filter_by(permission=request.GET['id']).first()
@@ -99,7 +99,7 @@ def auth_permissions(request):
                 db.add(P)
 
                 request.session.flash("Permission created!")
-                return HTTPFound(location=request.current_route_url())
+                return HTTPFound(location=request.route_url('pyckauth_permissions'))
 
             elif 'edit' == action:
                 if f.permission.data != P.permission:
@@ -114,7 +114,7 @@ def auth_permissions(request):
 
                 f.populate_obj(P)
                 request.session.flash("Permission updated!")
-                return HTTPFound(location=request.current_route_url())
+                return HTTPFound(location=request.route_url('pyckauth_permissions'))
 
     permissions = db.query(Permission).order_by('permission')
 
@@ -131,7 +131,7 @@ def auth_routes(request):
                 permission=request.GET['p']).delete()
 
         request.session.flash("Route permission deleted!")
-        return HTTPFound(location=request.current_route_url())
+        return HTTPFound(location=request.route_url('pyckauth_routes'))
 
     # **** Code for setting up route permission form
     f = RoutePermissionForm(request.POST)
@@ -161,7 +161,7 @@ def auth_routes(request):
                         db.add(RP)
 
                 request.session.flash("Route permissions created!")
-                return HTTPFound(location=request.current_route_url())
+                return HTTPFound(location=request.route_url('pyckauth_routes'))
 
     route_permissions = db.query(RoutePermission).order_by(RoutePermission.route_name,
                                                                   RoutePermission.permission, RoutePermission.method)
