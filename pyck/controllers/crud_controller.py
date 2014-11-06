@@ -15,6 +15,9 @@ from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns
 
+import logging
+
+log = logging.getLogger(__name__)
 
 def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handler_class=None):
     """
@@ -232,10 +235,10 @@ class CRUDController(object):
         if self.add_edit_exclude:
             return self.add_edit_exclude
 
-        print('determining exclude list')
+        log.info('determining exclude list')
         # exclude any relationships
         exclude_list = self.model.__mapper__.relationships.keys()
-        print(exclude_list)
+        log.info(exclude_list)
 
         if 'add' == action_type:
             # get the columns and add any primary key columns to the
@@ -355,11 +358,10 @@ class CRUDController(object):
             if True:
                 obj = self.model()
                 for fname, f_field in f._fields.iteritems():
-                    if hasattr(f_field, 'choices') and '' == f_field.data:
+                    if hasattr(f_field, 'choices') and f_field.data in ['', u'None']:
                         f_field.data = None
 
                 f.populate_obj(obj)
-                #assert False
                 self.db_session.add(obj)
 
                 self.request.session.flash(self.friendly_name + " added successfully!")

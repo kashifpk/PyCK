@@ -9,7 +9,7 @@ What's new in 0.9.5
 -------------------
 
 * Bugfix: PyCK auth controllers used request.current_route_url() with query strings that caused duplicate actions, like delete a record and then redirecting to the same url (with action delete) and trying to delete it again.
-
+* Bugfix: In admin section if an integer primary key is None (empty), it tries to insert that as a string 'None' causing error.
 
 What's new in 0.9.4
 -------------------
@@ -173,7 +173,7 @@ What's new in 0.6.5
 What's new in 0.6.4
 -------------------
 
-* Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
+* Added facility in the authentication framework for static permissions. You can use the authentication manager to set a permission
   for a route but you don't have to assign any user to that permission. This is meant to allow authentication from user databases other
   than PyCK's users table. Developers just need to set the permission name in a request.session key named **auth_static_permission** in
   their login verification controllers. This way the users can be authenticated any way the developer wants and still their access
