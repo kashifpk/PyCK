@@ -383,6 +383,10 @@ class CRUDController(object):
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
             #if f.validate():
             if True:
+                for fname, f_field in f._fields.iteritems():
+                    if hasattr(f_field, 'choices') and f_field.data in ['', u'None']:
+                        f_field.data = None
+
                 f.populate_obj(R)
 
                 self.request.session.flash(self.friendly_name + " updated successfully!")
