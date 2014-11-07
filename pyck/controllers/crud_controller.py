@@ -1,15 +1,14 @@
 import os.path
 from sqlalchemy import func
 
-from pyramid_handlers import action
 from pyramid.response import Response
+from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 from wtforms.widgets.core import Select
 from wtforms import SelectField
 from wtdojo.fields.core import DojoSelectField
 from wtforms import validators
-
-from pyramid.httpexceptions import HTTPFound
 
 from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
@@ -18,6 +17,7 @@ from pyck.lib.models import get_columns
 import logging
 
 log = logging.getLogger(__name__)
+
 
 def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handler_class=None):
     """
@@ -43,18 +43,28 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
 
     """
 
-    config.add_handler(route_name_prefix + 'CRUD_list',
-                       url_pattern_prefix + '/',
-                       handler=handler_class,
-                       action='list')
+    config.add_route(route_name_prefix + 'CRUD_list', url_pattern_prefix + '/')
+    config.add_view(handler_class, attr='list',
+                    route_name=route_name_prefix + 'CRUD_list',
+                    renderer='pyck:templates/crud/list.mako')
 
-    config.add_handler(route_name_prefix + 'CRUD',
-                       url_pattern_prefix + '/{action}',
-                       handler=handler_class)
+    config.add_route(route_name_prefix + 'CRUD_add', url_pattern_prefix + '/add')
+    config.add_view(handler_class, attr='add',
+                    route_name=route_name_prefix + 'CRUD_add',
+                    renderer='pyck:templates/crud/add_or_edit.mako')
 
-    config.add_handler(route_name_prefix + 'CRUD_PK',
-                       url_pattern_prefix + '/{action}/{PK}',
-                       handler=handler_class)
+    config.add_route(route_name_prefix + 'CRUD_edit', url_pattern_prefix + '/edit/{PK}')
+    config.add_view(handler_class, attr='edit',
+                    route_name=route_name_prefix + 'CRUD_edit',
+                    renderer='pyck:templates/crud/add_or_edit.mako')
+
+    config.add_route(route_name_prefix + 'CRUD_details', url_pattern_prefix + '/details/{PK}')
+    config.add_view(handler_class, attr='details',
+                    route_name=route_name_prefix + 'CRUD_details',
+                    renderer='pyck:templates/crud/details.mako')
+
+    config.add_route(route_name_prefix + 'CRUD_delete', url_pattern_prefix + '/delete/{PK}')
+    config.add_view(handler_class, attr='delete', route_name=route_name_prefix + 'CRUD_delete')
 
 
 class CRUDController(object):
@@ -154,8 +164,6 @@ class CRUDController(object):
     friendly_name = None
     db_session = None
 
-    __autoexpose__ = None
-
     #Add and edit page settings
     add_edit_exclude = None
 
@@ -250,7 +258,6 @@ class CRUDController(object):
 
         return exclude_list
 
-    @action(renderer='pyck:templates/crud/list.mako')
     def list(self):
         """
         The listing view - Lists all the records with pagination
@@ -355,7 +362,6 @@ class CRUDController(object):
         else:
             return HTTPFound(location=location)
 
-    @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def add(self):
         """
         The add record view
@@ -383,7 +389,6 @@ class CRUDController(object):
                     'form': f, "action_type": "add"}
         return dict(ret_dict.items() + self.template_extra_params.items())
 
-    @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def edit(self):
         """
         The edit and update record view
@@ -408,7 +413,6 @@ class CRUDController(object):
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
         return dict(ret_dict.items() + self.template_extra_params.items())
 
-    @action()
     def delete(self):
         """
         The record delete view
@@ -426,7 +430,6 @@ class CRUDController(object):
         #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
         return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
-    @action(renderer='pyck:templates/crud/details.mako')
     def details(self):
         """
         The record details view
