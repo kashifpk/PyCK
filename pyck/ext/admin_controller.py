@@ -88,10 +88,10 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
 
     handler_class.route_prefix = route_name_prefix
 
-    config.add_handler(route_name_prefix + 'admin_index',
-                       url_pattern_prefix + '/',
-                       handler=handler_class,
-                       action='index')
+    config.add_route(route_name_prefix + 'admin_index', url_pattern_prefix + '/')
+    config.add_view(handler_class, attr='index',
+                    route_name=route_name_prefix + 'admin_index',
+                    renderer='pyck:templates/admin/index.mako')
 
     if all_models:
         for model in all_models:
@@ -179,15 +179,12 @@ class AdminController(object):
     #base_template = 'admin_base.mako'
     base_template = 'pyck:templates/admin/admin_base.mako'
 
-    __autoexpose__ = None
-
     def __init__(self, request):
         self.request = request
 
         if self.db_session is None:
             raise ValueError("Must provide a SQLAlchemy database session object as db_session")
 
-    @action(renderer='pyck:templates/admin/index.mako')
     def index(self):
 
         return {'base_template': self.base_template, 'models': self.models, 'route_prefix': self.route_prefix}
