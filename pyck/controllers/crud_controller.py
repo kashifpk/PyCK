@@ -344,6 +344,17 @@ class CRUDController(object):
 
         return f
 
+    def _redirect(self, location):
+        """
+        If came_from is set in session, redirects to it's value otherwise
+        redirects to the location passed
+        """
+
+        if self.request.session.get('came_from', None):
+            return HTTPFound(location=self.request.session.get('came_from'))
+        else:
+            return HTTPFound(location=location)
+
     @action(renderer='pyck:templates/crud/add_or_edit.mako')
     def add(self):
         """
@@ -365,7 +376,8 @@ class CRUDController(object):
                 self.db_session.add(obj)
 
                 self.request.session.flash(self.friendly_name + " added successfully!")
-                return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
+                #return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
+                return self._redirect(os.path.dirname(self.request.current_route_url()))
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
                     'form': f, "action_type": "add"}
@@ -390,7 +402,8 @@ class CRUDController(object):
                 f.populate_obj(R)
 
                 self.request.session.flash(self.friendly_name + " updated successfully!")
-                return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
+                #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
+                return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
         return dict(ret_dict.items() + self.template_extra_params.items())
@@ -410,7 +423,8 @@ class CRUDController(object):
 
         self.request.session.flash(self.friendly_name + " deleted successfully!")
 
-        return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
+        #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
+        return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
     @action(renderer='pyck:templates/crud/details.mako')
     def details(self):
