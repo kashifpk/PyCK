@@ -16,6 +16,7 @@ requires = [
     'pyramid_tm',
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
+    'webtest',
     'waitress',
     'wtforms',
     'wtdojo'

@@ -2,32 +2,36 @@ import unittest
 import transaction
 
 from pyramid import testing
+from ..models import db, User, Base
+from . import TestBase, FunctionalTestBase
 
-from ..models import db
 
+class TestSite(TestBase):
+    "Unit and Integration tests"
 
-class TestMyView(unittest.TestCase):
-    def setUp(self):
-        self.config = testing.setUp()
-        from sqlalchemy import create_engine
-        engine = create_engine('sqlite://')
-        from .models import (
-            Base,
-            MyModel,
-            )
-        db.configure(bind=engine)
-        Base.metadata.create_all(engine)
+    def test_record_add(self):
         with transaction.manager:
-            model = MyModel(name='one', value=55)
-            db.add(model)
+            record = User(user_id=u'testuser', password=u'testpass')
+            db.add(record)
 
-    def tearDown(self):
-        db.remove()
-        testing.tearDown()
+    def test_record_fetch(self):
+        user = db.query(User).first()
+        self.assertIsNotNone(user)
+        self.assertEquals(user.user_id, u'testuser')
 
-    def test_it(self):
-        from .views import my_view
+    def test_homepage(self):
+        from ..controllers.controllers import homepage
+
         request = testing.DummyRequest()
-        info = my_view(request)
-        self.assertEqual(info['one'].name, 'one')
-        self.assertEqual(info['project'], '{{package}}')
+        response = homepage(request)
+
+        self.assertEqual(response['project'], '{{package}}')
+
+
+class TestSiteFunctional(FunctionalTestBase):
+    "Functional tests for the project"
+
+    def test_get_login(self):
+        res = self.app.get('/login')
+        self.assertEqual(res.status_int, 200)
+

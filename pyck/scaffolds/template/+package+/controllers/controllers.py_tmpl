@@ -9,9 +9,8 @@ from ..forms import ContactForm
 
 
 @view_config(route_name='home', renderer='home.mako')
-def my_view(request):
-    one = None
-    return {'one': one, 'project': '{{package}}'}
+def homepage(request):
+    return {'project': '{{package}}'}
 
 
 @view_config(route_name='contact', renderer="contact.mako")
