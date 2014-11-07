@@ -9,7 +9,6 @@ requires = [
     'pyramid_mako',
     'pyramid_tm',
     'pyramid_debugtoolbar',
-    'pyramid_handlers',
     'zope.sqlalchemy',
     'wtforms',
     'nose',
