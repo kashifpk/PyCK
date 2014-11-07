@@ -11,6 +11,8 @@ What's new in 0.9.5
 * Bugfix: PyCK auth controllers used request.current_route_url() with query strings that caused duplicate actions, like delete a record and then redirecting to the same url (with action delete) and trying to delete it again.
 * Bugfix: In admin section if an integer primary key is None (empty), it tries to insert or update that as a string 'None' causing error.
 * Allow redirecting from CRUD Controller add, update and delete actions.
+* Removed pyramid_handlers dependency. Converted CRUD controller from pyramid_handlers to simple pyramid add_route and add_view mechanism
+* Updated test cases
 
 What's new in 0.9.4
 -------------------
