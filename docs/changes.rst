@@ -12,7 +12,10 @@ What's new in 0.9.5
 * Bugfix: In admin section if an integer primary key is None (empty), it tries to insert or update that as a string 'None' causing error.
 * Allow redirecting from CRUD Controller add, update and delete actions.
 * Removed pyramid_handlers dependency. Converted CRUD controller from pyramid_handlers to simple pyramid add_route and add_view mechanism
-* Updated test cases
+* Updated test cases. Added test cases for pyramid's CRUD controller and Admin controller
+* Updated scaffolds to include new tests architecture and also included some other minor improvements.
+* Added a test project to pyck source code named pycktestproject for functional testing.
+* Functional tests for admin and crud controller added in pycktestproject
 
 What's new in 0.9.4
 -------------------
