@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.9.3 documentation</title>
+    <title>Changes &mdash; PyCK 0.9.5 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.3 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.5 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,6 +53,37 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-5">
+<h2>What&#8217;s new in 0.9.5<a class="headerlink" href="#what-s-new-in-0-9-5" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Bugfix: PyCK auth controllers used request.current_route_url() with query strings that caused duplicate actions, like delete a record and then redirecting to the same url (with action delete) and trying to delete it again.</p>
+</li>
+<li><p class="first">Bugfix: In admin section if an integer primary key is None (empty), it tries to insert or update that as a string &#8216;None&#8217; causing error.</p>
+</li>
+<li><p class="first">Allow redirecting from CRUD Controller add, update and delete actions.</p>
+</li>
+<li><p class="first">Removed pyramid_handlers dependency. Converted CRUD controller from pyramid_handlers to simple pyramid add_route and add_view mechanism</p>
+</li>
+<li><dl class="first docutils">
+<dt>Test case improvements</dt>
+<dd><ul class="first last simple">
+<li>Updated test cases. Added test cases for pyramid&#8217;s CRUD controller and Admin controller</li>
+<li>Updated scaffolds to include new tests architecture and also included some other minor improvements.</li>
+<li>Added a test project to pyck source code named pycktestproject for functional testing.</li>
+<li>Functional tests for admin and crud controller added in pycktestproject</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="what-s-new-in-0-9-4">
+<h2>What&#8217;s new in 0.9.4<a class="headerlink" href="#what-s-new-in-0-9-4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Bugfix. Ignore non-field columns when trying to assess exclude list for admin panel</li>
+<li>By default don&#8217;t display auth tables in admin section. Auth Manager should be used for managing those tables so displaying those in Admin section only encourages issues.</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-3">
 <h2>What&#8217;s new in 0.9.3<a class="headerlink" href="#what-s-new-in-0-9-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -212,7 +243,7 @@ user permissions present in session instead of fetching them each time.</li>
 <div class="section" id="what-s-new-in-0-6-4">
 <h2>What&#8217;s new in 0.6.4<a class="headerlink" href="#what-s-new-in-0-6-4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Added facility in the authentication framework for static permissions. You can use the authentication manager to give set a permission
+<li>Added facility in the authentication framework for static permissions. You can use the authentication manager to set a permission
 for a route but you don&#8217;t have to assign any user to that permission. This is meant to allow authentication from user databases other
 than PyCK&#8217;s users table. Developers just need to set the permission name in a request.session key named <strong>auth_static_permission</strong> in
 their login verification controllers. This way the users can be authenticated any way the developer wants and still their access
@@ -457,6 +488,8 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#what-s-new-in-0-9-5">What&#8217;s new in 0.9.5</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-9-4">What&#8217;s new in 0.9.4</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-3">What&#8217;s new in 0.9.3</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-2">What&#8217;s new in 0.9.2</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-1">What&#8217;s new in 0.9.1</a></li>
@@ -528,7 +561,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
