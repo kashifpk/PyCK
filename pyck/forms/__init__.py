@@ -186,8 +186,8 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
         exclude = []
     model_mapper = model.__mapper__
 
-    print('*****')
-    print(exclude)
+    #print('*****')
+    #print(exclude)
     for prop in model_mapper.iterate_properties:
         if not hasattr(prop, 'columns'):  # ignore relationships and other non-field columns
             continue
@@ -207,10 +207,10 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
 
     type_name = type_name or str(model.__name__ + 'Form')
     converter = converter or DojoModelConverter()
-    print('##########')
-    print(exclude)
+    #print('##########')
+    #print(exclude)
     field_dict = model_fields(model, db_session, only, exclude, field_args, converter, exclude_pk=exclude_pk, exclude_fk=exclude_fk)
-    print(field_dict)
+    #print(field_dict)
     return type(type_name, (base_class, ), field_dict)
 
 
