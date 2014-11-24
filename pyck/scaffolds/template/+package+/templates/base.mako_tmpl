@@ -31,7 +31,11 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
           });});
   </script>
 
+  ${self.extra_head()}
 </head>
+
+<%def name="extra_head()">
+</%def>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
    <div class="container">

@@ -43,7 +43,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
     :param models:
         Note: For backward compatibility this parameter can either be a list (old) or a dictionary (new).
         List/Dictionary of models for to include in the admin panel.
-        get_models funcion can be used to include all models.
+        get_models function can be used to include all models.
 
     :param route_name_prefix:
         Optional string prefix to add to all route names generated inside the admin panel.

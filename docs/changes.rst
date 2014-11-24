@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.6
+-------------------
+
+* Added a section in base.mako template named extra_head for including stuff within the <head></head> section of the page.
+
 What's new in 0.9.5
 -------------------
 
