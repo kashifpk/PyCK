@@ -19,7 +19,9 @@ def get_col_value(col_name, R):
     
     for p in parts:
         obj = getattr(obj, p)
-    
+        if not obj:
+		    return ''
+
     return obj
 %>
 
@@ -83,7 +85,7 @@ def get_col_value(col_name, R):
         </tr>
     </thead>
     %endif
-    
+
     <tbody>
     %for R in records:
         <tr>

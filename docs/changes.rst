@@ -9,6 +9,7 @@ What's new in 0.9.6
 -------------------
 
 * Added a section in base.mako template named extra_head for including stuff within the <head></head> section of the page.
+* Fixed minor bug in CURD list section causing errors when a FK is null.
 
 What's new in 0.9.5
 -------------------
