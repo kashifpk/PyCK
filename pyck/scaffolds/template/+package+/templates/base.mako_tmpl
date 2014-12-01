@@ -13,7 +13,10 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
   <title>${self.title()}</title>
   ${self.meta()}
   
-  <link rel="shortcut icon" href="${request.static_url('{{package}}:static/favicon.ico')}" />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link rel="icon" href="${request.route_url('favicon')}" />
+  <link rel="shortcut icon" href="${request.route_url('favicon')}" />
+
   <!-- Bootstrap -->
   <link rel="stylesheet" href="${request.static_url('{{package}}:static/bootstrap/css/bootstrap.min.css')}">
   <link rel="stylesheet" href="${request.static_url('{{package}}:static/bootstrap/css/bootstrap-theme.min.css')}">
