@@ -10,6 +10,7 @@ What's new in 0.9.6
 
 * Added a section in base.mako template named extra_head for including stuff within the <head></head> section of the page.
 * Fixed minor bug in CURD list section causing errors when a FK is null.
+* Updated base.mako template to use dojo 1.10.1 instead of the previously used 1.8.3
 
 What's new in 0.9.5
 -------------------
