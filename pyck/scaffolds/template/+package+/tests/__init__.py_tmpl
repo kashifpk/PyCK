@@ -11,7 +11,8 @@ from .. import main
 from ..models import db, Base
 
 here = os.path.dirname(__file__)
-settings = appconfig('config:' + os.path.join(here, '../../', 'test.ini'))
+if os.path.exists(os.path.join(here, '../../', 'test.ini')):
+    settings = appconfig('config:' + os.path.join(here, '../../', 'test.ini'))
 
 
 class TestBase(unittest.TestCase):
