@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.9.5 documentation</title>
+    <title>Changes &mdash; PyCK 0.9.6 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.5',
+        VERSION:     '0.9.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.5 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.6 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,6 +53,24 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-6">
+<h2>What&#8217;s new in 0.9.6<a class="headerlink" href="#what-s-new-in-0-9-6" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Added a section in base.mako template named extra_head for including stuff within the &lt;head&gt;&lt;/head&gt; section of the page.</p>
+</li>
+<li><p class="first">Fixed minor bug in CURD list section causing errors when a FK is null.</p>
+</li>
+<li><p class="first">Updated base.mako template to use dojo 1.10.1 instead of the previously used 1.8.3</p>
+</li>
+<li><p class="first">Added top level route for favicon.ico in project scaffold</p>
+</li>
+<li><p class="first">Mechanism for integrating subapp dependencies into project&#8217;s setup.py&#8217;s requires for pyck projects. In your subapp&#8217;s __init__.py file just specify the required dependencies in a list named subapp_requires and it will automatically be merged with the project&#8217;s requirements. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">subapp_requires</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;pygments&#39;</span><span class="p">,</span> <span class="s">&#39;numpy&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-5">
 <h2>What&#8217;s new in 0.9.5<a class="headerlink" href="#what-s-new-in-0-9-5" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -488,6 +506,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#what-s-new-in-0-9-6">What&#8217;s new in 0.9.6</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-5">What&#8217;s new in 0.9.5</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-4">What&#8217;s new in 0.9.4</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-3">What&#8217;s new in 0.9.3</a></li>
@@ -561,7 +580,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

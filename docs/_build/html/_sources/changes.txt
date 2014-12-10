@@ -5,6 +5,17 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.6
+-------------------
+
+* Added a section in base.mako template named extra_head for including stuff within the <head></head> section of the page.
+* Fixed minor bug in CURD list section causing errors when a FK is null.
+* Updated base.mako template to use dojo 1.10.1 instead of the previously used 1.8.3
+* Added top level route for favicon.ico in project scaffold
+* Mechanism for integrating subapp dependencies into project's setup.py's requires for pyck projects. In your subapp's __init__.py file just specify the required dependencies in a list named subapp_requires and it will automatically be merged with the project's requirements. For example::
+
+    subapp_requires = ['pygments', 'numpy']
+
 What's new in 0.9.5
 -------------------
 
