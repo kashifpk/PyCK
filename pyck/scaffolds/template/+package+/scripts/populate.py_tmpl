@@ -48,7 +48,7 @@ def main(argv=sys.argv):
 
         #Authentication related basic user and permission setup
         if 0 == db.query(User).count():
-            db.add(User('admin', hashlib.sha1('admin').hexdigest()))
+            db.add(User('admin', hashlib.sha1('admin'.encode('utf-8')).hexdigest()))
             db.flush()
 
         if 0 == db.query(Permission).count():

@@ -96,7 +96,7 @@
 			%endfor
 		%endif
 		
-		%for appname, app_models in models.iteritems():
+		%for appname, app_models in list(models.items()):
 			%if '__main__' != appname:
 				<h2 class="info">${appname.replace("_", " ").title().replace(" ", "&nbsp;")|n}</h2>
 				%for model in models[appname]:

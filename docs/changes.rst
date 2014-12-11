@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.7
+-------------------
+
+* Python 3.x compatibility. Now PyCK projects can run on both python 2.x ( > 2.5 ) and python 3.x ( >= 3.2 )
+
 What's new in 0.9.6
 -------------------
 
