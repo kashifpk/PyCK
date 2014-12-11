@@ -229,9 +229,9 @@ class CRUDController(object):
         form_fields = {}
         exclude_keys = ['choices', 'choices_fields']
 
-        for field_name, field_data in self.add_edit_field_args.items():
+        for field_name, field_data in list(self.add_edit_field_args.items()):
             new_dict = {}
-            for k, v in field_data.items():
+            for k, v in list(field_data.items()):
                 if k not in exclude_keys:
                     new_dict[k] = v
 
@@ -316,7 +316,7 @@ class CRUDController(object):
                                     field_args=self._get_modelform_field_args())
 
         #check for field data and set proper attributes accordingly
-        for field_name, field_data in self.add_edit_field_args.items():
+        for field_name, field_data in list(self.add_edit_field_args.items()):
             field = getattr(ModelForm, field_name)
 
             if 'choices' in field_data or 'choices_fields' in field_data:
@@ -328,7 +328,7 @@ class CRUDController(object):
             f = ModelForm(self.request.POST, request_obj=self.request, use_csrf_protection=True)
 
         #check for field data and set proper attributes accordingly
-        for field_name, field_data in self.add_edit_field_args.items():
+        for field_name, field_data in list(self.add_edit_field_args.items()):
             field = getattr(f, field_name)
 
             if 'choices' in field_data:
@@ -374,7 +374,7 @@ class CRUDController(object):
             #if f.validate():
             if True:
                 obj = self.model()
-                for fname, f_field in f._fields.items():
+                for fname, f_field in list(f._fields.items()):
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
 
@@ -400,7 +400,7 @@ class CRUDController(object):
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
             #if f.validate():
             if True:
-                for fname, f_field in f._fields.items():
+                for fname, f_field in list(f._fields.items()):
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
 

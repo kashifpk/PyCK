@@ -8,7 +8,6 @@ Admin extension that automtically creates CRUD interfaces for all database model
 """
 
 import os.path
-from pyramid_handlers import action
 from pyramid.response import Response
 
 from pyramid.httpexceptions import HTTPFound
@@ -75,7 +74,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
     all_models = []
 
     if dict == type(models):
-        for appname, app_models in models.items():
+        for appname, app_models in list(models.items()):
             for model in app_models:
                 all_models.append(model)
                 tablename = model.__tablename__

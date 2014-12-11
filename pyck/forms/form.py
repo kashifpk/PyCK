@@ -1,7 +1,10 @@
+import sys
 import wtforms
 from mako.template import Template
 
 from .template_lookup import template_lookup
+
+PY3 = sys.version > '3'
 
 
 class Form(wtforms.Form):
@@ -70,8 +73,14 @@ class Form(wtforms.Form):
         """
 
         tmpl = template_lookup.get_template("form_as_p.mako")
+        output = tmpl.render(form=self,
+                             labels_position=labels.lower(),
+                             errors_position=errors.lower())
 
-        return tmpl.render(form=self, labels_position=labels.lower(), errors_position=errors.lower())
+        if PY3:
+            output = output.decode('utf-8')
+
+        return output
 
     def as_table(self, labels='left', errors='top', include_table_tag=False):
         """
@@ -88,8 +97,14 @@ class Form(wtforms.Form):
 
         tmpl = template_lookup.get_template("form_as_table.mako")
 
-        return tmpl.render(form=self, labels_position=labels.lower(), errors_position=errors.lower(),
-                           include_table_tag=include_table_tag)
+        output = tmpl.render(form=self,
+                             labels_position=labels.lower(),
+                             errors_position=errors.lower(),
+                             include_table_tag=include_table_tag)
+        if PY3:
+            output = output.decode('utf-8')
+
+        return output
 
     def as_div(self):
         """
@@ -108,5 +123,10 @@ class Form(wtforms.Form):
 
         tmpl = template_lookup.get_template("form_as_div.mako")
 
-        return tmpl.render(form=self)
+        output = tmpl.render(form=self)
+
+        if PY3:
+            output = output.decode('utf-8')
+
+        return output
 

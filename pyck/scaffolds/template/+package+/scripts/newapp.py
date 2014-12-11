@@ -48,7 +48,7 @@ class NewAppTemplate(Template):
 def usage(argv):
     cmd = os.path.basename(argv[0])
     print(('usage: %s <application_name>\n'
-          '(example: "%s myapp2")' % (cmd, cmd))) 
+          '(example: "%s myapp2")' % (cmd, cmd)))
     sys.exit(1)
 
 

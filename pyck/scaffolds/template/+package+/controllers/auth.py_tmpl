@@ -44,7 +44,7 @@ def auth_users(request):
                 db.add(U)
 
                 # Add user permissions here.
-                for key in request.POST.keys():
+                for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
                         UP = UserPermission(f.user_id.data, permission)
@@ -55,7 +55,7 @@ def auth_users(request):
 
             elif 'edit' == action:
                 db.query(UserPermission).filter_by(user_id=request.GET['id']).delete()
-                for key in request.POST.keys():
+                for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
                         UP = UserPermission(f.user_id.data, permission)
