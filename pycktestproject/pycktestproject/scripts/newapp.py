@@ -47,8 +47,8 @@ class NewAppTemplate(Template):
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
-    print('usage: %s <application_name>\n'
-          '(example: "%s myapp2")' % (cmd, cmd)) 
+    print(('usage: %s <application_name>\n'
+          '(example: "%s myapp2")' % (cmd, cmd))) 
     sys.exit(1)
 
 
@@ -61,7 +61,7 @@ def main(argv=sys.argv):
     apps_path = here_parent + '/apps'
     #sys.path.insert(0, here_parent+'/apps')
     #sys.path.insert(0, here_parent)
-    print("creating %s" % new_appname)
+    print(("creating %s" % new_appname))
 
     #command = TempCommand()
     command = PCreateCommand(argv)

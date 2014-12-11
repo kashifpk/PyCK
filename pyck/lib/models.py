@@ -72,7 +72,7 @@ def get_columns(model, col_type=None):
 
     ret_cols = []
 
-    for col in model.__table__.columns.keys():
+    for col in list(model.__table__.columns.keys()):
 
         obj = getattr(model, col)
 

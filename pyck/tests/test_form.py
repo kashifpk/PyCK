@@ -23,7 +23,7 @@ class TestForm(unittest.TestCase):
         assert 'fname' == self.myform.fname.name
 
     def test_02_form_as_p_top_labels(self):
-        print(self.myform.as_p(labels='top'))
+        print((self.myform.as_p(labels='top')))
         assert '<label for="name">Name</label><br /> <input id="name" name="name" type="text" value="">' in self.myform.as_p(labels='top')
 
     def test_03_form_as_p_left_labels(self):

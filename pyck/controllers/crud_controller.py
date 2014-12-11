@@ -210,7 +210,7 @@ class CRUDController(object):
         R = None
 
         #check to see if we have multiple primary keys or single
-        primary_key_columns = self.model.__table__.primary_key.columns.keys()
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
         if len(primary_key_columns) > 1:
             #composite key processing here
             pass
@@ -229,9 +229,9 @@ class CRUDController(object):
         form_fields = {}
         exclude_keys = ['choices', 'choices_fields']
 
-        for field_name, field_data in self.add_edit_field_args.iteritems():
+        for field_name, field_data in self.add_edit_field_args.items():
             new_dict = {}
-            for k, v in field_data.iteritems():
+            for k, v in field_data.items():
                 if k not in exclude_keys:
                     new_dict[k] = v
 
@@ -245,7 +245,7 @@ class CRUDController(object):
 
         log.info('determining exclude list')
         # exclude any relationships
-        exclude_list = self.model.__mapper__.relationships.keys()
+        exclude_list = list(self.model.__mapper__.relationships.keys())
         log.info(exclude_list)
 
         if 'add' == action_type:
@@ -276,15 +276,15 @@ class CRUDController(object):
             columns = self.list_only
 
         elif self.list_exclude is not None:
-            for column in self.model.__table__.columns.keys():
+            for column in list(self.model.__table__.columns.keys()):
                 if column not in self.list_exclude:
                     columns.append(column)
 
         else:
-            columns = self.model.__table__.columns.keys()
+            columns = list(self.model.__table__.columns.keys())
 
         # calculate number of pages
-        pk_col = self.model.__table__.primary_key.columns.keys()[0]
+        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
         pk_col = self.model.__table__.primary_key.columns[pk_col]
 
         total_recs = self.db_session.query(func.count(pk_col)).scalar()
@@ -292,7 +292,7 @@ class CRUDController(object):
         pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
 
         # determine primary key columns
-        primary_key_columns = self.model.__table__.primary_key.columns.keys()
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
         ret_dict = {
             'base_template': self.base_template, 'friendly_name': self.friendly_name,
@@ -303,7 +303,7 @@ class CRUDController(object):
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
 
-        return dict(ret_dict.items() + self.template_extra_params.items())
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def _get_add_edit_form(self, action_type, R=None):
         exclude_list = self._get_exclude_list(action_type)
@@ -316,7 +316,7 @@ class CRUDController(object):
                                     field_args=self._get_modelform_field_args())
 
         #check for field data and set proper attributes accordingly
-        for field_name, field_data in self.add_edit_field_args.iteritems():
+        for field_name, field_data in self.add_edit_field_args.items():
             field = getattr(ModelForm, field_name)
 
             if 'choices' in field_data or 'choices_fields' in field_data:
@@ -328,7 +328,7 @@ class CRUDController(object):
             f = ModelForm(self.request.POST, request_obj=self.request, use_csrf_protection=True)
 
         #check for field data and set proper attributes accordingly
-        for field_name, field_data in self.add_edit_field_args.iteritems():
+        for field_name, field_data in self.add_edit_field_args.items():
             field = getattr(f, field_name)
 
             if 'choices' in field_data:
@@ -374,8 +374,8 @@ class CRUDController(object):
             #if f.validate():
             if True:
                 obj = self.model()
-                for fname, f_field in f._fields.iteritems():
-                    if hasattr(f_field, 'choices') and f_field.data in ['', u'None']:
+                for fname, f_field in f._fields.items():
+                    if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
 
                 f.populate_obj(obj)
@@ -387,7 +387,7 @@ class CRUDController(object):
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
                     'form': f, "action_type": "add"}
-        return dict(ret_dict.items() + self.template_extra_params.items())
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def edit(self):
         """
@@ -400,8 +400,8 @@ class CRUDController(object):
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
             #if f.validate():
             if True:
-                for fname, f_field in f._fields.iteritems():
-                    if hasattr(f_field, 'choices') and f_field.data in ['', u'None']:
+                for fname, f_field in f._fields.items():
+                    if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
 
                 f.populate_obj(R)
@@ -411,7 +411,7 @@ class CRUDController(object):
                 return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
-        return dict(ret_dict.items() + self.template_extra_params.items())
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def delete(self):
         """
@@ -436,11 +436,11 @@ class CRUDController(object):
         """
 
         R = self._get_rec_from_pk_val()
-        columns = self.model.__table__.columns.keys()
-        primary_key_columns = self.model.__table__.primary_key.columns.keys()
+        columns = list(self.model.__table__.columns.keys())
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
         ret_dict = {'base_template': self.base_template, 'R': R, 'friendly_name': self.friendly_name,
                 'columns': columns, 'primary_key_columns': primary_key_columns,
                 'actions': self.detail_actions}
-        return dict(ret_dict.items() + self.template_extra_params.items())
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 

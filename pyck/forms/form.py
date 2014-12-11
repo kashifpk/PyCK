@@ -1,7 +1,7 @@
 import wtforms
 from mako.template import Template
 
-from template_lookup import template_lookup
+from .template_lookup import template_lookup
 
 
 class Form(wtforms.Form):

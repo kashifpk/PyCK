@@ -6,6 +6,7 @@ from sqlalchemy import (
     Integer,
     Text,
     )
+import collections
 
 Base = declarative_base()
 
@@ -30,8 +31,8 @@ class TestModelForm(unittest.TestCase):
 
     def test_02_has_as_p(self):
         assert hasattr(self.myform, 'as_p')
-        assert callable(self.myform.as_p)
+        assert isinstance(self.myform.as_p, collections.Callable)
 
     def test_03_has_as_table(self):
         assert hasattr(self.myform, 'as_table')
-        assert callable(self.myform.as_table)
+        assert isinstance(self.myform.as_table, collections.Callable)

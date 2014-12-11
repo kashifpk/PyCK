@@ -3,7 +3,7 @@ from pyck.ext.admin_controller import add_admin_handler, AdminController
 
 from pyramid import testing
 
-from dummy_db import db_session, db_engine, Base, User, Category, Post, Comment
+from .dummy_db import db_session, db_engine, Base, User, Category, Post, Comment
 
 
 
