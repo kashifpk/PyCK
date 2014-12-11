@@ -28,7 +28,8 @@ def get_models(application, get_app_models=True,
             all_models['__main__'] = []
 
         for M in application.models.__all__:
-            models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
+            #models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
+            models_module = importlib.import_module(application.models.__name__)
             M = getattr(models_module, M)
             if hasattr(M, '__tablename__'):
                 if ignore_auth_tables:
@@ -47,7 +48,8 @@ def get_models(application, get_app_models=True,
             else:
                 app_name = app.APP_NAME
 
-            models_module = __import__(application.apps.__name__ + '.' + app_name + '.models', globals(), locals(), ['__all__'], -1)
+            #models_module = __import__(application.apps.__name__ + '.' + app_name + '.models', globals(), locals(), ['__all__'], -1)
+            models_module = importlib.import_module(application.apps.__name__ + '.' + app_name + '.models')
             all_models[app_name] = []
 
             for M in models_module.__all__:
@@ -72,7 +74,7 @@ def get_columns(model, col_type=None):
 
     ret_cols = []
 
-    for col in model.__table__.columns.keys():
+    for col in list(model.__table__.columns.keys()):
 
         obj = getattr(model, col)
 

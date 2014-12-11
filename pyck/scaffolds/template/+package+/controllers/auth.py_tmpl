@@ -40,11 +40,11 @@ def auth_users(request):
             if 'add' == action:
                 U = User()
                 f.populate_obj(U)
-                U.password = hashlib.sha1(f.password.data).hexdigest()
+                U.password = hashlib.sha1(f.password.data.encode('utf-8')).hexdigest()
                 db.add(U)
 
                 # Add user permissions here.
-                for key in request.POST.keys():
+                for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
                         UP = UserPermission(f.user_id.data, permission)
@@ -55,14 +55,14 @@ def auth_users(request):
 
             elif 'edit' == action:
                 db.query(UserPermission).filter_by(user_id=request.GET['id']).delete()
-                for key in request.POST.keys():
+                for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
                         UP = UserPermission(f.user_id.data, permission)
                         db.add(UP)
 
                 f.populate_obj(U)
-                U.password = hashlib.sha1(f.password.data).hexdigest()
+                U.password = hashlib.sha1(f.password.data.encode('utf-8')).hexdigest()
                 request.session.flash("User updated!")
                 return HTTPFound(location=request.route_url('pyckauth_users'))
 
@@ -177,7 +177,7 @@ def login(request):
     if 'POST' == request.method and login_form.validate():
         U = db.query(User).filter_by(user_id=login_form.user_id.data).first()
 
-        if hashlib.sha1(login_form.password.data).hexdigest() == U.password:
+        if hashlib.sha1(login_form.password.data.encode('utf-8')).hexdigest() == U.password:
 
             request.session['logged_in_user'] = U.user_id
 

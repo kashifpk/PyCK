@@ -2,7 +2,7 @@ import unittest
 from pyck.controllers.crud_controller import add_crud_handler, CRUDController
 from pyramid import testing
 
-from dummy_db import db_session, db_engine, Base, User
+from .dummy_db import db_session, db_engine, Base, User
 
 
 class UserCRUDController(CRUDController):

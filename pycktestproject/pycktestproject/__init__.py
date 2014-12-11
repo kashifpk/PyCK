@@ -5,12 +5,12 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 from sqlalchemy import engine_from_config
 
-from models import db
-from routes import application_routes
+from .models import db
+from .routes import application_routes
 
 import importlib
-from apps import enabled_apps
-import apps
+from .apps import enabled_apps
+from . import apps
 
 from pyck.ext import add_admin_handler, AdminController
 from pyck.lib import get_models, get_submodules
@@ -85,5 +85,5 @@ def configure_app_routes(config):
 
         try:
             config.include(app_module.application_routes, route_prefix=app_route_prefix)
-        except Exception, e:
-            print(repr(e))
+        except Exception as e:
+            print((repr(e)))

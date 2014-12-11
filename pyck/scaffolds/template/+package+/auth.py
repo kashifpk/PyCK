@@ -1,5 +1,5 @@
 from pyramid.httpexceptions import HTTPNotFound, HTTPForbidden
-from models import db, Permission, User, UserPermission, RoutePermission
+from .models import db, Permission, User, UserPermission, RoutePermission
 from pyramid.urldispatch import _compile_route
 from sqlalchemy import or_, func
 

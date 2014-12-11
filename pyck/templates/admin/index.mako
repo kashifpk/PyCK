@@ -6,7 +6,7 @@
 <table class="table table-hover">
 <tbody>
 %if dict == type(models):
-    %for appname, app_models in models.iteritems():
+    %for appname, app_models in list(models.items()):
 		%for model in models[appname]:
             <tr class="${loop.cycle('oddrow', 'evenrow')}">
                 <td style="width: 65%;">${model.__tablename__.replace("_", " ").title()}</td>

@@ -11,13 +11,13 @@ class TestSite(TestBase):
 
     def test_record_add(self):
         with transaction.manager:
-            record = User(user_id=u'testuser', password=u'testpass')
+            record = User(user_id='testuser', password='testpass')
             db.add(record)
 
     def test_record_fetch(self):
         user = db.query(User).first()
         self.assertIsNotNone(user)
-        self.assertEquals(user.user_id, u'testuser')
+        self.assertEquals(user.user_id, 'testuser')
 
     def test_homepage(self):
         from ..controllers.controllers import homepage

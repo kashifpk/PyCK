@@ -8,7 +8,7 @@ The PyCK Forms Package
 
 """
 
-from form import Form
+from .form import Form
 from wtdojo import fields as f
 from wtdojo import widgets as dw
 from wtforms import validators

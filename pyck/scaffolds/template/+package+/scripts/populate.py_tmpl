@@ -26,8 +26,8 @@ from ..models import (
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
-    print('usage: %s <config_uri>\n'
-          '(example: "%s development.ini")' % (cmd, cmd)) 
+    print(('usage: %s <config_uri>\n'
+          '(example: "%s development.ini")' % (cmd, cmd))) 
     sys.exit(1)
 
 
@@ -48,7 +48,7 @@ def main(argv=sys.argv):
 
         #Authentication related basic user and permission setup
         if 0 == db.query(User).count():
-            db.add(User('admin', hashlib.sha1('admin').hexdigest()))
+            db.add(User('admin', hashlib.sha1('admin'.encode('utf-8')).hexdigest()))
             db.flush()
 
         if 0 == db.query(Permission).count():
@@ -71,5 +71,5 @@ def main(argv=sys.argv):
 
         try:
             app_module.populate_app(engine, db)
-        except Exception, e:
-            print(repr(e))
+        except Exception as exp:
+            print(repr(exp))
