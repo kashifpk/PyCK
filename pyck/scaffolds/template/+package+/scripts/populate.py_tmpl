@@ -48,19 +48,28 @@ def main(argv=sys.argv):
 
         #Authentication related basic user and permission setup
         if 0 == db.query(User).count():
-            db.add(User('admin', hashlib.sha1('admin'.encode('utf-8')).hexdigest()))
+            db.add(User(
+                user_id='admin',
+                password=hashlib.sha1('admin'.encode('utf-8')).hexdigest()))
             db.flush()
 
         if 0 == db.query(Permission).count():
-            db.add(Permission('admin', 'Manage administrative section'))
+            db.add(Permission(
+                permission='admin',
+                description='Manage administrative section'))
             db.flush()
 
         if 0 == db.query(UserPermission).count():
-            db.add(UserPermission('admin', 'admin'))
+            db.add(UserPermission(
+                user_id='admin',
+                permission='admin'))
             db.flush()
 
         if 0 == db.query(RoutePermission).count():
-            db.add(RoutePermission('pyckauth_manager', 'ALL', 'admin'))
+            db.add(RoutePermission(
+                route_name='pyckauth_manager',
+                method='ALL',
+                permission='admin'))
             db.flush()
 
     #populate application models
