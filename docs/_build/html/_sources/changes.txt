@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.7.1
+----------------------
+
+* Fixes to crud controller pagination which broke in python3
+
 What's new in 0.9.7
 -------------------
 

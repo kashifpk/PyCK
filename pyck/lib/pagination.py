@@ -14,7 +14,7 @@ def get_pages(total_recs, current_page, recs_per_page=10, max_pages=10):
     Returns a list containing pages that should be displayed as page links.
     """
 
-    total_pages = total_recs/recs_per_page
+    total_pages = int(total_recs/recs_per_page)
 
     if total_recs % recs_per_page > 0:
         total_pages += 1
@@ -25,7 +25,8 @@ def get_pages(total_recs, current_page, recs_per_page=10, max_pages=10):
     else:
         pages_before = max_pages/2
 
-    pages_after = max_pages/2
+    pages_after = int(max_pages/2)
+    pages_before = int(pages_before)
     start_page = 1
 
     if total_pages <= max_pages:

@@ -43,7 +43,7 @@ def get_col_value(col_name, R):
     ${actions_str | n}
     </div>
     
-    %if pages>1:
+    %if len(pages)>1:
     
         <div class="text-right">
             <br />
