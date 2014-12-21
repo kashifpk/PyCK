@@ -49,7 +49,11 @@ def get_models(application, get_app_models=True,
                 app_name = app.APP_NAME
 
             #models_module = __import__(application.apps.__name__ + '.' + app_name + '.models', globals(), locals(), ['__all__'], -1)
-            models_module = importlib.import_module(application.apps.__name__ + '.' + app_name + '.models')
+            try:
+                models_module = importlib.import_module(application.apps.__name__ + '.' + app_name + '.models')
+            except ImportError:
+                continue
+
             all_models[app_name] = []
 
             for M in models_module.__all__:

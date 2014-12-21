@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.7.2
+----------------------
+
+* Pluggable apps are allowed not to have any models now. PyCK now ignores model related operations for these apps correctly.
+
 What's new in 0.9.7.1
 ----------------------
 
