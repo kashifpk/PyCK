@@ -26,7 +26,7 @@ setup(
     ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.""",
     classifiers=[
         "Programming Language :: Python",
-        "Framework :: PyCK",
+        "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
