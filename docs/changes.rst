@@ -11,6 +11,7 @@ What's new in 0.9.7.2
 * Pluggable apps are allowed not to have any models now. PyCK now ignores model related operations for these apps correctly.
 * has_app function in apps package to check if a given app is present in project's enabled apps. This is useful for pluggable apps that are dependent on other pluggable apps.
 * Updates to newapp scaffold to make it look better
+* Minor improvements to project homepage template
 
 What's new in 0.9.7.1
 ----------------------
