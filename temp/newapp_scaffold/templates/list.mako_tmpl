@@ -4,12 +4,10 @@
 The {{appname}} app
 </%def>
 
-<div>
-  <div class="middle align-center">
-    <p class="app-welcome">
-    <img src="${request.static_url(APP_BASE + ':static/webapp.png')}" />  Welcome to {{appname}} app
-    </p>
-  </div>
+<div class="jumbotron">
+  <h1> <img src="${request.static_url(APP_BASE + ':static/webapp.png')}" /> Welcome to {{appname}} app</h1>
+  <p>This is the home page of {{appname}} pluggable app</p>
+  
 </div>
 
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
