@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.7.3
+----------------------
+
+* Fixed errors in lib/models.py where when not returning a dict (old projects ask for returning a list instead of dict) the code gave an error and failed.
+
 What's new in 0.9.7.2
 ----------------------
 

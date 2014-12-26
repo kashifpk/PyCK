@@ -54,7 +54,8 @@ def get_models(application, get_app_models=True,
             except ImportError:
                 continue
 
-            all_models[app_name] = []
+            if return_dict:
+                all_models[app_name] = []
 
             for M in models_module.__all__:
                 #models_module = __import__(application.models.__name__, globals(), locals(), ['__all__'], -1)
