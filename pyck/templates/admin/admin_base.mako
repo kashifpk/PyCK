@@ -91,7 +91,13 @@
 					row_class = "active"
 				%>
 				
-				<li class="${row_class}"><a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}</a></li>
+				<li class="${row_class}">
+					<a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}
+					%if record_counts:
+					<span class="badge">${record_counts[model.__tablename__]}</span>
+					%endif
+					</a>
+				</li>
 				
 			%endfor
 		%endif

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.9.7.2 documentation</title>
+    <title>Changes &mdash; PyCK 0.9.7.4 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.7.2',
+        VERSION:     '0.9.7.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.7.2 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.7.4 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,6 +53,33 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-7-4">
+<h2>What&#8217;s new in 0.9.7.4<a class="headerlink" href="#what-s-new-in-0-9-7-4" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project&#8217;s __init__.py where you have code like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.ext</span> <span class="kn">import</span> <span class="n">add_admin_handler</span><span class="p">,</span> <span class="n">AdminController</span>
+
+<span class="c"># later in the __init__.main function</span>
+<span class="n">add_admin_handler</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">get_models</span><span class="p">(</span><span class="n">sms_vault</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+                  <span class="s">&#39;admin.&#39;</span><span class="p">,</span> <span class="s">&#39;/admin&#39;</span><span class="p">,</span> <span class="n">AdminController</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>you could update it to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.ext</span> <span class="kn">import</span> <span class="n">add_admin_handler</span><span class="p">,</span> <span class="n">AdminController</span>
+
+<span class="k">class</span> <span class="nc">NoRecordCounterAdminController</span><span class="p">(</span><span class="n">AdminController</span><span class="p">):</span>
+    <span class="n">display_record_count</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c"># later in the __init__.main function</span>
+
+<span class="n">add_admin_handler</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">get_models</span><span class="p">(</span><span class="n">sms_vault</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+                  <span class="s">&#39;admin.&#39;</span><span class="p">,</span> <span class="s">&#39;/admin&#39;</span><span class="p">,</span> <span class="n">NoRecordCounterAdminController</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will disable displaying record count next to table links. Disabling record count may be useful where you don&#8217;t want to put the extra strain on the DB for fetching record counts.</p>
+</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-7-3">
 <h2>What&#8217;s new in 0.9.7.3<a class="headerlink" href="#what-s-new-in-0-9-7-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -533,6 +560,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#what-s-new-in-0-9-7-4">What&#8217;s new in 0.9.7.4</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-3">What&#8217;s new in 0.9.7.3</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-2">What&#8217;s new in 0.9.7.2</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-1">What&#8217;s new in 0.9.7.1</a></li>
@@ -611,7 +639,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

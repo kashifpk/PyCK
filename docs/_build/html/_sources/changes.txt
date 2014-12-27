@@ -5,6 +5,31 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.7.4
+----------------------
+
+* Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project's __init__.py where you have code like::
+
+    from pyck.ext import add_admin_handler, AdminController
+    
+    # later in the __init__.main function
+    add_admin_handler(config, db, get_models(sms_vault, return_dict=True),
+                      'admin.', '/admin', AdminController)
+
+  you could update it to::
+
+    from pyck.ext import add_admin_handler, AdminController
+    
+    class NoRecordCounterAdminController(AdminController):
+        display_record_count = False
+    
+    # later in the __init__.main function
+    
+    add_admin_handler(config, db, get_models(sms_vault, return_dict=True),
+                      'admin.', '/admin', NoRecordCounterAdminController)
+
+  This will disable displaying record count next to table links. Disabling record count may be useful where you don't want to put the extra strain on the DB for fetching record counts.
+
 What's new in 0.9.7.3
 ----------------------
 
