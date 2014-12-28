@@ -12,8 +12,7 @@ from wtforms import validators
 
 from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
-from pyck.lib.models import get_columns
-
+from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
 import logging
 
 log = logging.getLogger(__name__)
@@ -194,6 +193,8 @@ class CRUDController(object):
 
     template_extra_params = {}
 
+    fetch_record_count = False
+
     def __init__(self, request):
         self.request = request
 
@@ -258,6 +259,12 @@ class CRUDController(object):
 
         return exclude_list
 
+    def _models_rec_count_if_needed(self):
+        if self.fetch_record_count and 'models' in self.template_extra_params:
+            return get_model_record_counts(self.db_session, models_dict_to_list(self.template_extra_params['models']))
+        else:
+            return {}
+    
     def list(self):
         """
         The listing view - Lists all the records with pagination
@@ -300,6 +307,7 @@ class CRUDController(object):
             'records': records, 'pages': pages, 'current_page': p,
             'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
             'list_field_args': self.list_field_args,
+            'model_record_counts': self._models_rec_count_if_needed(),
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
 
@@ -386,6 +394,7 @@ class CRUDController(object):
                 return self._redirect(os.path.dirname(self.request.current_route_url()))
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
+                    'model_record_counts': self._models_rec_count_if_needed(),
                     'form': f, "action_type": "add"}
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
@@ -410,7 +419,9 @@ class CRUDController(object):
                 #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
                 return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
 
-        ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
+        ret_dict = {'base_template': self.base_template,
+                    'model_record_counts': self._models_rec_count_if_needed(),
+                    'friendly_name': self.friendly_name, 'form': f, "action_type": "edit"}
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def delete(self):
@@ -439,8 +450,10 @@ class CRUDController(object):
         columns = list(self.model.__table__.columns.keys())
         primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
-        ret_dict = {'base_template': self.base_template, 'R': R, 'friendly_name': self.friendly_name,
-                'columns': columns, 'primary_key_columns': primary_key_columns,
-                'actions': self.detail_actions}
+        ret_dict = {'base_template': self.base_template, 'R': R,
+                    'friendly_name': self.friendly_name,
+                    'model_record_counts': self._models_rec_count_if_needed(),
+                    'columns': columns, 'primary_key_columns': primary_key_columns,
+                    'actions': self.detail_actions} 
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 

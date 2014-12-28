@@ -87,14 +87,14 @@
 			%for model in models['__main__']:
 				<%
 				row_class = ""
-				if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url():
+				if request.route_url(route_prefix + model.__name__ + 'CRUD_list') == request.current_route_url().split('?')[0]:
 					row_class = "active"
 				%>
 				
 				<li class="${row_class}">
 					<a href="${request.route_url(route_prefix + model.__name__ + 'CRUD_list')}">${model.__tablename__.replace("_", " ").title().replace(" ", "&nbsp;")|n}
-					%if record_counts:
-					<span class="badge">${record_counts[model.__tablename__]}</span>
+					%if model_record_counts:
+					<span class="badge">${model_record_counts[model.__tablename__]}</span>
 					%endif
 					</a>
 				</li>
