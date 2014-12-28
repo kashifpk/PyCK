@@ -95,3 +95,33 @@ def get_columns(model, col_type=None):
                 ret_cols.append(obj)
 
     return ret_cols
+
+
+def models_dict_to_list(models):
+    """
+    Given a models dict containing subapp names as keys and models as a list of values
+    return an aggregated list of all models
+    """
+    
+    all_models = []
+    
+    if isinstance(models, dict):
+        
+        for _, app_models in list(models.items()):
+            all_models.extend(app_models)
+
+    else:
+        all_models = models
+
+    return all_models
+
+
+def get_model_record_counts(db_session, models):
+    "returns record counts for given models"
+
+    record_counts = {}
+
+    for model in models:
+        record_counts[model.__tablename__] = db_session.query(model).count()
+
+    return record_counts

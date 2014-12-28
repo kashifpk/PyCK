@@ -14,7 +14,7 @@ from pyramid.httpexceptions import HTTPFound
 
 import pyck
 from pyck.forms import model_form
-from pyck.lib.models import get_columns
+from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
 from pyck.controllers import CRUDController, add_crud_handler
 
 
@@ -71,7 +71,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
 
     handler_class.db_session = db_session
     handler_class.models = models
-    all_models = _get_all_models(models)
+    all_models = models_dict_to_list(models)
 
     for model in all_models:
         handler_class.table_models[model.__tablename__] = model
@@ -115,17 +115,13 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
                         list_field_args[FK.name] = dict(display_field="%s.%s" % (RS.key, display_col.name))
                         break
 
-            record_counts = None
-            if handler_class.display_record_count:
-                record_counts = _get_model_record_counts(db_session, all_models)
-
             CC = type(model.__name__ + 'CRUDController', (pyck.controllers.CRUDController,),
                       {'model': model, 'db_session': db_session,
                        'base_template': handler_class.base_template,
                        'add_edit_field_args': add_edit_field_args,
                        'list_field_args': list_field_args,
+                       'fetch_record_count': handler_class.display_record_count,
                        'template_extra_params': {'models': models,
-                                                 'record_counts': record_counts,
                                                  'route_prefix': route_name_prefix,
                                                  'display_record_count': handler_class.display_record_count}
                       }
@@ -135,33 +131,6 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
                              url_pattern_prefix + '/' + model.__tablename__, CC)
 
 
-def _get_all_models(models):
-    """
-    Given a models dict containing subapp names as keys and models as a list of values
-    return an aggregated list of all models
-    """
-    
-    all_models = []
-    
-    if isinstance(models, dict):
-        for appname, app_models in list(models.items()):
-            for model in app_models:
-                all_models.append(model)
-    else:
-        all_models = models
-
-    return all_models
-
-
-def _get_model_record_counts(db_session, models):
-    "returns record counts for given models"
-    
-    record_counts = {}
-
-    for model in models:
-        record_counts[model.__tablename__] = db_session.query(model).count()
-
-    return record_counts
 
 
 class AdminController(object):
@@ -218,8 +187,8 @@ class AdminController(object):
 
         record_counts = None
         if self.display_record_count:
-            record_counts = _get_model_record_counts(self.db_session, _get_all_models(self.models))
+            record_counts = get_model_record_counts(self.db_session, models_dict_to_list(self.models))
 
         return {'base_template': self.base_template, 'route_prefix': self.route_prefix,
                 'models': self.models, 'db_session': self.db_session,
-                'record_counts': record_counts}
+                'model_record_counts': record_counts}
