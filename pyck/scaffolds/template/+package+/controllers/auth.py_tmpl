@@ -47,7 +47,8 @@ def auth_users(request):
                 for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
-                        UP = UserPermission(f.user_id.data, permission)
+                        UP = UserPermission(user_id=f.user_id.data,
+                                            permission=permission)
                         db.add(UP)
 
                 request.session.flash("User created!")
@@ -58,7 +59,8 @@ def auth_users(request):
                 for key in list(request.POST.keys()):
                     if key.startswith('chk_perm_'):
                         permission = request.POST[key]
-                        UP = UserPermission(f.user_id.data, permission)
+                        UP = UserPermission(user_id=f.user_id.data,
+                                            permission=permission)
                         db.add(UP)
 
                 f.populate_obj(U)
