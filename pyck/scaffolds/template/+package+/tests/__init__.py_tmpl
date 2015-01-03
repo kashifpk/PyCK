@@ -20,7 +20,8 @@ class TestBase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.engine = create_engine('sqlite://')
+        cls.engine = create_engine(settings.get('sqlalchemy.url', 'sqlite://'))
+        Base.metadata.drop_all(cls.engine)
         Base.metadata.create_all(cls.engine)
 
     def setUp(self):
