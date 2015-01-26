@@ -72,6 +72,12 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="pyck.lib.models.get_model_record_counts">
+<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">get_model_record_counts</tt><big>(</big><em>db_session</em>, <em>models</em><big>)</big><a class="headerlink" href="#pyck.lib.models.get_model_record_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns record counts for given models</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyck.lib.models.get_models">
 <tt class="descclassname">pyck.lib.models.</tt><tt class="descname">get_models</tt><big>(</big><em>application</em>, <em>get_app_models=True</em>, <em>return_dict=False</em>, <em>ignore_auth_tables=True</em><big>)</big><a class="headerlink" href="#pyck.lib.models.get_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes the passed application package and returns all SQLAlchemy models for the application.</p>
@@ -83,6 +89,13 @@
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyck.lib.models.models_dict_to_list">
+<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">models_dict_to_list</tt><big>(</big><em>models</em><big>)</big><a class="headerlink" href="#pyck.lib.models.models_dict_to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a models dict containing subapp names as keys and models as a list of values
+return an aggregated list of all models</p>
 </dd></dl>
 
 <span class="target" id="module-pyck.lib.pagination"></span><dl class="function">
