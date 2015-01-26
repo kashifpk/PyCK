@@ -8,6 +8,7 @@ This document lists the changes as versions progress
 What's new in 0.9.7.4
 ----------------------
 
+* Minor dojo fix that was causing dojo.parse to be called twice 
 * Auth controller fixes that were broken for python 3
 * Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project's __init__.py where you have code like::
 
