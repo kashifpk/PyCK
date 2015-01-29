@@ -1,9 +1,10 @@
 import os.path
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotAcceptable
 
 from wtforms.widgets.core import Select
 from wtforms import SelectField
@@ -175,18 +176,18 @@ class CRUDController(object):
     list_only = None
     list_exclude = None
     list_actions = [
-                    {'link_text': 'Add {friendly_name}', 'link_url': 'add'},
+                    {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-success'},
                    ]
 
     list_per_record_actions = [
                     {'link_text': 'Details', 'link_url': 'details/{PK}'},
                     {'link_text': 'Edit', 'link_url': 'edit/{PK}'},
-                    {'link_text': 'Delete', 'link_url': 'delete/{PK}'},
+                    {'link_text': 'Delete', 'link_url': 'delete/{PK}', 'css_class': 'text-danger'},
                    ]
 
     detail_actions = [
                     {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
-                    {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
+                    {'link_text': 'Delete', 'link_url': '../delete/{PK}', 'css_class': 'btn btn-danger'},
                    ]
 
     base_template = '/base.mako'
@@ -434,7 +435,12 @@ class CRUDController(object):
         """
 
         R = self._get_rec_from_pk_val()
-        self.db_session.delete(R)
+        try:
+            self.db_session.delete(R)
+            self.db_session.flush()
+        except IntegrityError as exp:
+            return HTTPNotAcceptable(
+                detail="Cannot delete category as it has dependent records\n" + str(exp))
 
         self.request.session.flash(self.friendly_name + " deleted successfully!")
 

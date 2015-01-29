@@ -24,7 +24,13 @@ def insert_per_rec_keyword_values(s, R):
         <%
         actions_str = ''
         for action in actions:
-            actions_str += '<a class="btn btn-primary" href="' + insert_per_rec_keyword_values(action['link_url'], R) + '">' + action['link_text'] + '</a>'
+            css_class_str = ' class="btn btn-primary"'
+            if 'css_class' in action:
+                css_class_str = ' class="' + action['css_class'] + '"'
+            
+            actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '"' + css_class_str + '>' + action['link_text'] + '</a>'
+            
+            
         
         %>
         ${actions_str | n}
@@ -36,7 +42,13 @@ def insert_per_rec_keyword_values(s, R):
         %for column in columns:
             <tr>
                 <th>${column}</th>
-                <td>${getattr(R, column)}</td>
+                <td>
+                %if isinstance(getattr(R, column), (str, unicode)):
+                    ${getattr(R, column)|n}
+                %else:
+                    ${getattr(R, column)}
+                %endif
+                </td>
             </tr>
         %endfor
         </table>

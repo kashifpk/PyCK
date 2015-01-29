@@ -8,6 +8,20 @@ This document lists the changes as versions progress
 What's new in 0.9.7.4
 ----------------------
 
+* Delete action in admin controller correctly displays HTTP Not Acceptable error if deleting a record violates Referential Integrity
+* Added support for 'crud_list_only', 'crud_list_exclude', 'crud_models_field_args', 'crud_list_actions', 'crud_list_per_record_actions', 'crud_detail_actions' for admin controllers. Now you can define a custom AdminController child class and use it to specify extra parameters for some or all of the crud controllers present in the admin interface. For example::
+
+    class BlogsAdminController(AdminController):
+    
+        crud_list_per_record_actions = {
+            UserInfo.__name__: [
+                {'link_text': 'Details', 'link_url': 'details/{PK}'},
+                {'link_text': 'Edit', 'link_url': 'edit/{PK}'},
+                {'link_text': 'Delete', 'link_url': 'delete/{PK}'},
+                {'link_text': 'Upload Photo', 'link_url': '/photo_upload/user/{PK}'},
+            ]
+        }
+    
 * Minor dojo fix that was causing dojo.parse to be called twice 
 * Auth controller fixes that were broken for python 3
 * Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project's __init__.py where you have code like::

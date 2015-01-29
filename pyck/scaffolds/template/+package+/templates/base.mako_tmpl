@@ -27,7 +27,12 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
   <!-- Dojo -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
-  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: true"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js" data-dojo-config="isDebug: true, async: true"></script>
+  <script type="text/javascript">
+        require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
+          parser.parse();
+          });});
+  </script>
 
   ${self.extra_head()}
 </head>
