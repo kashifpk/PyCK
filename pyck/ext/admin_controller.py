@@ -117,6 +117,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
                      )
             
             extra_actions = [
+                'crud_list_sort_by',
                 'crud_list_only',
                 'crud_list_exclude',
                 'crud_models_field_args',
@@ -160,6 +161,15 @@ class AdminController(object):
 
     These parameters are to be set as class properties in a sub-class of AdminController
     
+    :para crud_list_sort_by:
+        Sort by specs for models.
+        
+        Example::
+        
+        crud_list_sort_by = {
+            Post.__name__: Post.created.desc()
+        }
+        
     :param crud_models_field_args:
         A dictionary with key being the model name and value being the field args value for that model.
 
@@ -250,6 +260,7 @@ class AdminController(object):
 
     display_record_count = True  # display record count next to table names
     
+    crud_list_sort_by = {}
     crud_list_only = {}
     crud_list_exclude = {}
     

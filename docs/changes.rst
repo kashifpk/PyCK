@@ -8,6 +8,8 @@ This document lists the changes as versions progress
 What's new in 0.9.7.4
 ----------------------
 
+* Record sorting support for AdminController using 'crud_list_sort_by' property.
+* Record sorting support for CRUD controller using 'list_sort_by' property of CRUDController
 * Delete action in admin controller correctly displays HTTP Not Acceptable error if deleting a record violates Referential Integrity
 * Added support for 'crud_list_only', 'crud_list_exclude', 'crud_models_field_args', 'crud_list_actions', 'crud_list_per_record_actions', 'crud_detail_actions' for admin controllers. Now you can define a custom AdminController child class and use it to specify extra parameters for some or all of the crud controllers present in the admin interface. For example::
 

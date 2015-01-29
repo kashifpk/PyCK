@@ -108,6 +108,8 @@ class CRUDController(object):
 
     :param base_template: An alternate base template to use for the CRUD handler instead of the default base template of the application
 
+    :param list_sort_by: Sorting spec for displaying records in records list page
+    
     :param add_edit_exclude: A list of fields that should not be displayed in add or edit operations
 
     :param add_edit_field_args: A dictionary of field arguments with field name as key and args and key-value pairs dict.
@@ -164,11 +166,16 @@ class CRUDController(object):
     friendly_name = None
     db_session = None
 
+    
+    
     #Add and edit page settings
     add_edit_exclude = None
 
     add_edit_field_args = {}
 
+    #Listing page sorting
+    list_sort_by = None
+    
     #Listing page related settings
     list_recs_per_page = 10
     list_max_pages = 10
@@ -275,7 +282,13 @@ class CRUDController(object):
 
         start_idx = self.list_recs_per_page * (p - 1)
 
-        records = self.db_session.query(self.model).slice(start_idx, start_idx + self.list_recs_per_page)
+        query = self.db_session.query(self.model)
+        if self.list_sort_by is not None:
+            query = query.order_by(self.list_sort_by)
+        
+        query = query.slice(start_idx, start_idx + self.list_recs_per_page)
+        
+        records = query
 
         columns = []
 
