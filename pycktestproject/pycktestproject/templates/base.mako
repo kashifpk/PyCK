@@ -17,6 +17,8 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
   <!-- Bootstrap -->
   <link rel="stylesheet" href="${request.static_url('pycktestproject:static/bootstrap/css/bootstrap.min.css')}">
   <link rel="stylesheet" href="${request.static_url('pycktestproject:static/bootstrap/css/bootstrap-theme.min.css')}">
+  <script src="${request.static_url('pycktestproject:static/jquery.min.js')}"></script>
+  <script src="${request.static_url('pycktestproject:static/bootstrap/js/bootstrap.min.js')}"></script>
   
   <!-- Custom CSS -->
   <link rel="stylesheet" href="${request.static_url('pycktestproject:static/pyck.css')}" type="text/css" media="screen" charset="utf-8" />
