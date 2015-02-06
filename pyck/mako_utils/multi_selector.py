@@ -66,10 +66,13 @@ def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True)
     :param ignore_prefix: (optional) if given key names starting with the prefix are not displayed (ignored)
     :param do_auto_grouping: Group similar items together and make them collapsable
     
+    Done:
+    
+    * Ability to auto-detect grouping
+    * Ability to toggle sub-item selections for checkboxes
     
     TODO:
     
-    * Ability to auto-detect grouping
     * Ability to allow single select (Radio buttons)
     * Ability to only display data (no checkboxes or radio buttons)
     """

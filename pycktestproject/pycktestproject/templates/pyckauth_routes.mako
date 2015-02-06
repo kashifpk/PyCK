@@ -1,3 +1,7 @@
+<%!
+from pyck.mako_utils.multi_selector import multi_selector
+%>
+
 <%inherit file="pyckauth_base.mako"/>
 <style>
     li {display: inline;}
@@ -10,6 +14,17 @@
 <form action="${request.current_route_url()}" method="post" role="form" class="form-horizontal">
 
 
+    
+    <div class="form-group">
+        <div class="col-sm-3">Routes</div>
+        
+        <div class="col-sm-9">
+            ## Ignore static routes (route name starts with __)
+            ${multi_selector(items=routes, field_name='routenames', ignore_prefix='__')|n}  
+        </div>
+    </div>
+    
+    
     ${route_permissions_form.as_div() | n}
     
     <div class="form-group">
