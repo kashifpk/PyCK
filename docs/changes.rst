@@ -8,6 +8,7 @@ This document lists the changes as versions progress
 What's new in 0.9.8
 ----------------------
 
+* Added :mod:`pyck.mako_utils` package for mako related utility code
 * Addition of :func:`pyck.lib.routes.get_routes` function which returns OrderedDict of routes
 * Record sorting support for AdminController using 'crud_list_sort_by' property.
 * Record sorting support for CRUD controller using 'list_sort_by' property of CRUDController

@@ -32,5 +32,4 @@ def get_routes(request):
     for routename in sorted(main_routenames) + sorted(app_routenames):
         sorted_routes[routename] = routes[routename]
     
-    print(sorted_routes)
     return sorted_routes
