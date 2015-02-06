@@ -58,7 +58,7 @@ def group_similar(items):
     return grouped_items
 
 
-def multi_selector(items, ignore_prefix=None, do_auto_grouping=True):
+def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True):
     """
     Displays given items for multi-selection
     
@@ -77,8 +77,10 @@ def multi_selector(items, ignore_prefix=None, do_auto_grouping=True):
     if do_auto_grouping:
         items = group_similar(items)
     
+    print(field_name)
     tmpl = template_lookup.get_template("multi_selector.mako")
     output = tmpl.render(
+        field_name=field_name,
         items=items,
         ignore_prefix=ignore_prefix)
 
