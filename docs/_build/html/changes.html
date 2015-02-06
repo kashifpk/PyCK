@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changes &mdash; PyCK 0.9.7.4 documentation</title>
+    <title>Changes &mdash; PyCK 0.9.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.7.4',
+        VERSION:     '0.9.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.7.4 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.8 documentation" href="index.html" />
     <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,9 +53,31 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
-<div class="section" id="what-s-new-in-0-9-7-4">
-<h2>What&#8217;s new in 0.9.7.4<a class="headerlink" href="#what-s-new-in-0-9-7-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-new-in-0-9-8">
+<h2>What&#8217;s new in 0.9.8<a class="headerlink" href="#what-s-new-in-0-9-8" title="Permalink to this headline">¶</a></h2>
 <ul>
+<li><p class="first">Addition of <a class="reference internal" href="pyck-lib.html#pyck.lib.routes.get_routes" title="pyck.lib.routes.get_routes"><tt class="xref py py-func docutils literal"><span class="pre">pyck.lib.routes.get_routes()</span></tt></a> function which returns OrderedDict of routes</p>
+</li>
+<li><p class="first">Record sorting support for AdminController using &#8216;crud_list_sort_by&#8217; property.</p>
+</li>
+<li><p class="first">Record sorting support for CRUD controller using &#8216;list_sort_by&#8217; property of CRUDController</p>
+</li>
+<li><p class="first">Delete action in admin controller correctly displays HTTP Not Acceptable error if deleting a record violates Referential Integrity</p>
+</li>
+<li><p class="first">Added support for &#8216;crud_list_only&#8217;, &#8216;crud_list_exclude&#8217;, &#8216;crud_models_field_args&#8217;, &#8216;crud_list_actions&#8217;, &#8216;crud_list_per_record_actions&#8217;, &#8216;crud_detail_actions&#8217; for admin controllers. Now you can define a custom AdminController child class and use it to specify extra parameters for some or all of the crud controllers present in the admin interface. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">BlogsAdminController</span><span class="p">(</span><span class="n">AdminController</span><span class="p">):</span>
+
+    <span class="n">crud_list_per_record_actions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">UserInfo</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Details&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;details/{PK}&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;edit/{PK}&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;delete/{PK}&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Upload Photo&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/photo_upload/user/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</li>
 <li><p class="first">Minor dojo fix that was causing dojo.parse to be called twice</p>
 </li>
 <li><p class="first">Auth controller fixes that were broken for python 3</p>
@@ -564,7 +586,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changes</a><ul>
-<li><a class="reference internal" href="#what-s-new-in-0-9-7-4">What&#8217;s new in 0.9.7.4</a></li>
+<li><a class="reference internal" href="#what-s-new-in-0-9-8">What&#8217;s new in 0.9.8</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-3">What&#8217;s new in 0.9.7.3</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-2">What&#8217;s new in 0.9.7.2</a></li>
 <li><a class="reference internal" href="#what-s-new-in-0-9-7-1">What&#8217;s new in 0.9.7.1</a></li>
@@ -643,7 +665,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
         <li class="right" >
           <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

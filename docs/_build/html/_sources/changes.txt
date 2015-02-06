@@ -5,9 +5,26 @@ Changes
 
 This document lists the changes as versions progress
 
-What's new in 0.9.7.4
+What's new in 0.9.8
 ----------------------
 
+* Addition of :func:`pyck.lib.routes.get_routes` function which returns OrderedDict of routes
+* Record sorting support for AdminController using 'crud_list_sort_by' property.
+* Record sorting support for CRUD controller using 'list_sort_by' property of CRUDController
+* Delete action in admin controller correctly displays HTTP Not Acceptable error if deleting a record violates Referential Integrity
+* Added support for 'crud_list_only', 'crud_list_exclude', 'crud_models_field_args', 'crud_list_actions', 'crud_list_per_record_actions', 'crud_detail_actions' for admin controllers. Now you can define a custom AdminController child class and use it to specify extra parameters for some or all of the crud controllers present in the admin interface. For example::
+
+    class BlogsAdminController(AdminController):
+    
+        crud_list_per_record_actions = {
+            UserInfo.__name__: [
+                {'link_text': 'Details', 'link_url': 'details/{PK}'},
+                {'link_text': 'Edit', 'link_url': 'edit/{PK}'},
+                {'link_text': 'Delete', 'link_url': 'delete/{PK}'},
+                {'link_text': 'Upload Photo', 'link_url': '/photo_upload/user/{PK}'},
+            ]
+        }
+    
 * Minor dojo fix that was causing dojo.parse to be called twice 
 * Auth controller fixes that were broken for python 3
 * Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project's __init__.py where you have code like::
@@ -233,7 +250,7 @@ What's new in 0.6.6
 
 
 What's new in 0.6.5
-------------------
+-------------------
 
 * dojo_model_forms support
 
@@ -256,7 +273,7 @@ What's new in 0.6.3
 
 
 What's new in 0.6
-----------------
+------------------
 
 * Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
   permissions and assigning them to different routes. A default login and logout route is now also present in the
@@ -294,7 +311,7 @@ What's new in 0.5.1
 
 
 What's new in 0.5
-----------------
+------------------
 
 * Automatic Admin Interface - Enables automatic Admin interface generation from database models. The :class:`pyck.ext.admin_controller.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
     
@@ -309,23 +326,23 @@ What's new in 0.5
     and that's all you need to do to get a fully operation Admin interface.
     
 What's new in 0.4.3
-------------------
+--------------------
 
 * Updates to the CRUDController for better template integration
 
 What's new in 0.4.2
-------------------
+--------------------
 
 * Pagination fixes for limiting the number of pages displayed
 
 What's new in 0.4.1
-------------------
+--------------------
 
 * Fixed edit interface bug in CRUDController
 * Added instructions for setting up pyck with Apache+mod_wsgi 
 
 What's new in 0.4
-----------------
+------------------
 
 * CRUDController - Enables automatic CRUD interface generation from database models. The :class:`pyck.controllers.CRUDController` allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.
     
@@ -350,7 +367,7 @@ What's new in 0.4
 
 
 What's new in 0.3
-----------------
+------------------
 
 * Model Forms - Ability to generate forms automatically from database models. We now have a :func:`pyck.forms.model_form` function that behaves exactly like :func:`wtforms.ext.sqlalchemy.orm.model_form` but uses :class:`pyck.forms.Form` as its base class. The benefit is that you get all the features present in pyck forms in your model form (like, as_p and as_table rendering of your form and CSRF protection). Using a model form is quite easy, for example::
 
@@ -367,7 +384,7 @@ What's new in 0.3
 * A more operational blog app in the newapp given in demos that uses the model_form feature to add blog posts.
 
 What's new in 0.2.4
-------------------
+--------------------
 
 * Automated CSRF Protection in forms. While disabled by default (to maintain compatibility with WTForms), CSRF protection can be enabled for a form by passing the form two extra keyword arguments **request_obj** and **use_csrf_protection** set to **True** when initializing it. For example::
 
@@ -376,7 +393,7 @@ What's new in 0.2.4
 * Form objects now have an as_table :func:`pyck.forms.Form.as_table` method that allows displaying the form in a table similar to the :func:`pyck.forms.Form.as_p` method added in previous release. This method also accepts labels and errors positions (left, right, top, bottom) and optionally allows you to insert the html <table> tag within the method instead of putting it in your template by setting **include_table_tag parameter** to **True**
 
 What's new in 0.2.3
-------------------
+--------------------
 
 Till now almost all updates were to the scaffold generated by a PyCK project, so in a sense till now PyCK could be considered another scraffold for Pyramid. With this version, things are starting to change a bit.
 
@@ -393,7 +410,7 @@ Till now almost all updates were to the scaffold generated by a PyCK project, so
 
 
 What's new in 0.2.2
-------------------
+--------------------
 
 * Sessions support - Sessions come pre-configured now with a new PyCK project and the sample included has also been updated accordingly
 
@@ -409,7 +426,7 @@ What's new in 0.2.2
 
 
 What's new in 0.2.1
-------------------
+--------------------
 
 Some code refactoring to ease up a few things
 
@@ -430,7 +447,7 @@ Some code refactoring to ease up a few things
     from myapp.models import MyModel
 
 What's new in 0.2.0
-------------------
+--------------------
 
 * tables created from models in apps are automatically prefixed by app name. For example: if you have an app named blog and it has a model Post where you have specified::
 
@@ -446,7 +463,7 @@ What's new in 0.2.0
 
 
 What's new in 0.1.6
-------------------
+--------------------
 
 * First fully operational version with pluggable apps along with their database models etc.
 
