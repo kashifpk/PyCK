@@ -50,7 +50,12 @@ def group_similar(items):
                 current_sub_items[k] = v
             else:
                 if current_group_key:
-                    grouped_items[current_group_key] = current_sub_items
+                    if current_group_key in grouped_items:
+                        new_dict = OrderedDict({current_group_key: grouped_items[current_group_key]})
+                        new_dict.update(current_sub_items)
+                        grouped_items[current_group_key] = new_dict
+                    else:
+                        grouped_items[current_group_key] = current_sub_items
                 current_group_key = group_key
                 current_sub_items = OrderedDict({k:v})
     
