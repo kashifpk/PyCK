@@ -54,7 +54,6 @@ def group_similar(items):
                 current_group_key = group_key
                 current_sub_items = OrderedDict({k:v})
     
-    pprint(grouped_items)
     return grouped_items
 
 
@@ -80,7 +79,6 @@ def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True)
     if do_auto_grouping:
         items = group_similar(items)
     
-    print(field_name)
     tmpl = template_lookup.get_template("multi_selector.mako")
     output = tmpl.render(
         field_name=field_name,
