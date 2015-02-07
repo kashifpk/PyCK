@@ -19,6 +19,7 @@ Contents:
     pyck-project-structure
     form-validation-library-choice
     pyck-forms
+    pyck-mako-utils
     pyck-controllers
     pyck-admin
     pyck-lib

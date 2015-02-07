@@ -40,7 +40,7 @@ class PermissionForm(Form):
 
 class RoutePermissionForm(Form):
 
-    route_name = DojoSelectField("Route", [validators.required()])
+    #route_name = DojoSelectField("Route", [validators.required()])
     request_methods = MultiCheckboxField("Request Methods", choices=[('ALL', 'ALL'),
                                                                      ('GET', 'GET'), ('POST', 'POST'),
                                                                      ('PUT', 'PUT'), ('DELETE', 'DELETE'),

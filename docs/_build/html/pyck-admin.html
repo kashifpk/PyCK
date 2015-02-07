@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyCK Admin Interface &mdash; PyCK 0.9.7.4 documentation</title>
+    <title>The PyCK Admin Interface &mdash; PyCK 0.9.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.7.4',
+        VERSION:     '0.9.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.7.4 documentation" href="index.html" />
+    <link rel="top" title="PyCK 0.9.8 documentation" href="index.html" />
     <link rel="next" title="The pyck.lib Package" href="pyck-lib.html" />
     <link rel="prev" title="The pyck.controllers Package" href="pyck-controllers.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -81,6 +81,91 @@ like:</p>
 <p>and that&#8217;s all you need to do to get a fully operation Admin interface.</p>
 <p><strong>Configuration Options</strong></p>
 <p>These parameters are to be set as class properties in a sub-class of AdminController</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Para crud_list_sort_by:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Sort by specs for models.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_sort_by</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">Post</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="n">Post</span><span class="o">.</span><span class="n">created</span><span class="o">.</span><span class="n">desc</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>crud_models_field_args</strong> &#8211; <p>A dictionary with key being the model name and value being the field args value for that model.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">model_field_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Product&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;category_id&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s">&#39;widget&#39;</span> <span class="p">:</span> <span class="n">Select</span><span class="p">()}</span>
+    <span class="p">},</span>
+    <span class="s">&#39;Category&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;description&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s">&#39;widget&#39;</span> <span class="p">:</span> <span class="n">TextArea</span><span class="p">()}</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_list_only</strong> &#8211; <p>A dictionary containing list of fields to be displayed (and not displaying any other fields) on the record listing page for a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_only</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_list_exclude</strong> &#8211; <p>A dictionary containing list of fields not to be displayed on the record listing page for a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_exclude</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_list_actions</strong> &#8211; <p>A dictionary containing list of actions to be displayed on the record listing page for a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_actions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;{friendly_name} popularity graph&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/pop_graph&#39;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_list_per_record_actions</strong> &#8211; <p>A dictionary containing list of actions to be displayed next to each record in record listing for a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_per_record_actions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Details&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;details/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;edit/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;delete/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Upload Photo&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/photo_upload/user/{PK}&#39;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_detail_actions</strong> &#8211; <p>A dictionary containing list of actions to be displayed on the details view page of a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_per_record_actions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Details&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;details/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Edit&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;edit/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;delete/{PK}&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Upload Photo&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/photo_upload/user/{PK}&#39;</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>** TODO **</p>
 <ul class="simple">
 <li>More documentation of various options and methods</li>
@@ -99,8 +184,8 @@ like:</p>
 <dl class="function">
 <dt id="pyck.ext.admin_controller.add_admin_handler">
 <tt class="descclassname">pyck.ext.admin_controller.</tt><tt class="descname">add_admin_handler</tt><big>(</big><em>config</em>, <em>db_session</em>, <em>models=None</em>, <em>route_name_prefix=''</em>, <em>url_pattern_prefix=''</em>, <em>handler_class=None</em>, <em>models_field_args={}</em><big>)</big><a class="headerlink" href="#pyck.ext.admin_controller.add_admin_handler" title="Permalink to this definition">¶</a></dt>
-<dd><p>A utility function to quickly add all admin related routes and set them to the admin handler class with one function
-call, for example:</p>
+<dd><p>A utility function to quickly add all admin related routes and set them to the admin handler class with one function call,
+for example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyck.ext</span> <span class="kn">import</span> <span class="n">add_admin_handler</span><span class="p">,</span> <span class="n">AdminController</span>
 <span class="kn">from</span> <span class="nn">pyck.lib</span> <span class="kn">import</span> <span class="n">get_models</span>
 <span class="kn">import</span> <span class="nn">my_application_package_name_here</span>
@@ -123,32 +208,6 @@ get_models function can be used to include all models.</li>
 <li><strong>route_name_prefix</strong> &#8211; Optional string prefix to add to all route names generated inside the admin panel.</li>
 <li><strong>url_pattern_prefix</strong> &#8211; Optional string prefix to add to all admin section related url patterns</li>
 <li><strong>handler_class</strong> &#8211; The AdminController handler class.</li>
-<li><strong>models_field_args</strong> &#8211; <p>A dictionary with key being the model name and value being the field args value for that model.</p>
-<p>Example:</p>
-<dl class="docutils">
-<dt>model_field_args = {&#8216;Product&#8217;: {&#8216;category_id&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">{</span></dt>
-<dd><blockquote class="first">
-<div><blockquote>
-<div><blockquote>
-<div>&#8216;widget&#8217; : Select()</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>},</p>
-</div></blockquote>
-<dl class="docutils">
-<dt>&#8216;Category&#8217;: {&#8216;description&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">{</span></dt>
-<dd><blockquote class="first">
-<div><blockquote>
-<div>&#8216;widget&#8217; : TextArea()</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p class="last">},</p>
-</dd>
-</dl>
-<p class="last">}</p>
-</dd>
-</dl>
-</li>
 </ul>
 </td>
 </tr>
@@ -216,7 +275,7 @@ get_models function can be used to include all models.</li>
         <li class="right" >
           <a href="pyck-controllers.html" title="The pyck.controllers Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.7.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyCK 0.9.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
