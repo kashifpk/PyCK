@@ -5,6 +5,17 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.8.3
+----------------------
+
+* Further support for 'crud_friendly_name', 'crud_add_edit_exclude', 'crud_add_edit_field_args', 'crud_list_recs_per_page', 'crud_list_max_pages', 'crud_list_field_args' fields for custom admin controllers. 
+
+What's new in 0.9.8.2
+----------------------
+
+* Minor fix in crud controller where editing a record in admin interface or crud interfaces caused error when using MySQL databases.
+
+
 What's new in 0.9.8
 ----------------------
 

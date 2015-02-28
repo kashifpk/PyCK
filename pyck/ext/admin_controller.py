@@ -22,8 +22,7 @@ log = logging.getLogger(__name__)
 
 
 def add_admin_handler(config, db_session, models=None, route_name_prefix='',
-                      url_pattern_prefix='', handler_class=None,
-                      models_field_args={}):
+                      url_pattern_prefix='', handler_class=None):
     """
     A utility function to quickly add all admin related routes and set them to the admin handler class with one function call,
     for example::
@@ -54,7 +53,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
         Optional string prefix to add to all admin section related url patterns
 
     :param handler_class:
-        The AdminController handler class. 
+        The AdminController handler class.
 
     """
 
@@ -74,13 +73,12 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
 
     if all_models:
         for model in all_models:
-            # TODO: Do model_field_args processing here.
-
             add_edit_field_args = {}
             list_field_args = {}
             FK_cols = get_columns(model, 'foreign_key')
-
+            
             for FK in FK_cols:
+                
                 db_col = list(FK.foreign_keys)[0].column.name
                 display_col = db_col
 
@@ -116,23 +114,33 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
                       }
                      )
             
-            extra_actions = [
-                'crud_list_sort_by',
-                'crud_list_only',
-                'crud_list_exclude',
-                'crud_models_field_args',
-                'crud_list_actions',
-                'crud_list_per_record_actions',
-                'crud_detail_actions'
-            ]
-            
-            for extra_action in extra_actions:
+            #extra_actions = [
+            #    'crud_friendly_name',
+            #    'crud_add_edit_exclude',
+            #    'crud_add_edit_field_args'
+            #    'crud_list_sort_by',
+            #    'crud_list_recs_per_page',
+            #    'crud_list_max_pages',
+            #    'crud_list_field_args',
+            #    'crud_list_only',
+            #    'crud_list_exclude',
+            #    'crud_list_actions',
+            #    'crud_list_per_record_actions',
+            #    'crud_detail_actions'
+            #]
+            #
+            #for extra_action in extra_actions:
+            #    if hasattr(handler_class, extra_action) and model.__name__ in getattr(handler_class, extra_action):
+            #        setattr(CC, extra_action.strip("crud_"), getattr(handler_class, extra_action)[model.__name__])
+
+            props = [i for i in dir(handler_class) if not callable(getattr(handler_class, i)) and i.startswith('crud_')]
+
+            for extra_action in props:
                 if model.__name__ in getattr(handler_class, extra_action):
                     setattr(CC, extra_action.strip("crud_"), getattr(handler_class, extra_action)[model.__name__])
 
             add_crud_handler(config, route_name_prefix + model.__name__,
                              url_pattern_prefix + '/' + model.__tablename__, CC)
-
 
 
 

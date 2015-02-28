@@ -97,6 +97,7 @@ def get_col_value(col_name, R):
     %for R in records:
         <tr>
         %for column in columns:
+          
             %if column in list_field_args and 'display_field' in list_field_args[column]:
             <td>${get_col_value(list_field_args[column]['display_field'], R)}</td>
             %else:

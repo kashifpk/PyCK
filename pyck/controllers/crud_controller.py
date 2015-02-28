@@ -226,7 +226,7 @@ class CRUDController(object):
         else:
             pk_name = primary_key_columns[0]
             #R = self.db_session.query(self.model).filter("%s=%s" % (pk_name, pk_val)).one()
-            R = self.db_session.query(self.model).filter('"%s"=:pk_val' % (pk_name)).params(pk_val=pk_val).one()
+            R = self.db_session.query(self.model).filter('%s=:pk_val' % (pk_name)).params(pk_val=pk_val).one()
 
         return R
 
@@ -324,7 +324,7 @@ class CRUDController(object):
             'model_record_counts': self._models_rec_count_if_needed(),
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
-
+        
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def _get_add_edit_form(self, action_type, R=None):
