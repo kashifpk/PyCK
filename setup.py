@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 requires = [
     'pyramid',
-    'SQLAlchemy==0.9.7',
+    'SQLAlchemy',
     'transaction',
     'pyramid_mako',
     'pyramid_tm',
@@ -20,7 +20,7 @@ if sys.version_info[:3] < (2, 5, 0):
 
 setup(
     name='PyCK',
-    version='0.9.8.3',
+    version='0.9.8.4',
     description='Python Code Karigar - Web Framework',
     long_description="""PyCK is an "opinionated" web framework based on Pyramid that makes choices of
     ORM (SQLAlchemy), Templates(Mako) etc and aims at building more reusable componenets on top of these choices.""",
