@@ -5,6 +5,12 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.8.4
+----------------------
+
+* Fixed admin section record add/edit issue that was caused because of SQLAlchemy version >= 1.0.
+
+
 What's new in 0.9.8.3
 ----------------------
 

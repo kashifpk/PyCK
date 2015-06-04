@@ -196,7 +196,7 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
         #assert False
 
         # if it's primary key and is not foreign key
-        if 0 == len(prop.columns[0].foreign_keys) and prop.is_primary():
+        if 0 == len(prop.columns[0].foreign_keys) and prop.columns[0].primary_key:
             if exclude_pk:
                 exclude.append(prop.key)
 

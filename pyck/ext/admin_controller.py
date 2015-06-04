@@ -217,7 +217,7 @@ class AdminController(object):
         
             crud_list_actions = {
                 User.__name__: [
-                    {'link_text': '{friendly_name} popularity graph', 'link_url': '/pop_graph'},
+                    {'link_text': '{friendly_name} popularity graph', 'link_url': '/pop_graph', 'css_class': 'btn btn-primary'},
                 ]
             }
     
