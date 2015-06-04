@@ -129,7 +129,7 @@ class CRUDController(object):
         list of actions that are to be displayed in listing page, example::
 
             list_actions = [
-                    {'link_text': 'Add {friendly_name}', 'link_url': 'add'},
+                    {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-primary'},
                    ]
 
     :param list_per_record_actions:
