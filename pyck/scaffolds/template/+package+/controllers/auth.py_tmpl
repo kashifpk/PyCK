@@ -191,36 +191,36 @@ def login(request):
     login_form = LoginForm(request.POST)
 
     if 'POST' == request.method and login_form.validate():
-        U = db.query(User).filter_by(user_id=login_form.user_id.data).first()
+        status, user = User.login(
+            username=login_form.user_id.data.encode('utf-8'),
+            password=login_form.password.data.encode('utf-8'),
+            request=request
+            )
+        
+        if "NOT FOUND" == status:
+            request.session.flash("Error: Authentication failed. User not found.")
 
-        if hashlib.sha1(login_form.password.data.encode('utf-8')).hexdigest() == U.password:
+        elif "AUTH FAILED" == status:
+            request.session.flash("Error: Authentication failed. Incorrect password.")
 
-            request.session['logged_in_user'] = U.user_id
-
-            #Get user permissions and store them into request.session['auth_user_permissions']
-            user_permissions = []
-            UPs = db.query(UserPermission.permission).filter_by(user_id=U.user_id).all()
-            for UP in UPs:
-                user_permissions.append(UP[0])
-
-            request.session['auth_user_permissions'] = user_permissions
-
-            if request.session.get('came_from', None):
-                return HTTPFound(location=request.session.get('came_from'))
-            else:
-                try:
-                    return HTTPFound(location=request.route_url('admin.admin_index'))
-                except Exception:
-                    return HTTPFound(location=request.route_url('home'))
         else:
-            request.session.flash("Authentication Failed! Invalid user ID or password")
+
+            # redirect according to the permission the user has
+            if 'came_from' in request.session:
+                came_from = request.session['came_from']
+                log.info("Came from: " + came_from)
+                del request.session['came_from']
+                return HTTPFound(location=request.route_url(came_from))
+
+            return HTTPFound(location=request.route_url('home'))
 
     return dict(login_form=login_form)
 
 
 @view_config(route_name='pyckauth_logout')
 def logout(request):
-    del request.session['logged_in_user']
-    del request.session['auth_user_permissions']
-
+    
+    if 'logged_in_user' in request.session:
+        User.logout(request=request)
+    
     return HTTPFound(location=request.route_url('home'))
