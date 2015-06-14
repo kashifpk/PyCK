@@ -1,62 +1,207 @@
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running PyCK Applications with Apache Mod WSGI and Virtualenv &mdash; PyCK 0.9.8.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyCK 0.9.8.4 documentation" href="index.html"/>
+        <link rel="next" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html"/>
+        <link rel="prev" title="The pyck.lib Package" href="pyck-lib.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> PyCK
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#background">Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#why-create-pyck">Why Create PyCK?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#discussion-on-various-aspects-of-pyck">Discussion on various aspects of PyCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#current-features">Current Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#future-plan">Future Plan</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start-project.html">Starting a Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pluggable-apps-howto.html">Pluggable application in PyCK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pluggable-apps-howto.html#creating-a-pluggable-application">Creating a pluggable application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluggable-apps-howto.html#things-to-remember">Things to remember:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-project-structure.html">Structure of a PyCK Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form-validation-library-choice.html">The Problem (The Why? of Form Library)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="form-validation-library-choice.html#the-choices">The choices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="form-validation-library-choice.html#wtforms">WTForms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="form-validation-library-choice.html#problems">Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="form-validation-library-choice.html#sprox">Sprox</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="form-validation-library-choice.html#id1">Problems</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="form-validation-library-choice.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-forms.html">The pyck.forms Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-mako-utils.html">The pyck.mako_utils Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyck-mako-utils.html#multiple-item-selector-mako-module">Multiple item selector mako module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-controllers.html">The pyck.controllers Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-admin.html">The PyCK Admin Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyck-admin.html#pyck-admin-extension">PyCK Admin Extension</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-lib.html">The pyck.lib Package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-3">What&#8217;s new in 0.9.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-2">What&#8217;s new in 0.9.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8">What&#8217;s new in 0.9.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-3">What&#8217;s new in 0.9.7.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-2">What&#8217;s new in 0.9.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-1">What&#8217;s new in 0.9.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7">What&#8217;s new in 0.9.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-6">What&#8217;s new in 0.9.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-5">What&#8217;s new in 0.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-4">What&#8217;s new in 0.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-3">What&#8217;s new in 0.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-2">What&#8217;s new in 0.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-1">What&#8217;s new in 0.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9">What&#8217;s new in 0.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8-2">What&#8217;s new in 0.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8-1">What&#8217;s new in 0.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8">What&#8217;s new in 0.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-5">What&#8217;s new in 0.7.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-2">What&#8217;s new in 0.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-1">What&#8217;s new in 0.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7">What&#8217;s new in 0.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-8">What&#8217;s new in 0.6.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-6">What&#8217;s new in 0.6.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-5">What&#8217;s new in 0.6.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-4">What&#8217;s new in 0.6.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-3">What&#8217;s new in 0.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6">What&#8217;s new in 0.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-5-1">What&#8217;s new in 0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-5">What&#8217;s new in 0.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-3">What&#8217;s new in 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-2">What&#8217;s new in 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-1">What&#8217;s new in 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4">What&#8217;s new in 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-3">What&#8217;s new in 0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-4">What&#8217;s new in 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-3">What&#8217;s new in 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-2">What&#8217;s new in 0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-1">What&#8217;s new in 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-0">What&#8217;s new in 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-1-6">What&#8217;s new in 0.1.6</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PyCK</a>
+      </nav>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Running PyCK Applications with Apache Mod WSGI and Virtualenv &mdash; PyCK 0.9.8.4 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.9.8.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.8.4 documentation" href="index.html" />
-    <link rel="next" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html" />
-    <link rel="prev" title="The pyck.lib Package" href="pyck-lib.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pyck-lib.html" title="The pyck.lib Package"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.8.4 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Running PyCK Applications with Apache Mod WSGI and Virtualenv</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mod_wsgi_virtualenv.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <div class="section" id="running-pyck-applications-with-apache-mod-wsgi-and-virtualenv">
 <span id="mod-wsgi-virtualenv"></span><h1>Running PyCK Applications with Apache Mod WSGI and Virtualenv<a class="headerlink" href="#running-pyck-applications-with-apache-mod-wsgi-and-virtualenv" title="Permalink to this headline">¶</a></h1>
-<p>Assuming you have followed the <a class="reference internal" href="installation.html#installation"><em>Installation</em></a> section and created a virtualenv named pyckenv, we&#8217;ll now setup Apache to use this virtualenv alongwith mod_wsgi for deploying our pyck applications. You should already have installed mod_wsgi for Apache.</p>
+<p>Assuming you have followed the <a class="reference internal" href="installation.html#installation"><span>Installation</span></a> section and created a virtualenv named pyckenv, we&#8217;ll now setup Apache to use this virtualenv alongwith mod_wsgi for deploying our pyck applications. You should already have installed mod_wsgi for Apache.</p>
 <ol class="arabic">
 <li><p class="first">Edit Apache&#8217;s mod_wsgi configuration file normally present under <em>/etc/apache2/mods-available/wsgi.conf</em> and place these two lines in it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">WSGIPythonHome</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">pyck</span><span class="o">/</span><span class="n">pyckenv</span>
@@ -66,23 +211,27 @@
 <p>Remember to put them inside the <em>&lt;IfModule mod_wsgi.c&gt;</em> section and adjust the path to point to your virtualenv for pyck</p>
 </li>
 <li><p class="first">Create the eggs_cache folder and make give it full read/write/execute permissions:</p>
-<div class="highlight-python"><pre>mkdir /var/pyck/eggs_cache
-chmod 777 /var/pyck/eggs_cache</pre>
+<div class="highlight-python"><div class="highlight"><pre>mkdir /var/pyck/eggs_cache
+chmod 777 /var/pyck/eggs_cache
+</pre></div>
 </div>
 </li>
 <li><p class="first">Restart Apache:</p>
-<div class="highlight-python"><pre>sudo apache2ctl restart</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apache2ctl restart
+</pre></div>
 </div>
 </li>
 <li><p class="first">Create your application (assuming its under /var/www):</p>
-<div class="highlight-python"><pre>pcreate -t pyck wsgi_test</pre>
+<div class="highlight-python"><div class="highlight"><pre>pcreate -t pyck wsgi_test
+</pre></div>
 </div>
 </li>
 <li><p class="first">Make it ready for deployment:</p>
-<div class="highlight-python"><pre>cd wsgi_test
+<div class="highlight-python"><div class="highlight"><pre>cd wsgi_test
 python setup.py develop
 python setup.py install
-wsgi_test_initdb</pre>
+wsgi_test_initdb
+</pre></div>
 </div>
 </li>
 <li><p class="first">Create the wsgi file for use with mod_wsgi, lets name it <strong>myapp.wsgi</strong>:</p>
@@ -96,11 +245,12 @@ wsgi_test_initdb</pre>
 </div>
 </li>
 <li><p class="first">Make the myapp.wsgi file executable:</p>
-<div class="highlight-python"><pre>chmod 755 myapp.wsgi</pre>
+<div class="highlight-python"><div class="highlight"><pre>chmod 755 myapp.wsgi
+</pre></div>
 </div>
 </li>
 <li><p class="first">Create <em>.htaccess</em> file in your application folder and put the following contents in it:</p>
-<div class="highlight-python"><pre>Options ExecCGI FollowSymLinks
+<div class="highlight-python"><div class="highlight"><pre>Options ExecCGI FollowSymLinks
 
 DirectoryIndex myapp.wsgi
 RewriteEngine on
@@ -111,7 +261,8 @@ AddHandler cgi-script .cgi
 AddHandler wsgi-script .wsgi
 
 Order allow,deny
-Allow from all</pre>
+Allow from all
+</pre></div>
 </div>
 </li>
 </ol>
@@ -120,59 +271,68 @@ Allow from all</pre>
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyck-lib.html"
-                        title="previous chapter">The pyck.lib Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="nginx_uwsgi_virtualenv.html"
-                        title="next chapter">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mod_wsgi_virtualenv.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nginx_uwsgi_virtualenv.html" class="btn btn-neutral float-right" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyck-lib.html" class="btn btn-neutral" title="The pyck.lib Package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="nginx_uwsgi_virtualenv.html" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pyck-lib.html" title="The pyck.lib Package"
-             >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.8.4 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
         &copy; Copyright 2011 - 2015 Kashif Iftikhar.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
-  </body>
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.9.8.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

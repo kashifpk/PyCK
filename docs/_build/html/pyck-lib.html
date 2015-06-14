@@ -1,77 +1,222 @@
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The pyck.lib Package &mdash; PyCK 0.9.8.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyCK 0.9.8.4 documentation" href="index.html"/>
+        <link rel="next" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv" href="mod_wsgi_virtualenv.html"/>
+        <link rel="prev" title="The PyCK Admin Interface" href="pyck-admin.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> PyCK
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#background">Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#why-create-pyck">Why Create PyCK?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#discussion-on-various-aspects-of-pyck">Discussion on various aspects of PyCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#current-features">Current Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#future-plan">Future Plan</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start-project.html">Starting a Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pluggable-apps-howto.html">Pluggable application in PyCK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pluggable-apps-howto.html#creating-a-pluggable-application">Creating a pluggable application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluggable-apps-howto.html#things-to-remember">Things to remember:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-project-structure.html">Structure of a PyCK Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form-validation-library-choice.html">The Problem (The Why? of Form Library)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="form-validation-library-choice.html#the-choices">The choices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="form-validation-library-choice.html#wtforms">WTForms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="form-validation-library-choice.html#problems">Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="form-validation-library-choice.html#sprox">Sprox</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="form-validation-library-choice.html#id1">Problems</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="form-validation-library-choice.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-forms.html">The pyck.forms Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-mako-utils.html">The pyck.mako_utils Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyck-mako-utils.html#multiple-item-selector-mako-module">Multiple item selector mako module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-controllers.html">The pyck.controllers Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyck-admin.html">The PyCK Admin Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyck-admin.html#pyck-admin-extension">PyCK Admin Extension</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The pyck.lib Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-3">What&#8217;s new in 0.9.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-2">What&#8217;s new in 0.9.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8">What&#8217;s new in 0.9.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-3">What&#8217;s new in 0.9.7.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-2">What&#8217;s new in 0.9.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7-1">What&#8217;s new in 0.9.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-7">What&#8217;s new in 0.9.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-6">What&#8217;s new in 0.9.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-5">What&#8217;s new in 0.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-4">What&#8217;s new in 0.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-3">What&#8217;s new in 0.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-2">What&#8217;s new in 0.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-1">What&#8217;s new in 0.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9">What&#8217;s new in 0.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8-2">What&#8217;s new in 0.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8-1">What&#8217;s new in 0.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-8">What&#8217;s new in 0.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-5">What&#8217;s new in 0.7.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-2">What&#8217;s new in 0.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7-1">What&#8217;s new in 0.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-7">What&#8217;s new in 0.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-8">What&#8217;s new in 0.6.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-6">What&#8217;s new in 0.6.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-5">What&#8217;s new in 0.6.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-4">What&#8217;s new in 0.6.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6-3">What&#8217;s new in 0.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-6">What&#8217;s new in 0.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-5-1">What&#8217;s new in 0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-5">What&#8217;s new in 0.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-3">What&#8217;s new in 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-2">What&#8217;s new in 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4-1">What&#8217;s new in 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-4">What&#8217;s new in 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-3">What&#8217;s new in 0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-4">What&#8217;s new in 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-3">What&#8217;s new in 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-2">What&#8217;s new in 0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-1">What&#8217;s new in 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-2-0">What&#8217;s new in 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-1-6">What&#8217;s new in 0.1.6</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PyCK</a>
+      </nav>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>The pyck.lib Package &mdash; PyCK 0.9.8.4 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.9.8.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyCK 0.9.8.4 documentation" href="index.html" />
-    <link rel="next" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv" href="mod_wsgi_virtualenv.html" />
-    <link rel="prev" title="The PyCK Admin Interface" href="pyck-admin.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pyck-admin.html" title="The PyCK Admin Interface"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.8.4 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The pyck.lib Package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/pyck-lib.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <div class="section" id="module-pyck.lib.color_logger">
 <span id="the-pyck-lib-package"></span><span id="pyck-lib"></span><h1>The pyck.lib Package<a class="headerlink" href="#module-pyck.lib.color_logger" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyck.lib.color_logger.ColorLogger">
-<em class="property">class </em><tt class="descclassname">pyck.lib.color_logger.</tt><tt class="descname">ColorLogger</tt><big>(</big><em>name</em>, <em>output_file=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x402b3078&gt;</em>, <em>error_file=&lt;open file '&lt;stderr&gt;'</em>, <em>mode 'w' at 0x402b30d0&gt;</em><big>)</big><a class="headerlink" href="#pyck.lib.color_logger.ColorLogger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyck.lib.color_logger.</code><code class="descname">ColorLogger</code><span class="sig-paren">(</span><em>name</em>, <em>output_file=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w'&gt;</em>, <em>error_file=&lt;open file '&lt;stderr&gt;'</em>, <em>mode 'w'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.color_logger.ColorLogger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logger class that by default outputs to stderr</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyck.lib.color_logger.ConsoleColorHandler">
-<em class="property">class </em><tt class="descclassname">pyck.lib.color_logger.</tt><tt class="descname">ConsoleColorHandler</tt><big>(</big><em>stream=None</em><big>)</big><a class="headerlink" href="#pyck.lib.color_logger.ConsoleColorHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyck.lib.color_logger.</code><code class="descname">ConsoleColorHandler</code><span class="sig-paren">(</span><em>stream=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.color_logger.ConsoleColorHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Log Handler for console that outputs colored log messages according to their severity</p>
 </dd></dl>
 
 <span class="target" id="module-pyck.lib.models"></span><p>Models related utility functions</p>
 <dl class="function">
 <dt id="pyck.lib.models.get_columns">
-<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">get_columns</tt><big>(</big><em>model</em>, <em>col_type=None</em><big>)</big><a class="headerlink" href="#pyck.lib.models.get_columns" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.models.</code><code class="descname">get_columns</code><span class="sig-paren">(</span><em>model</em>, <em>col_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.models.get_columns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns column objects of the current model</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -85,13 +230,13 @@
 
 <dl class="function">
 <dt id="pyck.lib.models.get_model_record_counts">
-<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">get_model_record_counts</tt><big>(</big><em>db_session</em>, <em>models</em><big>)</big><a class="headerlink" href="#pyck.lib.models.get_model_record_counts" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.models.</code><code class="descname">get_model_record_counts</code><span class="sig-paren">(</span><em>db_session</em>, <em>models</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.models.get_model_record_counts" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns record counts for given models</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyck.lib.models.get_models">
-<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">get_models</tt><big>(</big><em>application</em>, <em>get_app_models=True</em>, <em>return_dict=False</em>, <em>ignore_auth_tables=True</em><big>)</big><a class="headerlink" href="#pyck.lib.models.get_models" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.models.</code><code class="descname">get_models</code><span class="sig-paren">(</span><em>application</em>, <em>get_app_models=True</em>, <em>return_dict=False</em>, <em>ignore_auth_tables=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.models.get_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes the passed application package and returns all SQLAlchemy models for the application.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -105,14 +250,14 @@
 
 <dl class="function">
 <dt id="pyck.lib.models.models_dict_to_list">
-<tt class="descclassname">pyck.lib.models.</tt><tt class="descname">models_dict_to_list</tt><big>(</big><em>models</em><big>)</big><a class="headerlink" href="#pyck.lib.models.models_dict_to_list" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.models.</code><code class="descname">models_dict_to_list</code><span class="sig-paren">(</span><em>models</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.models.models_dict_to_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a models dict containing subapp names as keys and models as a list of values
 return an aggregated list of all models</p>
 </dd></dl>
 
 <span class="target" id="module-pyck.lib.pagination"></span><dl class="function">
 <dt id="pyck.lib.pagination.get_pages">
-<tt class="descclassname">pyck.lib.pagination.</tt><tt class="descname">get_pages</tt><big>(</big><em>total_recs</em>, <em>current_page</em>, <em>recs_per_page=10</em>, <em>max_pages=10</em><big>)</big><a class="headerlink" href="#pyck.lib.pagination.get_pages" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.pagination.</code><code class="descname">get_pages</code><span class="sig-paren">(</span><em>total_recs</em>, <em>current_page</em>, <em>recs_per_page=10</em>, <em>max_pages=10</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.pagination.get_pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>A utility function that returns the pages (for records pagination display purposes)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -134,7 +279,7 @@ return an aggregated list of all models</p>
 <span class="target" id="module-pyck.lib.pkg"></span><p>Packages related utility functions</p>
 <dl class="function">
 <dt id="pyck.lib.pkg.get_submodules">
-<tt class="descclassname">pyck.lib.pkg.</tt><tt class="descname">get_submodules</tt><big>(</big><em>package</em><big>)</big><a class="headerlink" href="#pyck.lib.pkg.get_submodules" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.pkg.</code><code class="descname">get_submodules</code><span class="sig-paren">(</span><em>package</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.pkg.get_submodules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all sub-modules of a package also indicating if the module is also a package
 Return a list with each item being a dictionary with keys name (String) and is_package (Boolean)</p>
 </dd></dl>
@@ -142,7 +287,7 @@ Return a list with each item being a dictionary with keys name (String) and is_p
 <span class="target" id="module-pyck.lib.routes"></span><p>Routes related utility functions</p>
 <dl class="function">
 <dt id="pyck.lib.routes.get_routes">
-<tt class="descclassname">pyck.lib.routes.</tt><tt class="descname">get_routes</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#pyck.lib.routes.get_routes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyck.lib.routes.</code><code class="descname">get_routes</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#pyck.lib.routes.get_routes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns OrderedDict of routes available for given request</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -160,59 +305,68 @@ Return a list with each item being a dictionary with keys name (String) and is_p
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyck-admin.html"
-                        title="previous chapter">The PyCK Admin Interface</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mod_wsgi_virtualenv.html"
-                        title="next chapter">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pyck-lib.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mod_wsgi_virtualenv.html" class="btn btn-neutral float-right" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyck-admin.html" class="btn btn-neutral" title="The PyCK Admin Interface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="mod_wsgi_virtualenv.html" title="Running PyCK Applications with Apache Mod WSGI and Virtualenv"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pyck-admin.html" title="The PyCK Admin Interface"
-             >previous</a> |</li>
-        <li><a href="index.html">PyCK 0.9.8.4 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
         &copy; Copyright 2011 - 2015 Kashif Iftikhar.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
-  </body>
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.9.8.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
