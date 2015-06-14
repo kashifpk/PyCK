@@ -32,6 +32,20 @@ class LoginForm(Form):
     password = DojoStringField('Password', [validators.required()], widget=DojoPasswordBox())
 
 
+class ChangePassForm(Form):
+    "Change Password form"
+
+    old_password = DojoStringField('Current Password', [validators.required()])
+    new_password = DojoStringField('New Password', [
+        validators.required(),
+        validators.EqualTo('verify_password', 'Passwords must match')],
+        widget=DojoPasswordBox())
+    verify_password = DojoStringField('Repeat New Password', [
+        validators.required()
+        ],
+        widget=DojoPasswordBox())
+
+
 class PermissionForm(Form):
 
     permission = DojoStringField('Permission', [validators.required()])

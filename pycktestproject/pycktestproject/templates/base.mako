@@ -1,6 +1,9 @@
 <%!
 from pycktestproject.auth import is_allowed
 
+skip_dojo = False
+current_route = None
+
 auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
               ('admin.admin_index', 'Admin Section'), ('pyckauth_manager', 'Auth Manager')]
 
@@ -23,29 +26,36 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
   <!-- Custom CSS -->
   <link rel="stylesheet" href="${request.static_url('pycktestproject:static/pyck.css')}" type="text/css" media="screen" charset="utf-8" />
   
-  <!-- Dojo -->
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dijit//themes/claro/claro.css" type="text/css" charset="utf-8" />
-  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="isDebug: true, async: true, parseOnLoad: true"></script>
-  <script type="text/javascript">
-        require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
-          parser.parse();
-          });});
-  </script>
-
+  
+  %if not self.attr.skip_dojo:
+    <!-- Dojo -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js" data-dojo-config="isDebug: true, async: true"></script>
+    <script type="text/javascript">
+          require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
+            parser.parse();
+            });});
+    </script>
+  %endif
+  
+  ${self.extra_head()}
 </head>
+
+<%def name="extra_head()">
+</%def>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
    <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			${self.header()}
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            ${self.header()}
+        </div>
+    </div>
     ${self.content_wrapper()}
-	<div class="row">
-		<div class="col-md-12">${self.footer()}</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">${self.footer()}</div>
+    </div>
   </div>
 </body>
 </html>
@@ -70,18 +80,30 @@ claro
 </%def>
   
 <%def name="content_wrapper()">
-  <div id="content">
     
     <% flash_msgs = request.session.pop_flash() %>
     
-    %for flash_msg in flash_msgs:
-      <div class="alert alert-info">
-        ${flash_msg}
-      </div>
-    %endfor
+    %if flash_msgs:
+      %for flash_msg in flash_msgs:
+        <%
+        alert_type = 'info'
+        if flash_msg.lower().startswith("error:"):
+          alert_type = 'danger'
+          flash_msg = flash_msg[6:]
+        elif flash_msg.lower().startswith("warning:"):
+          alert_type = 'warning'
+          flash_msg = flash_msg[8:]
+        %>
+        
+        <div class="alert alert-${alert_type}">
+          ${flash_msg}
+          <a class="close" onclick="$(this).parent().hide()">×</a> 
+        </div>
+      %endfor
+    %endif
     
-  ${self.body()}
-  </div>
+    ${self.body()}
+  
 </%def>
     
 <%def name="main_menu()">
@@ -106,8 +128,14 @@ claro
         %for routename, desc in auth_links:
           <%
           row_class = ""
-          if request.route_url(routename) == request.current_route_url():
-              row_class = "active"
+          
+          if self.attr.current_route:
+            if routename == self.attr.current_route:
+                row_class = "active"
+          else:
+            if request.route_url(routename) == request.current_route_url().split('?')[0]:
+                row_class = "active"
+          
           %>
           
           %if is_allowed(request, routename):
@@ -122,8 +150,17 @@ claro
         <button type="submit" class="btn btn-default">Submit</button>
       </form>-->
       <ul class="nav navbar-nav navbar-right">
-        <li>
+        
         %if request.session.get('logged_in_user', None):
+        <%
+          row_class = ""
+          if request.route_url('pyckauth_change_pass') == request.current_route_url():
+              row_class = "active"
+        %>
+        
+        <li class="${row_class}"><a href="${request.route_url('pyckauth_change_pass')}" alt="Change Password">Change Password</a></li>
+        
+        <li>
         <form style="display: inline" action="${request.route_url('pyckauth_logout')}" method="get">
           <button class="btn btn-danger">Logout</button>
         </form>
@@ -139,12 +176,7 @@ claro
   </div><!-- /.container-fluid -->
 </nav>
 
-  
-  
-  
-  
-  
-
 </%def>
+
 <%def name="footer()"></%def>
 

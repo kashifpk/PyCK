@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changes &mdash; PyCK 0.9.8.4 documentation</title>
+  <title>Changes &mdash; PyCK 0.9.8.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.4 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.9.8.5 documentation" href="index.html"/>
         <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html"/> 
 
   
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-3">What&#8217;s new in 0.9.8.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-2">What&#8217;s new in 0.9.8.2</a></li>
@@ -201,6 +202,39 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-8-5">
+<h2>What&#8217;s new in 0.9.8.5<a class="headerlink" href="#what-s-new-in-0-9-8-5" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Flash messages are now closable.</p>
+</li>
+<li><p class="first">Default dojo libraries used for admin section upgraded to 1.10.1 from 1.8.3</p>
+</li>
+<li><p class="first"><em>Refactoring</em> -  Moved login and logout logic out of the controller and into the User model</p>
+</li>
+<li><p class="first">Ability to disable dojo loading for a mako template. In the template file set <strong>skip_dojo=True</strong> before inheriting from base.mako template, example:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;%! skip_dojo = True %&gt;
+&lt;%inherit file=&quot;base.mako&quot;/&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Ability to set current route (for menu highlighting) to a different route than the current url&#8217;s route. This is useful when your current URL doesn&#8217;t have a corresponding main menu item but you want to highlight one of the menu items. Just set current_route to the route name you want to highlight before inheriting from base.mako:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;%! current_route = &#39;get_reports&#39; %&gt;
+&lt;%inherit file=&quot;base.mako&quot;/&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Multiple types of flash messages. Now you can change the bootstrap CSS class for the flash message by prefixing the message content string with either <strong>&#8220;Error:&#8221;</strong> or <strong>&#8220;Warning:&#8221;</strong>. This changes the message display class to danger and warning respectivly. Please note that the actual word Error: or Warning: is removed from the displayed string. So:</p>
+<blockquote>
+<div><p>&#8220;Error: Error fetching data&#8221;</p>
+</div></blockquote>
+<p>becomes:</p>
+<blockquote>
+<div><p>&#8221; Error fetching data&#8221;</p>
+</div></blockquote>
+<p>and is displayed using the &#8220;danger&#8221; css class.</p>
+</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-8-4">
 <h2>What&#8217;s new in 0.9.8.4<a class="headerlink" href="#what-s-new-in-0-9-8-4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -783,7 +817,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.4',
+            VERSION:'0.9.8.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

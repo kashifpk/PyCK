@@ -1,0 +1,38 @@
+<%! skip_dojo = True %>
+<%inherit file="base.mako"/>
+
+<%def name="title()">
+pycktestproject - Change Password
+</%def>
+
+
+<div class="top-heading text-center">
+  <h1>Change Password</h1>
+</div>
+  
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+	  
+		<form action="${request.route_url('pyckauth_change_pass')}" method="POST" class="form-horizontal" role="form">
+		
+		  <div class="form-group">
+			<label>Current Password</label>
+			<input type="password" name="old_password" class="form-control" placeholder="Current password" />
+		  </div>
+		  
+		  <div class="form-group">
+			<label>New Password</label>
+			<input type="password" name="new_password" class="form-control" placeholder="New password" />
+		  </div>
+		  
+		  <div class="form-group">
+			<label>Verify New Password</label>
+			<input type="password" name="verify_password" class="form-control" placeholder="Repeat new password" />
+		  </div>
+		  
+		  <button type="submit" name="form.submitted" class="btn btn-success btn-lg">Change Password</button>
+		
+		</form>
+	  
+  </div>
+</div>

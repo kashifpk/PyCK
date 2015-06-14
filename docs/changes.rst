@@ -8,7 +8,29 @@ This document lists the changes as versions progress
 What's new in 0.9.8.5
 ----------------------
 
-* 
+* Flash messages are now closable.
+* Default dojo libraries used for admin section upgraded to 1.10.1 from 1.8.3
+* *Refactoring* -  Moved login and logout logic out of the controller and into the User model
+* Ability to disable dojo loading for a mako template. In the template file set **skip_dojo=True** before inheriting from base.mako template, example::
+
+    <%! skip_dojo = True %>
+    <%inherit file="base.mako"/>
+
+* Ability to set current route (for menu highlighting) to a different route than the current url's route. This is useful when your current URL doesn't have a corresponding main menu item but you want to highlight one of the menu items. Just set current_route to the route name you want to highlight before inheriting from base.mako::
+
+    <%! current_route = 'get_reports' %>
+    <%inherit file="base.mako"/>
+
+* Multiple types of flash messages. Now you can change the bootstrap CSS class for the flash message by prefixing the message content string with either **"Error:"** or **"Warning:"**. This changes the message display class to danger and warning respectivly. Please note that the actual word Error: or Warning: is removed from the displayed string. So:
+
+    "Error: Error fetching data"
+
+  becomes:
+
+    " Error fetching data"
+
+  and is displayed using the "danger" css class.
+
 
 What's new in 0.9.8.4
 ----------------------

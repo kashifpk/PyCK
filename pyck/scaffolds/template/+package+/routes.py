@@ -24,6 +24,7 @@ def application_routes(config):
 
     config.add_route('pyckauth_login', '/login')
     config.add_route('pyckauth_logout', '/logout')
+    config.add_route('pyckauth_change_pass', '/change_password')
     config.add_route('pyckauth_manager', '/auth')
     config.add_route('pyckauth_users', '/auth/users')
     config.add_route('pyckauth_permissions', '/auth/permissions')

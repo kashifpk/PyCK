@@ -1,12 +1,12 @@
 import hashlib
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 
 from pyck.lib import get_routes
 
 from ..models import db, Permission, User, UserPermission, RoutePermission
 
-from ..forms import LoginForm, UserForm, PermissionForm, RoutePermissionForm
+from ..forms import LoginForm, UserForm, PermissionForm, RoutePermissionForm, ChangePassForm
 from sqlalchemy import func
 
 import logging
@@ -223,3 +223,33 @@ def logout(request):
         User.logout(request=request)
     
     return HTTPFound(location=request.route_url('home'))
+
+
+@view_config(route_name='pyckauth_change_pass',
+             renderer='pyckauth_change_pass.mako')
+def change_pass(request):
+    "Inteface to allow logged_in user to change password"
+
+    change_pass_form = ChangePassForm(request.POST)
+    user_id = request.session.get('logged_in_user', None)
+
+    if not user_id:
+        return HTTPBadRequest(
+            detail="Cannot change pasword without logging in first")
+
+    if 'POST' == request.method:
+        U = db.query(User).filter_by(user_id=user_id).first()
+
+        if hashlib.sha1(change_pass_form.old_password.data.encode('utf-8')).hexdigest() == U.password:
+            if not change_pass_form.validate():
+                request.session.flash("Error: New passwords don't match!")
+            else:
+                U.password = hashlib.sha1(change_pass_form.new_password.data.encode('utf-8')).hexdigest()
+                
+                request.session.flash("Password changed!")
+                return HTTPFound(location=request.route_url('home'))
+        else:
+            request.session.flash("Error: Incorrect current password, try again!")
+    
+
+    return dict(change_pass_form=change_pass_form)
