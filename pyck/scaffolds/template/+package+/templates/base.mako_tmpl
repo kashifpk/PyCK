@@ -50,15 +50,11 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
    <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            ${self.header()}
-        </div>
-    </div>
-    ${self.content_wrapper()}
-    <div class="row">
-        <div class="col-md-12">${self.footer()}</div>
-    </div>
+	  ${self.header()}
+
+	  ${self.content_wrapper()}
+
+	  ${self.footer()}
   </div>
 </body>
 </html>
@@ -77,9 +73,12 @@ claro
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
-  <div>
-    ${self.main_menu()}
+  <div class="row">
+	<div class="col-md-12">
+	  ${self.main_menu()}
+	</div>
   </div>
+  
 </%def>
   
 <%def name="content_wrapper()">
@@ -178,5 +177,6 @@ claro
 
 </%def>
 
-<%def name="footer()"></%def>
+<%def name="footer()">
+</%def>
 

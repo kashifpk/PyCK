@@ -9,6 +9,8 @@ What's new in 0.9.8.5
 ----------------------
 
 * Flash messages are now closable.
+* Change password page for currently logged in user.
+* Base.mako markup and structure cleanup.
 * Default dojo libraries used for admin section upgraded to 1.10.1 from 1.8.3
 * *Refactoring* -  Moved login and logout logic out of the controller and into the User model
 * Ability to disable dojo loading for a mako template. In the template file set **skip_dojo=True** before inheriting from base.mako template, example::
