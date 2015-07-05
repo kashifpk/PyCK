@@ -8,6 +8,8 @@ This document lists the changes as versions progress
 What's new in 0.9.8.5
 ----------------------
 
+* Dojo base url is in the config file now and used by both base.mako and the admin panel's admin_base.mako
+* Using pyramid's SignedCookieSessionFactory instead of the deprecated UnencryptedCookieSessionFactory
 * Flash messages are now closable.
 * Change password page for currently logged in user.
 * Base.mako markup and structure cleanup.
