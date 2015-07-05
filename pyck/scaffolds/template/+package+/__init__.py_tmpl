@@ -1,7 +1,7 @@
 import sys
 import os
 from pyramid.config import Configurator
-from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from pyramid.session import SignedCookieSessionFactory
 
 from sqlalchemy import engine_from_config
 
@@ -22,7 +22,7 @@ def main(global_config, **settings):
 
     load_project_settings()
 
-    session_factory = UnencryptedCookieSessionFactoryConfig(settings.get('session.secret', 'hello'))
+    session_factory = SignedCookieSessionFactory(settings.get('session.secret', 'hello'))
 
     engine = engine_from_config(settings, 'sqlalchemy.')
     db.configure(bind=engine)
