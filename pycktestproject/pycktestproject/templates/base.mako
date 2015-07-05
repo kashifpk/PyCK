@@ -6,7 +6,9 @@ current_route = None
 
 auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
               ('admin.admin_index', 'Admin Section'), ('pyckauth_manager', 'Auth Manager')]
-
+%>
+<%
+dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.4')
 %>
 
 <!DOCTYPE html>
@@ -29,9 +31,9 @@ auth_links = [('home', 'Home'), ('contact', 'Contact Us'),
   
   %if not self.attr.skip_dojo:
     <!-- Dojo -->
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
-    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js" data-dojo-config="isDebug: true, async: true"></script>
+    <link rel="stylesheet" href="${dojo_base}/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="${dojo_base}/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
+    <script src="${dojo_base}/dojo/dojo.js" data-dojo-config="async: true"></script>
     <script type="text/javascript">
           require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
             parser.parse();
