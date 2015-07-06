@@ -1,7 +1,7 @@
 <%
 dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.4')
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
   
@@ -18,9 +18,9 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
     <link rel="stylesheet" href="${dojo_base}/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
     <script src="${dojo_base}/dojo/dojo.js" data-dojo-config="async: true"></script>
     <script type="text/javascript">
-        require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
-          parser.parse();
-          });});
+          require(['dojo/parser', 'dojo/domReady'],function(parser,ready){ready(function(){
+            parser.parse();
+            });});
     </script>
 </head>
 
