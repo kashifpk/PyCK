@@ -32,6 +32,7 @@
                 </td>
                 <td data-toggle="collapse" data-target="#${k}_subitems">
                     <b>${k}</b>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                 </td>
             </tr>
             <tr>

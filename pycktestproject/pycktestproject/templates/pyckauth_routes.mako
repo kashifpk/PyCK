@@ -56,7 +56,7 @@ from pyck.mako_utils.multi_selector import multi_selector
         <td>${RP.method}</td>
         
         <td>
-            <a href="${request.current_route_url()}?action=delete&r=${RP.route_name}&p=${RP.permission}&m=${RP.method}"">Delete</a>
+            <a href="${request.current_route_url()}?action=delete&r=${RP.route_name}&p=${RP.permission}&m=${RP.method}">Delete</a>
         </td>
     </tr>
     
