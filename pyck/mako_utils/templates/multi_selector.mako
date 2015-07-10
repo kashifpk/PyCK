@@ -1,11 +1,12 @@
 <%def name="show_items(records, fname=None, ignore_prefix=None, indent='', parent_key=None)">
     <%
     extra_css_class = ""
-    table_id = ""
+    table_id = ''
     if parent_key:
-        extra_css_class = 'collapse'
+        extra_css_class = 'collapse in'
         table_id = 'id="{}_subitems"'.format(parent_key)
     %>
+    
     <table class="table table-condensed table-hover table-striped ${extra_css_class}" ${table_id}>
     %for k, v in records.items():
         ## Ignore static routes (route name starts with __)
@@ -29,7 +30,7 @@
                 <td style="width: 4%;">
                     <input data-dojo-type="dijit/form/CheckBox" id="${k}_parent" type="checkbox" onclick="toggle_selection('${k}_parent', '#${k}_subitems');" />
                 </td>
-                <td class="bg-info" data-toggle="collapse" data-target="#${k}_subitems">
+                <td data-toggle="collapse" data-target="#${k}_subitems">
                     <b>${k}</b>
                 </td>
             </tr>

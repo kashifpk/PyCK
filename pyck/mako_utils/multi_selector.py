@@ -67,7 +67,21 @@ def group_similar(items):
         else:
             grouped_items[current_group_key] = current_sub_items
     
-    return grouped_items
+    # Merge back groups that contain only a single element
+    final_group_items = OrderedDict()
+    for k,v in grouped_items.items():
+        if type(v) is OrderedDict:
+            if len(v.keys()) != 1:
+                final_group_items[k] = v
+            else:
+                nk, nv = v.items()[0]
+                final_group_items[nk] = nv
+        else:
+            final_group_items[k] = v
+    
+    print(final_group_items)
+    
+    return final_group_items
 
 
 def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True):
