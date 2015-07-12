@@ -1,3 +1,6 @@
+<%!
+from pyck.lib.urls import url_add, url_without
+%>
 <%inherit file="${context.get('base_template')}" />
 <%
 def insert_keyword_values(s):
@@ -23,6 +26,8 @@ def get_col_value(col_name, R):
             return ''
 
     return obj
+
+
 %>
 
 <div class="panel panel-default">
@@ -84,7 +89,11 @@ def get_col_value(col_name, R):
     <thead>
         <tr>
         %for column in columns:
-            <th style="font-weight: bold; font-size: larger;">${column.replace("_", " ").title()}</th>
+            <th style="font-weight: bold; font-size: larger; overflow: hidden; white-space: nowrap;">
+            ${column.replace("_", " ").title()}
+            <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sa=' + column)}" class="glyphicon glyphicon-arrow-down"></a>
+            <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sd=' + column)}" class="glyphicon glyphicon-arrow-up"></a>
+            </th>
         %endfor
         %if len(per_record_actions)>0:
             <th>   </th>
