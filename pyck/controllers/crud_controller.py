@@ -283,11 +283,18 @@ class CRUDController(object):
         start_idx = self.list_recs_per_page * (p - 1)
 
         query = self.db_session.query(self.model)
-        if self.list_sort_by is not None:
+
+        sort_ascending = self.request.GET.get('sa', None)
+        sort_descending = self.request.GET.get('sd', None)
+        if sort_ascending:
+            query = query.order_by(sort_ascending)
+        elif sort_descending:
+            query = query.order_by(sort_descending + " desc")
+        elif self.list_sort_by is not None:
             query = query.order_by(self.list_sort_by)
-        
+
         query = query.slice(start_idx, start_idx + self.list_recs_per_page)
-        
+
         records = query
 
         columns = []
