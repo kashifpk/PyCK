@@ -8,11 +8,15 @@ This document lists the changes as versions progress
 What's new in 0.9.8.5
 ----------------------
 
+* Sorting support in crud controller that allows result sorting based on any field that is being displayed
 * Dojo base url is in the config file now and used by both base.mako and the admin panel's admin_base.mako
 * Using pyramid's SignedCookieSessionFactory instead of the deprecated UnencryptedCookieSessionFactory
 * Flash messages are now closable.
 * Change password page for currently logged in user.
 * Base.mako markup and structure cleanup.
+* Visual indication for sub routes for pyckauth routes multiselctor
+* Multiselector fix so that single item groups are treated as independent routes
+* Using html5 doctype for admin base
 * Default dojo libraries used for admin section upgraded to 1.10.1 from 1.8.3
 * *Refactoring* -  Moved login and logout logic out of the controller and into the User model
 * Ability to disable dojo loading for a mako template. In the template file set **skip_dojo=True** before inheriting from base.mako template, example::
