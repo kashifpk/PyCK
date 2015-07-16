@@ -1,5 +1,16 @@
 import os.path
-from sqlalchemy import func
+from sqlalchemy import func, or_
+
+# for CRUD search data type matching
+from sqlalchemy import (
+    BIGINT, BINARY, BLOB, BOOLEAN, BigInteger, Binary, Boolean, DATE, DATETIME,
+    DECIMAL, Date, DateTime, FLOAT, Float, INT, INTEGER, Integer, Interval,
+    LargeBinary, NUMERIC, Numeric, REAL, SMALLINT, SmallInteger, TIME,
+    TIMESTAMP, Time, VARBINARY,
+    
+    VARCHAR, UnicodeText, Unicode, String, TEXT, Text, NCHAR, NVARCHAR, CHAR, CLOB
+    )
+
 from sqlalchemy.exc import IntegrityError
 
 from pyramid.response import Response
@@ -273,6 +284,39 @@ class CRUDController(object):
         else:
             return {}
     
+    def _is_valid_comparison_value(self, col_type, val):
+
+        can_add = False
+
+        # Make sure we only add those columns into search criteria for which the serach value is valid
+        # log.warn(col_type)
+        # log.warn(val)
+        if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT,
+                                  Text, NCHAR, NVARCHAR, CHAR, CLOB):
+
+            can_add = True
+
+        elif col_type in (BOOLEAN, Boolean, Binary):
+            if val.lower() in  ['0', '1', 'true', 'false']:
+                can_add = True
+                val = val.title()
+
+        elif col_type in (BIGINT, BigInteger, INT, INTEGER, Integer, Interval,
+                          NUMERIC, Numeric, SMALLINT, SmallInteger):
+
+            if val.isdigit():
+                can_add = True
+
+        elif col_type in (DECIMAL, FLOAT, Float, REAL):
+            if val.replace('.', '').isdigit():
+                can_add = True
+                
+        #TODO date time will require some complex processing
+        elif col_type in (DATE, DATETIME, Date, DateTime, Time, TIME, TIMESTAMP):
+            pass
+
+        return can_add
+
     def list(self):
         """
         The listing view - Lists all the records with pagination
@@ -282,7 +326,25 @@ class CRUDController(object):
 
         start_idx = self.list_recs_per_page * (p - 1)
 
+        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
+        pk_col = self.model.__table__.primary_key.columns[pk_col]
+
         query = self.db_session.query(self.model)
+        count_query = self.db_session.query(func.count(pk_col))
+        #process search query if given
+        if self.request.GET.get('q', ''):
+            search_conditions = []
+            search_term = self.request.GET['q'].strip()
+            for k,v in self.request.GET.items():
+                if k.startswith("_sf_"):
+                    col = getattr(self.model, v)
+
+                    if self._is_valid_comparison_value(col.type.__class__, search_term):
+                        search_conditions.append(col==search_term)
+            
+            log.warn(search_conditions)
+            query = query.filter(or_(*search_conditions))
+            count_query = count_query.filter(or_(*search_conditions))
 
         sort_ascending = self.request.GET.get('sa', None)
         sort_descending = self.request.GET.get('sd', None)
@@ -312,10 +374,7 @@ class CRUDController(object):
             columns = list(self.model.__table__.columns.keys())
 
         # calculate number of pages
-        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
-        pk_col = self.model.__table__.primary_key.columns[pk_col]
-
-        total_recs = self.db_session.query(func.count(pk_col)).scalar()
+        total_recs = count_query.scalar()
 
         pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
 

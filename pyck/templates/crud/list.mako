@@ -50,11 +50,15 @@ def get_col_value(col_name, R):
                  value="${request.GET['q']}"
                  %endif
                   />
-          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="submit" class="btn btn-primary btn-sm">Search</button>
           <br />
           <a href="#search_controls"data-toggle="collapse">
             Search Options <span class="caret"></span>
           </a>
+          %if request.GET.get('q', ''):
+            &nbsp;&nbsp;&nbsp;
+            <a href="${url_without(request.current_route_url(), qs=['q', 'p'])}" class="text-success">Clear Search</a>
+          %endif
           <div class="collapse" id="search_controls">
             <div class="well">
             Search Fields:
@@ -63,10 +67,10 @@ def get_col_value(col_name, R):
               
               <div class="col-md-3">
               <span class="label label-primary">
-                <input type="checkbox" name="search_field_${column}"
+                <input type="checkbox" name="_sf_${column}"
                        data-dojo-type="dijit/form/CheckBox"
                        value="${column}"
-                       %if 'search_field_{}'.format(column) in request.GET:
+                       %if '_sf_{}'.format(column) in request.GET or 'q' not in request.GET:
                        checked="checked"
                        %endif
                        />
