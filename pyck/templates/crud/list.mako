@@ -41,8 +41,15 @@ def get_col_value(col_name, R):
   <div class="panel-body">
     <div class="row">
       <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
-        <form action="" method="GET">
-          <input type="text" name="search_query" data-dojo-type="dijit/form/TextBox" placeholder="search" />
+        
+        <form action="${url_without(request.current_route_url(), qs='q')}"
+              method="GET">
+          
+          <input type="text" name="q" data-dojo-type="dijit/form/TextBox" placeholder="serach"
+                 %if 'q' in request.GET:
+                 value="${request.GET['q']}"
+                 %endif
+                  />
           <button type="submit" class="btn btn-primary">Search</button>
           <br />
           <a href="#search_controls"data-toggle="collapse">
@@ -50,13 +57,24 @@ def get_col_value(col_name, R):
           </a>
           <div class="collapse" id="search_controls">
             <div class="well">
-            Search Fields: <br />
+            Search Fields:
+            <div class="row">
             %for column in columns:
+              
+              <div class="col-md-3">
               <span class="label label-primary">
-                <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="${column}" checked="checked" />${column.replace("_", " ").title()}
-              </span> &nbsp;&nbsp;
+                <input type="checkbox" name="search_field_${column}"
+                       data-dojo-type="dijit/form/CheckBox"
+                       value="${column}"
+                       %if 'search_field_{}'.format(column) in request.GET:
+                       checked="checked"
+                       %endif
+                       />
+                       ${column.replace("_", " ").title()}
+              </span>
+              </div>
             %endfor
-            
+            </div>
             </div>
           </div>
         </form>
@@ -95,9 +113,19 @@ def get_col_value(col_name, R):
         %for p in pages:
         
             %if p==current_page:
-                <li class="active"><a href="${'?p=' + str(p)}">${p}</a> </li>
+            
+                <li class="active">
+                  <a href="${url_add(url_without(request.current_route_url(), qs='p'), qs='p={}'.format(p))}">
+                  ${p}
+                  </a>
+                </li>
+                
             %else:
-                <li><a href="${'?p=' + str(p)}">${p}</a></li> 
+                <li>
+                  <a href="${url_add(url_without(request.current_route_url(), qs='p'), qs='p={}'.format(p))}">
+                  ${p}
+                  </a>
+                </li> 
             %endif
             
         %endfor
