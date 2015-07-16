@@ -1,7 +1,9 @@
 <%!
 from pyck.lib.urls import url_add, url_without
 %>
+
 <%inherit file="${context.get('base_template')}" />
+
 <%
 def insert_keyword_values(s):
     return s.replace('{friendly_name}', friendly_name)
@@ -33,27 +35,50 @@ def get_col_value(col_name, R):
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <h1>Displaying ${friendly_name}</h1>
+    <h1>${friendly_name}</h1>
   </div>
     
   <div class="panel-body">
-    <div class="text-right">
-    <%
+    <div class="row">
+      <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+        <form action="" method="GET">
+          <input type="text" name="search_query" data-dojo-type="dijit/form/TextBox" placeholder="search" />
+          <button type="submit" class="btn btn-primary">Search</button>
+          <br />
+          <a href="#search_controls"data-toggle="collapse">
+            Search Options <span class="caret"></span>
+          </a>
+          <div class="collapse" id="search_controls">
+            <div class="well">
+            Search Fields: <br />
+            %for column in columns:
+              <span class="label label-primary">
+                <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="${column}" checked="checked" />${column.replace("_", " ").title()}
+              </span> &nbsp;&nbsp;
+            %endfor
+            
+            </div>
+          </div>
+        </form>
+      </div>
     
-    actions_str = ''
-    for action in actions:
-        css_class_str = ' class="btn btn-primary"'
-        if 'css_class' in action:
-            css_class_str = ' class="' + action['css_class'] + '"'
-    
-        actions_str += '<a href="' + action['link_url'] + '"' + css_class_str + '>' + insert_keyword_values(action['link_text']) + '</a> | '
-    
-    if '' != actions_str:
-        actions_str = actions_str[:-2]
-    %>
-    ${actions_str | n}
+      <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-right">
+      <%
+      
+      actions_str = ''
+      for action in actions:
+          css_class_str = ' class="btn btn-primary"'
+          if 'css_class' in action:
+              css_class_str = ' class="' + action['css_class'] + '"'
+      
+          actions_str += '<a href="' + action['link_url'] + '"' + css_class_str + '>' + insert_keyword_values(action['link_text']) + '</a> | '
+      
+      if '' != actions_str:
+          actions_str = actions_str[:-2]
+      %>
+      ${actions_str | n}
+      </div>
     </div>
-    
     %if len(pages)>1:
     
         <div class="text-right">

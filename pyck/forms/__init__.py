@@ -63,12 +63,13 @@ class DojoModelConverter(ModelConverter):
             field_args['validators'].append(validators.NumberRange(min=0))
         return f.DojoIntegerField(**field_args)
 
-    #@converts('Numeric', 'Float')
-    #def handle_decimal_types(self, column, field_args, **extra):
-    #    places = getattr(column.type, 'scale', 2)
-    #    if places is not None:
-    #        field_args['places'] = places
-    #    return f.DecimalField(**field_args)
+    @converts('Numeric', 'Float', 'Decimal')
+    def handle_decimal_types(self, column, field_args, **extra):
+        places = getattr(column.type, 'scale', 2)
+        if places is not None:
+            field_args['places'] = places
+        return f.DojoDecimalField(**field_args)
+
     #
     #@converts('databases.mysql.MSYear')
     #def conv_MSYear(self, field_args, **extra):
@@ -210,6 +211,7 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
     #print('##########')
     #print(exclude)
     field_dict = model_fields(model, db_session, only, exclude, field_args, converter, exclude_pk=exclude_pk, exclude_fk=exclude_fk)
+    print(field_dict)
     #print(field_dict)
     return type(type_name, (base_class, ), field_dict)
 
