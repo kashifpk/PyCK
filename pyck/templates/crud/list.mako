@@ -72,6 +72,13 @@ def get_col_value(col_name, R):
                          /> Search case-insensitively
               </div>
               <div class="col-md-6">
+                <input type="checkbox" name="_so_pm"
+                         data-dojo-type="dijit/form/CheckBox"
+                         value="yes"
+                         %if '_so_pm' in request.GET or 'q' not in request.GET:
+                         checked="checked"
+                         %endif
+                         /> Partial match
               </div>
             </div>
             <br />

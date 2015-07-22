@@ -286,7 +286,7 @@ class CRUDController(object):
         else:
             return {}
     
-    def _get_search_condition(self, col, val, case_sensitive=True):
+    def _get_search_condition(self, col, val, case_sensitive=True, partial_match=False):
 
         #col==new_val
         search_condition = None
@@ -299,9 +299,15 @@ class CRUDController(object):
                                   Text, NCHAR, NVARCHAR, CHAR, CLOB):
 
             if case_sensitive:
-                search_condition = (col==val)
+                if partial_match:
+                    search_condition = col.like('%{}%'.format(val))
+                else:
+                    search_condition = (col==val)
             else:
-                search_condition = (func.lower(col)==func.lower(val))
+                if partial_match:
+                    search_condition = col.ilike('%{}%'.format(val))
+                else:
+                    search_condition = (func.lower(col)==func.lower(val))
 
         elif col_type in (BOOLEAN, Boolean, Binary):
             if val.lower() in  ['0', '1', 'true', 'false']:
@@ -322,20 +328,39 @@ class CRUDController(object):
         elif col_type in (DATE, Date):
             try:
                 date_val = dates_and_times.Date.from_string(val)
-                search_condition = col.between(*date_val.range())
+
+                if partial_match:
+                    search_condition = col.between(*date_val.range())
+
+                elif not date_val.is_partial():
+                    search_condition = (col==date_val.to_native())
+
             except ValueError:
                 pass
 
         elif col_type in (Time, TIME):
             try:
                 time_val = dates_and_times.Time.from_string(val)
-                search_condition = col.between(*time_val.range())
+
+                if partial_match:
+                    search_condition = col.between(*time_val.range())
+
+                elif not time_val.is_partial():
+                    search_condition = (col==time_val.to_native())
+
             except ValueError:
                 pass
+
         elif col_type in (DATETIME, DateTime, TIMESTAMP):
             try:
                 date_val = dates_and_times.DateTime.from_string(val)
-                search_condition = col.between(*date_val.range())
+
+                if partial_match:
+                    search_condition = col.between(*date_val.range())
+
+                elif not date_val.is_partial():
+                    search_condition = (col==date_val.to_native())
+
             except ValueError:
                 pass
 
@@ -365,10 +390,16 @@ class CRUDController(object):
 
                     #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
                     case_sensitive = True
+                    partial_match = True
                     if '_so_ci' in self.request.GET:
                         case_sensitive = False
+                    
+                    if '_so_pm' not in self.request.GET:
+                        partial_match = False
                         
-                    search_condition = self._get_search_condition(col, search_term, case_sensitive=case_sensitive)
+                    search_condition = self._get_search_condition(col, search_term,
+                                                                  case_sensitive=case_sensitive,
+                                                                  partial_match=partial_match)
                     log.error(search_condition)
                     if search_condition is not None:
                         search_conditions.append(search_condition)
