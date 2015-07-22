@@ -12,7 +12,8 @@ requires = [
     'zope.sqlalchemy',
     'wtforms',
     'nose',
-    'mako'
+    'mako',
+    'python-dateutil'
 ]
 
 if sys.version_info[:3] < (2, 5, 0):

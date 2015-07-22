@@ -1,5 +1,16 @@
 import os.path
-from sqlalchemy import func
+from sqlalchemy import func, or_
+
+# for CRUD search data type matching
+from sqlalchemy import (
+    BIGINT, BINARY, BLOB, BOOLEAN, BigInteger, Binary, Boolean, DATE, DATETIME,
+    DECIMAL, Date, DateTime, FLOAT, Float, INT, INTEGER, Integer, Interval,
+    LargeBinary, NUMERIC, Numeric, REAL, SMALLINT, SmallInteger, TIME,
+    TIMESTAMP, Time, VARBINARY,
+    
+    VARCHAR, UnicodeText, Unicode, String, TEXT, Text, NCHAR, NVARCHAR, CHAR, CLOB
+    )
+
 from sqlalchemy.exc import IntegrityError
 
 from pyramid.response import Response
@@ -14,6 +25,8 @@ from wtforms import validators
 from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
+from pyck.lib import dates_and_times
+
 import logging
 
 log = logging.getLogger(__name__)
@@ -273,6 +286,86 @@ class CRUDController(object):
         else:
             return {}
     
+    def _get_search_condition(self, col, val, case_sensitive=True, partial_match=False):
+
+        #col==new_val
+        search_condition = None
+        col_type = col.type.__class__
+
+        # Make sure we only add those columns into search criteria for which the serach value is valid
+        # log.warn(col_type)
+        # log.warn(val)
+        if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT,
+                                  Text, NCHAR, NVARCHAR, CHAR, CLOB):
+
+            if case_sensitive:
+                if partial_match:
+                    search_condition = col.like('%{}%'.format(val))
+                else:
+                    search_condition = (col==val)
+            else:
+                if partial_match:
+                    search_condition = col.ilike('%{}%'.format(val))
+                else:
+                    search_condition = (func.lower(col)==func.lower(val))
+
+        elif col_type in (BOOLEAN, Boolean, Binary):
+            if val.lower() in  ['0', '1', 'true', 'false']:
+                search_condition = (col==val.title())
+
+        elif col_type in (BIGINT, BigInteger, INT, INTEGER, Integer, Interval,
+                          NUMERIC, Numeric, SMALLINT, SmallInteger):
+
+            if val.isdigit():
+                search_condition = (col==val)
+
+        elif col_type in (DECIMAL, FLOAT, Float, REAL):
+            if val.replace('.', '').isdigit():
+                search_condition = (col==val)
+
+        # date time will require some complex processing
+        #.filter(Token.timestamp.between(*DateTime.from_string("2015-05-08 07:19:35.128909").range())
+        elif col_type in (DATE, Date):
+            try:
+                date_val = dates_and_times.Date.from_string(val)
+
+                if partial_match:
+                    search_condition = col.between(*date_val.range())
+
+                elif not date_val.is_partial():
+                    search_condition = (col==date_val.to_native())
+
+            except ValueError:
+                pass
+
+        elif col_type in (Time, TIME):
+            try:
+                time_val = dates_and_times.Time.from_string(val)
+
+                if partial_match:
+                    search_condition = col.between(*time_val.range())
+
+                elif not time_val.is_partial():
+                    search_condition = (col==time_val.to_native())
+
+            except ValueError:
+                pass
+
+        elif col_type in (DATETIME, DateTime, TIMESTAMP):
+            try:
+                date_val = dates_and_times.DateTime.from_string(val)
+
+                if partial_match:
+                    search_condition = col.between(*date_val.range())
+
+                elif not date_val.is_partial():
+                    search_condition = (col==date_val.to_native())
+
+            except ValueError:
+                pass
+
+        return search_condition
+
     def list(self):
         """
         The listing view - Lists all the records with pagination
@@ -282,7 +375,38 @@ class CRUDController(object):
 
         start_idx = self.list_recs_per_page * (p - 1)
 
+        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
+        pk_col = self.model.__table__.primary_key.columns[pk_col]
+
         query = self.db_session.query(self.model)
+        count_query = self.db_session.query(func.count(pk_col))
+        #process search query if given
+        if self.request.GET.get('q', ''):
+            search_conditions = []
+            search_term = self.request.GET['q'].strip()
+            for k,v in self.request.GET.items():
+                if k.startswith("_sf_"):
+                    col = getattr(self.model, v)
+
+                    #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
+                    case_sensitive = True
+                    partial_match = True
+                    if '_so_ci' in self.request.GET:
+                        case_sensitive = False
+                    
+                    if '_so_pm' not in self.request.GET:
+                        partial_match = False
+                        
+                    search_condition = self._get_search_condition(col, search_term,
+                                                                  case_sensitive=case_sensitive,
+                                                                  partial_match=partial_match)
+                    log.error(search_condition)
+                    if search_condition is not None:
+                        search_conditions.append(search_condition)
+            
+            log.warn(search_conditions)
+            query = query.filter(or_(*search_conditions))
+            count_query = count_query.filter(or_(*search_conditions))
 
         sort_ascending = self.request.GET.get('sa', None)
         sort_descending = self.request.GET.get('sd', None)
@@ -312,10 +436,7 @@ class CRUDController(object):
             columns = list(self.model.__table__.columns.keys())
 
         # calculate number of pages
-        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
-        pk_col = self.model.__table__.primary_key.columns[pk_col]
-
-        total_recs = self.db_session.query(func.count(pk_col)).scalar()
+        total_recs = count_query.scalar()
 
         pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
 

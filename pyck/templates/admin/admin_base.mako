@@ -4,15 +4,15 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
 <!DOCTYPE html>
 <html>
 <head>
-  
     <title>${self.title()}</title>
-    ${self.meta()}
-  
-    <!-- Latest compiled and minified CSS -->
+
+	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	
 
 	<link rel="stylesheet" href="${dojo_base}/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="${dojo_base}/dijit/themes/claro/claro.css" type="text/css" charset="utf-8" />
@@ -22,6 +22,7 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
             parser.parse();
             });});
     </script>
+	${self.meta()}
 </head>
 
 <body class="${self.body_class()}" ${self.body_attrs()}>
