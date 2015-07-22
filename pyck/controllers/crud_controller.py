@@ -286,7 +286,7 @@ class CRUDController(object):
         else:
             return {}
     
-    def _get_search_condition(self, col, val):
+    def _get_search_condition(self, col, val, case_sensitive=True):
 
         #col==new_val
         search_condition = None
@@ -298,7 +298,10 @@ class CRUDController(object):
         if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT,
                                   Text, NCHAR, NVARCHAR, CHAR, CLOB):
 
-            search_condition = (col==val)
+            if case_sensitive:
+                search_condition = (col==val)
+            else:
+                search_condition = (func.lower(col)==func.lower(val))
 
         elif col_type in (BOOLEAN, Boolean, Binary):
             if val.lower() in  ['0', '1', 'true', 'false']:
@@ -361,7 +364,11 @@ class CRUDController(object):
                     col = getattr(self.model, v)
 
                     #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
-                    search_condition = self._get_search_condition(col, search_term)
+                    case_sensitive = True
+                    if '_so_ci' in self.request.GET:
+                        case_sensitive = False
+                        
+                    search_condition = self._get_search_condition(col, search_term, case_sensitive=case_sensitive)
                     log.error(search_condition)
                     if search_condition is not None:
                         search_conditions.append(search_condition)

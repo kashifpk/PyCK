@@ -61,10 +61,23 @@ def get_col_value(col_name, R):
           %endif
           <div class="collapse" id="search_controls">
             <div class="well">
-            Search Fields:
+            <div class="row">
+              <div class="col-md-6">
+                  <input type="checkbox" name="_so_ci"
+                         data-dojo-type="dijit/form/CheckBox"
+                         value="yes"
+                         %if '_so_ci' in request.GET:
+                         checked="checked"
+                         %endif
+                         /> Search case-insensitively
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+            <br />
+            Search Fields:<br />
             <div class="row">
             %for column in columns:
-              
               <div class="col-md-3">
               <span class="label label-primary">
                 <input type="checkbox" name="_sf_${column}"
