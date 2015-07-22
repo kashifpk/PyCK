@@ -25,6 +25,8 @@ from wtforms import validators
 from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
+from pyck.lib import dates_and_times
+
 import logging
 
 log = logging.getLogger(__name__)
@@ -284,9 +286,11 @@ class CRUDController(object):
         else:
             return {}
     
-    def _is_valid_comparison_value(self, col_type, val):
+    def _get_search_condition(self, col, val):
 
-        can_add = False
+        #col==new_val
+        search_condition = None
+        col_type = col.type.__class__
 
         # Make sure we only add those columns into search criteria for which the serach value is valid
         # log.warn(col_type)
@@ -294,28 +298,45 @@ class CRUDController(object):
         if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT,
                                   Text, NCHAR, NVARCHAR, CHAR, CLOB):
 
-            can_add = True
+            search_condition = (col==val)
 
         elif col_type in (BOOLEAN, Boolean, Binary):
             if val.lower() in  ['0', '1', 'true', 'false']:
-                can_add = True
-                val = val.title()
+                search_condition = (col==val.title())
 
         elif col_type in (BIGINT, BigInteger, INT, INTEGER, Integer, Interval,
                           NUMERIC, Numeric, SMALLINT, SmallInteger):
 
             if val.isdigit():
-                can_add = True
+                search_condition = (col==val)
 
         elif col_type in (DECIMAL, FLOAT, Float, REAL):
             if val.replace('.', '').isdigit():
-                can_add = True
-                
-        #TODO date time will require some complex processing
-        elif col_type in (DATE, DATETIME, Date, DateTime, Time, TIME, TIMESTAMP):
-            pass
+                search_condition = (col==val)
 
-        return can_add
+        # date time will require some complex processing
+        #.filter(Token.timestamp.between(*DateTime.from_string("2015-05-08 07:19:35.128909").range())
+        elif col_type in (DATE, Date):
+            try:
+                date_val = dates_and_times.Date.from_string(val)
+                search_condition = col.between(*date_val.range())
+            except ValueError:
+                pass
+
+        elif col_type in (Time, TIME):
+            try:
+                time_val = dates_and_times.Time.from_string(val)
+                search_condition = col.between(*time_val.range())
+            except ValueError:
+                pass
+        elif col_type in (DATETIME, DateTime, TIMESTAMP):
+            try:
+                date_val = dates_and_times.DateTime.from_string(val)
+                search_condition = col.between(*date_val.range())
+            except ValueError:
+                pass
+
+        return search_condition
 
     def list(self):
         """
@@ -339,8 +360,11 @@ class CRUDController(object):
                 if k.startswith("_sf_"):
                     col = getattr(self.model, v)
 
-                    if self._is_valid_comparison_value(col.type.__class__, search_term):
-                        search_conditions.append(col==search_term)
+                    #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
+                    search_condition = self._get_search_condition(col, search_term)
+                    log.error(search_condition)
+                    if search_condition is not None:
+                        search_conditions.append(search_condition)
             
             log.warn(search_conditions)
             query = query.filter(or_(*search_conditions))
