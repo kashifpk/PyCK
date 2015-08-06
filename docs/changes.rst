@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.8.6
+----------------------
+
+* Search functionality for CRUD controller. Allows case sensitive and insesitive searching, partial matching and option to select fields for searching. Also allows partial date, time and datetime matching
+
 What's new in 0.9.8.5
 ----------------------
 
