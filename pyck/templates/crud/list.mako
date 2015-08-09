@@ -1,5 +1,6 @@
 <%!
 from pyck.lib.urls import url_add, url_without
+from string import Formatter as StringFormatter
 %>
 
 <%inherit file="${context.get('base_template')}" />
@@ -215,9 +216,21 @@ def get_col_value(col_name, R):
             <%
             actions_str = ''
             for action in per_record_actions:
+                if 'condition' in action:
+                  condition_str = action['condition']
+                  field_names = [k[1] for k in StringFormatter().parse(condition_str)]
+                  val_dict = {}
+                  for fname in field_names:
+                    val_dict[fname] = getattr(R, fname)
+                  
+                  parsed_condition_string = condition_str.format(**val_dict)
+                  if not eval(parsed_condition_string):
+                    continue
+
                 css_class_str = ''
                 if 'css_class' in action:
                     css_class_str = ' class="' + action['css_class'] + '"'
+                
                 actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '"' + css_class_str + '>' + action['link_text'] + '</a> | '
             
             if '' != actions_str:

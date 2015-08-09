@@ -22,6 +22,16 @@ What's new in 0.9.8.6
         }
     }
 
+* Support for conditional links in CRUD list_per_record_actions and detail_actions parameters. Link is displayed if the condition is True. Condition is anything that can be processed by python's eval function. Allow using special placeholders for fields like {fieldname} which is a reference to the value of the specified field for the current record object in the display context. For example::
+
+    list_per_record_actions = [
+        {
+               'link_text': 'View History', 
+               'link_url': '/history/{PK}',
+               'css_class': 'text-primary', 
+               'condition': 'True == {has_history}'
+        }
+    ]
 
 What's new in 0.9.8.5
 ----------------------

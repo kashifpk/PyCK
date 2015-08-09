@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changes &mdash; PyCK 0.9.8.5 documentation</title>
+  <title>Changes &mdash; PyCK 0.9.8.6 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.5 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.9.8.6 documentation" href="index.html"/>
         <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html"/> 
 
   
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-6">What&#8217;s new in 0.9.8.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-3">What&#8217;s new in 0.9.8.3</a></li>
@@ -202,6 +203,38 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-8-6">
+<h2>What&#8217;s new in 0.9.8.6<a class="headerlink" href="#what-s-new-in-0-9-8-6" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Search functionality for CRUD controller. Allows case sensitive and insesitive searching, partial matching and option to select fields for searching. Also allows partial date, time and datetime matching</p>
+</li>
+<li><p class="first">Support for field heading and value translations in CRUD list and detail pages. Allows translating a field&#8217;s display value by calling a user defined function. So for example if a user wants to display &#8216;Yes&#8217; when a field&#8217;s value is true, it can be done with something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">translate_is_active</span><span class="p">(</span><span class="n">input_value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;Yes&#39;</span> <span class="k">if</span> <span class="n">input_value</span> <span class="k">else</span> <span class="s">&#39;No&#39;</span>
+
+<span class="n">field_translations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;is_active&#39;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s">&#39;header&#39;</span><span class="p">:</span> <span class="s">&#39;Account Active&#39;</span><span class="p">,</span>
+          <span class="s">&#39;translator&#39;</span><span class="p">:</span> <span class="n">translate_is_active</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Support for conditional links in CRUD list_per_record_actions and detail_actions parameters. Link is displayed if the condition is True. Condition is anything that can be processed by python&#8217;s eval function. Allow using special placeholders for fields like {fieldname} which is a reference to the value of the specified field for the current record object in the display context. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">list_per_record_actions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+           <span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;View History&#39;</span><span class="p">,</span>
+           <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/history/{PK}&#39;</span><span class="p">,</span>
+           <span class="s">&#39;css_class&#39;</span><span class="p">:</span> <span class="s">&#39;text-primary&#39;</span><span class="p">,</span>
+           <span class="s">&#39;condition&#39;</span><span class="p">:</span> <span class="s">&#39;True == {has_history}&#39;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-8-5">
 <h2>What&#8217;s new in 0.9.8.5<a class="headerlink" href="#what-s-new-in-0-9-8-5" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -833,7 +866,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.5',
+            VERSION:'0.9.8.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

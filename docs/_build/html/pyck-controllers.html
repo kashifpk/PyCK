@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The pyck.controllers Package &mdash; PyCK 0.9.8.5 documentation</title>
+  <title>The pyck.controllers Package &mdash; PyCK 0.9.8.6 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.5 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.9.8.6 documentation" href="index.html"/>
         <link rel="next" title="The PyCK Admin Interface" href="pyck-admin.html"/>
         <link rel="prev" title="The pyck.mako_utils Package" href="pyck-mako-utils.html"/> 
 
@@ -119,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-6">What&#8217;s new in 0.9.8.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-3">What&#8217;s new in 0.9.8.3</a></li>
@@ -257,6 +258,20 @@ for a working CRUD example in the Wiki app.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">list_actions</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Add {friendly_name}&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;css_class&#39;</span><span class="p">:</span> <span class="s">&#39;btn btn-primary&#39;</span><span class="p">},</span>
        <span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><strong>field_translations</strong> &#8211; <p>Allow translating a field&#8217;s display value by calling a user defined function. So for example if a user wants
+to display &#8216;Yes&#8217; when a field&#8217;s value is true, it can be done with something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">translate_is_active</span><span class="p">(</span><span class="n">input_value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;Yes&#39;</span> <span class="k">if</span> <span class="n">input_value</span> <span class="k">else</span> <span class="s">&#39;No&#39;</span>
+
+<span class="n">field_translations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;is_active&#39;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s">&#39;header&#39;</span><span class="p">:</span> <span class="s">&#39;Account Active&#39;</span><span class="p">,</span> 
+          <span class="s">&#39;translator&#39;</span><span class="p">:</span> <span class="n">translate_is_active</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -401,7 +416,7 @@ avoid route name conflicts.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.5',
+            VERSION:'0.9.8.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
