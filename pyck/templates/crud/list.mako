@@ -167,7 +167,12 @@ def get_col_value(col_name, R):
         <tr>
         %for column in columns:
             <th style="font-weight: bold; font-size: larger; overflow: hidden; white-space: nowrap;">
-            ${column.replace("_", " ").title()}
+              %if field_translations and column in field_translations and 'header' in field_translations[column]:
+                ${field_translations[column]['header']}
+              %else:
+                ${column.replace("_", " ").title()}
+              %endif
+            
             <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sa=' + column)}" class="glyphicon glyphicon-arrow-down"></a>
             <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sd=' + column)}" class="glyphicon glyphicon-arrow-up"></a>
             </th>
@@ -185,14 +190,21 @@ def get_col_value(col_name, R):
         %for column in columns:
           
             %if column in list_field_args and 'display_field' in list_field_args[column]:
-            <td>${get_col_value(list_field_args[column]['display_field'], R)}</td>
+              <td>
+              ${get_col_value(list_field_args[column]['display_field'], R)}
+              </td>
             %else:
             <td>
-              
-              %if isinstance(getattr(R, column), (str, unicode)):
-                ${getattr(R, column)|n}
+              <%
+              col_value = getattr(R, column)
+              if field_translations and column in field_translations:
+                col_value = field_translations[column]['translator'](col_value)
+              endif
+              %>
+              %if isinstance(col_value, (str, unicode)):
+                ${col_value|n}
               %else:
-                ${getattr(R, column)}
+                ${col_value}
               %endif
             </td>
             %endif

@@ -144,6 +144,20 @@ class CRUDController(object):
             list_actions = [
                     {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-primary'},
                    ]
+    
+    :param field_translations:
+        Allow translating a field's display value by calling a user defined function. So for example if a user wants
+        to display 'Yes' when a field's value is true, it can be done with something like::
+
+            def translate_is_active(input_value):
+                return 'Yes' if input_value else 'No'
+
+            field_translations = {
+                'is_active': {
+                      'header': 'Account Active', 
+                      'translator': translate_is_active
+                }
+            }
 
     :param list_per_record_actions:
         list of actions that are to be displayed for each row. These can contain a special keyword PK for referring to
@@ -209,6 +223,8 @@ class CRUDController(object):
                     {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}', 'css_class': 'btn btn-danger'},
                    ]
+
+    field_translations = {}
 
     base_template = '/base.mako'
 
@@ -449,6 +465,7 @@ class CRUDController(object):
             'records': records, 'pages': pages, 'current_page': p,
             'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
             'list_field_args': self.list_field_args,
+            'field_translations': self.field_translations,
             'model_record_counts': self._models_rec_count_if_needed(),
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
@@ -601,6 +618,8 @@ class CRUDController(object):
                     'friendly_name': self.friendly_name,
                     'model_record_counts': self._models_rec_count_if_needed(),
                     'columns': columns, 'primary_key_columns': primary_key_columns,
-                    'actions': self.detail_actions} 
+                    'actions': self.detail_actions,
+                    'field_translations': self.field_translations}
+
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
