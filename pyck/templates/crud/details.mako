@@ -41,12 +41,25 @@ def insert_per_rec_keyword_values(s, R):
         <table class="table table-striped table-hover table-bordered">
         %for column in columns:
             <tr>
-                <th>${column}</th>
-                <td>
-                %if isinstance(getattr(R, column), (str, unicode)):
-                    ${getattr(R, column)|n}
+                <th>
+                %if field_translations and column in field_translations and 'header' in field_translations[column]:
+                    ${field_translations[column]['header']}
                 %else:
-                    ${getattr(R, column)}
+                    ${column.replace("_", " ").title()}
+                %endif
+                </th>
+                <td>
+                <%
+                col_value = getattr(R, column)
+                if field_translations and column in field_translations:
+                  col_value = field_translations[column]['translator'](col_value)
+                endif
+                %>
+
+                %if isinstance(col_value, (str, unicode)):
+                  ${col_value|n}
+                %else:
+                  ${col_value}
                 %endif
                 </td>
             </tr>

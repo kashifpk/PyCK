@@ -10,6 +10,19 @@ What's new in 0.9.8.6
 
 * Search functionality for CRUD controller. Allows case sensitive and insesitive searching, partial matching and option to select fields for searching. Also allows partial date, time and datetime matching
 
+* Support for field heading and value translations in CRUD list and detail pages. Allows translating a field's display value by calling a user defined function. So for example if a user wants to display 'Yes' when a field's value is true, it can be done with something like::
+
+    def translate_is_active(input_value):
+        return 'Yes' if input_value else 'No'
+
+    field_translations = {
+        'is_active': {
+              'header': 'Account Active', 
+              'translator': translate_is_active
+        }
+    }
+
+
 What's new in 0.9.8.5
 ----------------------
 
