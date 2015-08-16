@@ -7,11 +7,12 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
     <title>${self.title()}</title>
 
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+	<script src="/static/jquery.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 	
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
 	
 
 	<link rel="stylesheet" href="${dojo_base}/dojo/resources/dojo.css" type="text/css" charset="utf-8" />
