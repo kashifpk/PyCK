@@ -206,6 +206,10 @@
 <div class="section" id="what-s-new-in-0-9-8-6">
 <h2>What&#8217;s new in 0.9.8.6<a class="headerlink" href="#what-s-new-in-0-9-8-6" title="Permalink to this headline">¶</a></h2>
 <ul>
+<li><p class="first">The <strong>python setup.py develop</strong> command now generates <em>requirements.txt</em> file in project home folder based on the requires and app_requires lists from the main project and subapps.</p>
+</li>
+<li><p class="first">Admin section uses the project&#8217;s bootstrap located in /static/bootstrap instead of fetching bootstrap from the net.</p>
+</li>
 <li><p class="first">Search functionality for CRUD controller. Allows case sensitive and insesitive searching, partial matching and option to select fields for searching. Also allows partial date, time and datetime matching</p>
 </li>
 <li><p class="first">Support for field heading and value translations in CRUD list and detail pages. Allows translating a field&#8217;s display value by calling a user defined function. So for example if a user wants to display &#8216;Yes&#8217; when a field&#8217;s value is true, it can be done with something like:</p>

@@ -25,6 +25,16 @@ requires = [
 if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
 
+# Requires from subapps
+from pycktestproject.apps import enabled_apps
+for enabled_app in enabled_apps:
+    if hasattr(enabled_app, 'app_requires'):
+        for requirement in enabled_app.app_requires:
+            if requirement not in requires:
+                requires.append(requirement)
+
+open(os.path.join(here, 'requirements.txt'), 'w').writelines([line + '\n' for line in requires])
+
 setup(
     name='pycktestproject',
     version='0.0',

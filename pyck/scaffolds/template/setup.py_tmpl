@@ -33,6 +33,8 @@ for enabled_app in enabled_apps:
             if requirement not in requires:
                 requires.append(requirement)
 
+open(os.path.join(here, 'requirements.txt'), 'w').writelines([line + '\n' for line in requires])
+
 setup(
     name='{{project}}',
     version='0.0',

@@ -8,6 +8,10 @@ This document lists the changes as versions progress
 What's new in 0.9.8.6
 ----------------------
 
+* The **python setup.py develop** command now generates *requirements.txt* file in project home folder based on the requires and app_requires lists from the main project and subapps.
+
+* Admin section uses the project's bootstrap located in /static/bootstrap instead of fetching bootstrap from the net.
+
 * Search functionality for CRUD controller. Allows case sensitive and insesitive searching, partial matching and option to select fields for searching. Also allows partial date, time and datetime matching
 
 * Support for field heading and value translations in CRUD list and detail pages. Allows translating a field's display value by calling a user defined function. So for example if a user wants to display 'Yes' when a field's value is true, it can be done with something like::

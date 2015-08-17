@@ -1,0 +1,14 @@
+PyCK
+pyramid
+SQLAlchemy
+transaction
+pyramid_mako
+pyramid_tm
+pyramid_debugtoolbar
+zope.sqlalchemy
+webtest
+waitress
+wtforms
+wtdojo
+sqlalchemy
+geoalchemy2
