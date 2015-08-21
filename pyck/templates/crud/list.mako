@@ -33,7 +33,7 @@ def get_col_value(col_name, R):
 
 %>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
     <h1>${friendly_name}</h1>

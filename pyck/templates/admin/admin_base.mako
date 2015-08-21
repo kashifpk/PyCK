@@ -52,7 +52,7 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
 <%def name="body_attrs()">
 </%def>
 <%def name="header()">
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
 	

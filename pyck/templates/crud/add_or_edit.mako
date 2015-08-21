@@ -1,6 +1,6 @@
 <%inherit file="${context.get('base_template')}" />
 
-<div class="panel panel-success">
+<div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
 	<h1>${action_type.title()} ${friendly_name}</h1>

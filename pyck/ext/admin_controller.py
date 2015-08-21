@@ -26,7 +26,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
     """
     A utility function to quickly add all admin related routes and set them to the admin handler class with one function call,
     for example::
-    
+
         from pyck.ext import add_admin_handler, AdminController
         from pyck.lib import get_models
         import my_application_package_name_here
@@ -76,9 +76,9 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
             add_edit_field_args = {}
             list_field_args = {}
             FK_cols = get_columns(model, 'foreign_key')
-            
+
             for FK in FK_cols:
-                
+
                 db_col = list(FK.foreign_keys)[0].column.name
                 display_col = db_col
 
@@ -113,7 +113,7 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
                                                  'display_record_count': handler_class.display_record_count}
                       }
                      )
-            
+
             #extra_actions = [
             #    'crud_friendly_name',
             #    'crud_add_edit_exclude',
@@ -137,11 +137,10 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
 
             for extra_action in props:
                 if model.__name__ in getattr(handler_class, extra_action):
-                    setattr(CC, extra_action.strip("crud_"), getattr(handler_class, extra_action)[model.__name__])
+                    setattr(CC, extra_action[5:], getattr(handler_class, extra_action)[model.__name__])
 
             add_crud_handler(config, route_name_prefix + model.__name__,
                              url_pattern_prefix + '/' + model.__tablename__, CC)
-
 
 
 class AdminController(object):
@@ -168,16 +167,16 @@ class AdminController(object):
     **Configuration Options**
 
     These parameters are to be set as class properties in a sub-class of AdminController
-    
+
     :para crud_list_sort_by:
         Sort by specs for models.
-        
+
         Example::
-        
+
             crud_list_sort_by = {
                 Post.__name__: Post.created.desc()
             }
-        
+
     :param crud_models_field_args:
         A dictionary with key being the model name and value being the field args value for that model.
 
@@ -191,41 +190,41 @@ class AdminController(object):
                     'description' : {'widget' : TextArea()}
                 },
             }
-    
+
     :param crud_list_only:
         A dictionary containing list of fields to be displayed (and not displaying any other fields) on the record listing page for a specific CRUD model
-        
+
         Example::
-        
+
             crud_list_only = {
                 User.__name__: ['user_id', 'email']
             }
-    
+
     :param crud_list_exclude:
         A dictionary containing list of fields not to be displayed on the record listing page for a specific CRUD model
-        
+
         Example::
-        
+
             crud_list_exclude = {
                 User.__name__: ['id', 'comments']
             }
-    
+
     :param crud_list_actions:
         A dictionary containing list of actions to be displayed on the record listing page for a specific CRUD model
-        
+
         Example::
-        
+
             crud_list_actions = {
                 User.__name__: [
                     {'link_text': '{friendly_name} popularity graph', 'link_url': '/pop_graph', 'css_class': 'btn btn-primary'},
                 ]
             }
-    
+
     :param crud_list_per_record_actions:
         A dictionary containing list of actions to be displayed next to each record in record listing for a specific CRUD model
-        
+
         Example::
-        
+
             crud_list_per_record_actions = {
                 User.__name__: [
                     {'link_text': 'Details', 'link_url': 'details/{PK}'},
@@ -234,12 +233,21 @@ class AdminController(object):
                     {'link_text': 'Upload Photo', 'link_url': '/photo_upload/user/{PK}'},
                 ]
             }
-    
+
+    :param crud_detail_exclude:
+        A dictionary containing list of fields not to be displayed on the record details page for a specific CRUD model
+
+        Example::
+
+            crud_detail_exclude = {
+                User.__name__: ['id', 'comments']
+            }
+
     :param crud_detail_actions:
         A dictionary containing list of actions to be displayed on the details view page of a specific CRUD model
-        
+
         Example::
-        
+
             crud_list_per_record_actions = {
                 User.__name__: [
                     {'link_text': 'Details', 'link_url': 'details/{PK}'},
@@ -266,16 +274,17 @@ class AdminController(object):
     base_template = 'pyck:templates/admin/admin_base.mako'
 
     display_record_count = True  # display record count next to table names
-    
+
     crud_list_sort_by = {}
     crud_list_only = {}
     crud_list_exclude = {}
-    
+
     crud_models_field_args = {}
     crud_list_actions = {}
     crud_list_per_record_actions = {}
     crud_detail_actions = {}
-    
+    crud_detail_exclude = {}
+
     def __init__(self, request):
         self.request = request
 

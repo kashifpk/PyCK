@@ -122,7 +122,7 @@ class CRUDController(object):
     :param base_template: An alternate base template to use for the CRUD handler instead of the default base template of the application
 
     :param list_sort_by: Sorting spec for displaying records in records list page
-    
+
     :param add_edit_exclude: A list of fields that should not be displayed in add or edit operations
 
     :param add_edit_field_args: A dictionary of field arguments with field name as key and args and key-value pairs dict.
@@ -133,7 +133,9 @@ class CRUDController(object):
 
     :param list_only: List of fields that are to be displayed on listing page, all other fields are ignored.
 
-    :param list_exclude: List of fields to be exluded in listing page
+    :param list_exclude: List of fields to be excluded in listing page
+
+    :param detail_exclude: A list of fields that should not be displayed in CRUD details page
 
     :param list_field_args:
         arguments providing extra directions/instructions for displaying/formatting list fields
@@ -144,7 +146,7 @@ class CRUDController(object):
             list_actions = [
                     {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-primary'},
                    ]
-    
+
     :param field_translations:
         Allow translating a field's display value by calling a user defined function. So for example if a user wants
         to display 'Yes' when a field's value is true, it can be done with something like::
@@ -193,8 +195,6 @@ class CRUDController(object):
     friendly_name = None
     db_session = None
 
-    
-    
     #Add and edit page settings
     add_edit_exclude = None
 
@@ -202,13 +202,15 @@ class CRUDController(object):
 
     #Listing page sorting
     list_sort_by = None
-    
+
     #Listing page related settings
     list_recs_per_page = 10
     list_max_pages = 10
     list_field_args = {}
     list_only = None
     list_exclude = None
+    detail_exclude = None
+
     list_actions = [
                     {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-success'},
                    ]
@@ -301,7 +303,7 @@ class CRUDController(object):
             return get_model_record_counts(self.db_session, models_dict_to_list(self.template_extra_params['models']))
         else:
             return {}
-    
+
     def _get_search_condition(self, col, val, case_sensitive=True, partial_match=False):
 
         #col==new_val
@@ -311,33 +313,32 @@ class CRUDController(object):
         # Make sure we only add those columns into search criteria for which the serach value is valid
         # log.warn(col_type)
         # log.warn(val)
-        if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT,
-                                  Text, NCHAR, NVARCHAR, CHAR, CLOB):
+        if col_type in (VARCHAR, UnicodeText, Unicode, String, TEXT, Text, NCHAR, NVARCHAR, CHAR, CLOB):
 
             if case_sensitive:
                 if partial_match:
                     search_condition = col.like('%{}%'.format(val))
                 else:
-                    search_condition = (col==val)
+                    search_condition = (col == val)
             else:
                 if partial_match:
                     search_condition = col.ilike('%{}%'.format(val))
                 else:
-                    search_condition = (func.lower(col)==func.lower(val))
+                    search_condition = (func.lower(col) == func.lower(val))
 
         elif col_type in (BOOLEAN, Boolean, Binary):
-            if val.lower() in  ['0', '1', 'true', 'false']:
-                search_condition = (col==val.title())
+            if val.lower() in ['0', '1', 'true', 'false']:
+                search_condition = (col == val.title())
 
         elif col_type in (BIGINT, BigInteger, INT, INTEGER, Integer, Interval,
                           NUMERIC, Numeric, SMALLINT, SmallInteger):
 
             if val.isdigit():
-                search_condition = (col==val)
+                search_condition = (col == val)
 
         elif col_type in (DECIMAL, FLOAT, Float, REAL):
             if val.replace('.', '').isdigit():
-                search_condition = (col==val)
+                search_condition = (col == val)
 
         # date time will require some complex processing
         #.filter(Token.timestamp.between(*DateTime.from_string("2015-05-08 07:19:35.128909").range())
@@ -349,7 +350,7 @@ class CRUDController(object):
                     search_condition = col.between(*date_val.range())
 
                 elif not date_val.is_partial():
-                    search_condition = (col==date_val.to_native())
+                    search_condition = (col == date_val.to_native())
 
             except ValueError:
                 pass
@@ -362,7 +363,7 @@ class CRUDController(object):
                     search_condition = col.between(*time_val.range())
 
                 elif not time_val.is_partial():
-                    search_condition = (col==time_val.to_native())
+                    search_condition = (col == time_val.to_native())
 
             except ValueError:
                 pass
@@ -375,7 +376,7 @@ class CRUDController(object):
                     search_condition = col.between(*date_val.range())
 
                 elif not date_val.is_partial():
-                    search_condition = (col==date_val.to_native())
+                    search_condition = (col == date_val.to_native())
 
             except ValueError:
                 pass
@@ -400,7 +401,7 @@ class CRUDController(object):
         if self.request.GET.get('q', ''):
             search_conditions = []
             search_term = self.request.GET['q'].strip()
-            for k,v in self.request.GET.items():
+            for k, v in self.request.GET.items():
                 if k.startswith("_sf_"):
                     col = getattr(self.model, v)
 
@@ -409,17 +410,17 @@ class CRUDController(object):
                     partial_match = True
                     if '_so_ci' in self.request.GET:
                         case_sensitive = False
-                    
+
                     if '_so_pm' not in self.request.GET:
                         partial_match = False
-                        
+
                     search_condition = self._get_search_condition(col, search_term,
                                                                   case_sensitive=case_sensitive,
                                                                   partial_match=partial_match)
                     log.error(search_condition)
                     if search_condition is not None:
                         search_conditions.append(search_condition)
-            
+
             log.warn(search_conditions)
             query = query.filter(or_(*search_conditions))
             count_query = count_query.filter(or_(*search_conditions))
@@ -612,6 +613,10 @@ class CRUDController(object):
 
         R = self._get_rec_from_pk_val()
         columns = list(self.model.__table__.columns.keys())
+
+        if self.detail_exclude:
+            columns = [c for c in columns if c not in self.detail_exclude]
+
         primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
         ret_dict = {'base_template': self.base_template, 'R': R,
@@ -622,4 +627,3 @@ class CRUDController(object):
                     'field_translations': self.field_translations}
 
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
-

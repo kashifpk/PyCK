@@ -5,6 +5,13 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.9.8.7
+----------------------
+
+* Support for CRUD details_exclude
+* Minor bugfix in admin section that caused some crud properties not to take effect
+
+
 What's new in 0.9.8.6
 ----------------------
 
