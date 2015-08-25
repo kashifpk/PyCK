@@ -168,7 +168,10 @@ class AdminController(object):
 
     These parameters are to be set as class properties in a sub-class of AdminController
 
-    :para crud_list_sort_by:
+    :param display_record_count:
+        Boolean value controlling if record count is to be displayed next to the menu items for CRUD models
+
+    :param crud_list_sort_by:
         Sort by specs for models.
 
         Example::
@@ -232,6 +235,15 @@ class AdminController(object):
                     {'link_text': 'Delete', 'link_url': 'delete/{PK}'},
                     {'link_text': 'Upload Photo', 'link_url': '/photo_upload/user/{PK}'},
                 ]
+            }
+
+    :param crud_list_filter_condition:
+        A SQLAlchemy filter condition to be applied for to the listing page
+
+        Example::
+
+            crud_list_filter_condition = {
+                UserFiles.__name__: "self.model.user_id == self.request.session.get('logged_in_user', '')"
             }
 
     :param crud_detail_exclude:

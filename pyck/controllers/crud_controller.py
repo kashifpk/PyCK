@@ -171,6 +171,13 @@ class CRUDController(object):
                     {'link_text': 'Delete', 'link_url': 'delete/{PK}'},
                    ]
 
+    :param list_filter_condition:
+        A SQLAlchemy filter condition to be applied for to the listing page
+
+        Example::
+
+           list_filter_condition = "self.model.user_id == self.request.session.get('logged_in_user', '')"
+
     :param detail_actions:
         list of actions to be displayed on the details page, similar to **list_per_record_actions**. Example::
 
