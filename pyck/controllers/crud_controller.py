@@ -211,20 +211,22 @@ class CRUDController(object):
     list_exclude = None
     detail_exclude = None
 
+    list_filter_condition = None
+
     list_actions = [
-                    {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-success'},
-                   ]
+        {'link_text': 'Add {friendly_name}', 'link_url': 'add', 'css_class': 'btn btn-success'},
+    ]
 
     list_per_record_actions = [
-                    {'link_text': 'Details', 'link_url': 'details/{PK}'},
-                    {'link_text': 'Edit', 'link_url': 'edit/{PK}'},
-                    {'link_text': 'Delete', 'link_url': 'delete/{PK}', 'css_class': 'text-danger'},
-                   ]
+        {'link_text': 'Details', 'link_url': 'details/{PK}'},
+        {'link_text': 'Edit', 'link_url': 'edit/{PK}'},
+        {'link_text': 'Delete', 'link_url': 'delete/{PK}', 'css_class': 'text-danger'},
+    ]
 
     detail_actions = [
-                    {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
-                    {'link_text': 'Delete', 'link_url': '../delete/{PK}', 'css_class': 'btn btn-danger'},
-                   ]
+        {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
+        {'link_text': 'Delete', 'link_url': '../delete/{PK}', 'css_class': 'btn btn-danger'},
+    ]
 
     field_translations = {}
 
@@ -397,6 +399,14 @@ class CRUDController(object):
 
         query = self.db_session.query(self.model)
         count_query = self.db_session.query(func.count(pk_col))
+
+        # Process filter condition if given
+        if self.list_filter_condition:
+            log.warn(self.list_filter_condition)
+            cond = eval(self.list_filter_condition)
+            query = query.filter(cond)
+            count_query = count_query.filter(cond)
+
         #process search query if given
         if self.request.GET.get('q', ''):
             search_conditions = []
@@ -470,7 +480,7 @@ class CRUDController(object):
             'model_record_counts': self._models_rec_count_if_needed(),
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
-        
+
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def _get_add_edit_form(self, action_type, R=None):
@@ -510,7 +520,8 @@ class CRUDController(object):
                 table_cols = get_columns(self.model)
                 for table_col in table_cols:
                     if table_col.property.columns[0].name == field_name and \
-                    table_col.property.columns[0].nullable:
+                       table_col.property.columns[0].nullable:
+
                         field.validators = []
                         recs.insert(0, (None, ''))
 

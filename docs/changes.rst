@@ -9,8 +9,9 @@ What's new in 0.9.8.7
 ----------------------
 
 * Support for CRUD details_exclude
+* Support for default filter condition for CRUD list
 * Minor bugfix in admin section that caused some crud properties not to take effect
-
+* Bootstrap CSS related updates to make the admin section and CRUD interface work equally better with both light and dark bootstrap themes.
 
 What's new in 0.9.8.6
 ----------------------
