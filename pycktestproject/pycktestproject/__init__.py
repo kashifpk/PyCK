@@ -87,3 +87,8 @@ def configure_app_routes(config):
             config.include(app_module.application_routes, route_prefix=app_route_prefix)
         except Exception as e:
             print((repr(e)))
+
+        # process global routes for sub apps
+        if hasattr(app_module, 'global_routes'):
+            config.include(app_module.global_routes)
+
