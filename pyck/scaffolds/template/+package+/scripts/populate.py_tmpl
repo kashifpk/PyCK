@@ -31,6 +31,71 @@ def usage(argv):
     sys.exit(1)
 
 
+def populate_auth_data():
+    "Authentication related basic user and permission setup"
+
+    users = [
+        {'user_id': 'admin', 'password': hashlib.sha1('admin'.encode('utf-8')).hexdigest()}
+    ]
+
+    permissions = [
+        {'permission': 'admin', 'description': 'Manage administrative section'},
+    ]
+
+    user_permissions = [
+        {'user_id': 'admin', 'permission': 'admin'},
+    ]
+
+    route_permissions = [
+        {'route_name': 'pyckauth_manager', 'method': 'ALL', 'permission': 'admin'},
+        {'route_name': 'pyckauth_users', 'method': 'ALL', 'permission': 'admin'},
+        {'route_name': 'pyckauth_permissions', 'method': 'ALL', 'permission': 'admin'},
+        {'route_name': 'pyckauth_routes', 'method': 'ALL', 'permission': 'admin'},
+        {'route_name': 'admin.admin_index', 'method': 'ALL', 'permission': 'admin'},
+    ]
+
+    for user in users:
+        if not db.query(User).filter_by(user_id=user['user_id']).first():
+            db.add(User(user_id=user['user_id'], password=user['password']))
+            db.flush()
+
+    for permission in permissions:
+        if not db.query(Permission).filter_by(permission=permission['permission']).first():
+            db.add(
+                Permission(permission=permission['permission'],
+                           description=permission['description'])
+            )
+            db.flush()
+
+    for user_permission in user_permissions:
+        if not db.query(UserPermission).filter_by(
+                user_id=user_permission['user_id'],
+                permission=user_permission['permission']).first():
+
+            db.add(
+                UserPermission(
+                    user_id=user_permission['user_id'],
+                    permission=user_permission['permission']
+                )
+            )
+            db.flush()
+
+    for route_permission in route_permissions:
+        if not db.query(RoutePermission).filter_by(
+                route_name=route_permission['route_name'],
+                method=route_permission['method'],
+                permission=route_permission['permission']).first():
+
+            db.add(
+                RoutePermission(
+                    route_name=route_permission['route_name'],
+                    method=route_permission['method'],
+                    permission=route_permission['permission']
+                )
+            )
+            db.flush()
+
+
 def main(argv=sys.argv):
     if len(argv) != 2:
         usage(argv)
@@ -47,30 +112,8 @@ def main(argv=sys.argv):
     with transaction.manager:
 
         #Authentication related basic user and permission setup
-        if 0 == db.query(User).count():
-            db.add(User(
-                user_id='admin',
-                password=hashlib.sha1('admin'.encode('utf-8')).hexdigest()))
-            db.flush()
-
-        if 0 == db.query(Permission).count():
-            db.add(Permission(
-                permission='admin',
-                description='Manage administrative section'))
-            db.flush()
-
-        if 0 == db.query(UserPermission).count():
-            db.add(UserPermission(
-                user_id='admin',
-                permission='admin'))
-            db.flush()
-
-        if 0 == db.query(RoutePermission).count():
-            db.add(RoutePermission(
-                route_name='pyckauth_manager',
-                method='ALL',
-                permission='admin'))
-            db.flush()
+        populate_auth_data()
+        db.flush()
 
     #populate application models
     for app in enabled_apps:
