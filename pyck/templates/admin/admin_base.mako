@@ -66,15 +66,28 @@ dojo_base = request.registry.settings.get('dojo_base', 'http://ajax.googleapis.c
   
 <%def name="content_wrapper()">
   <div id="content">
-	<% flash_msgs = request.session.pop_flash() %>
-	
-	%for flash_msg in flash_msgs:
-	  <div class="alert alert-success">
-        ${flash_msg}
-      </div>
-	%endfor
+    <% flash_msgs = request.session.pop_flash() %>
     
-  ${self.body()}
+    %if flash_msgs:
+      %for flash_msg in flash_msgs:
+        <%
+        alert_type = 'info'
+        if flash_msg.lower().startswith("error:"):
+          alert_type = 'danger'
+          flash_msg = flash_msg[6:]
+        elif flash_msg.lower().startswith("warning:"):
+          alert_type = 'warning'
+          flash_msg = flash_msg[8:]
+        %>
+        
+        <div class="alert alert-${alert_type}">
+          ${flash_msg|n}
+          <a class="close" onclick="$(this).parent().hide()">×</a> 
+        </div>
+      %endfor
+    %endif
+
+    ${self.body()}
   </div>
 </%def>
     

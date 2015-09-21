@@ -122,19 +122,26 @@ def get_col_value(col_name, R):
       ${actions_str | n}
       </div>
     </div>
+
     %if len(pages)>1:
+    <div class="row">
+      <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-right">
+      
+          <br />
+          <%
+          last_record = current_page*records_per_page;
+          if last_record>total_records:
+                last_record=total_records
+          %>
+          Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
+      </div>
+    </div>
     
-        <div class="text-right">
-            <br />
-            <%
-            last_record = current_page*records_per_page;
-            if last_record>total_records:
-                  last_record=total_records
-            %>
-            Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
-        </div>
-        
-    <ul class="pagination">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <ul class="pagination">
         %for p in pages:
         
             %if p==current_page:
@@ -154,14 +161,12 @@ def get_col_value(col_name, R):
             %endif
             
         %endfor
-        
-        
-    </ul>
+        </ul>    
+      </div>
+    </div>
     %endif
-    
-    <br />
   </div>
-    
+  
   <table class="table table-stripped table-hover table-bordered">
     %if records.count()>0:
     <thead>

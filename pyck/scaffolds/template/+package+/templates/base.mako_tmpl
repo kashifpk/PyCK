@@ -101,7 +101,7 @@ claro
         %>
         
         <div class="alert alert-${alert_type}">
-          ${flash_msg}
+          ${flash_msg|n}
           <a class="close" onclick="$(this).parent().hide()">×</a> 
         </div>
       %endfor
