@@ -27,6 +27,9 @@ from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
 from pyck.lib import dates_and_times
 
+import csv
+from StringIO import StringIO
+
 import logging
 
 log = logging.getLogger(__name__)
@@ -61,9 +64,9 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
                     route_name=route_name_prefix + 'CRUD_list',
                     renderer='pyck:templates/crud/list.mako')
 
-    config.add_route(route_name_prefix + 'CRUD_csv', url_pattern_prefix + '/csv')
-    config.add_view(handler_class, attr='csv',
-                    route_name=route_name_prefix + 'CRUD_csv')
+    config.add_route(route_name_prefix + 'CRUD_list_csv', url_pattern_prefix + '/csv')
+    config.add_view(handler_class, attr='list_csv',
+                    route_name=route_name_prefix + 'CRUD_list_csv')
 
     config.add_route(route_name_prefix + 'CRUD_add', url_pattern_prefix + '/add')
     config.add_view(handler_class, attr='add',
@@ -400,6 +403,23 @@ class CRUDController(object):
 
         return search_condition
 
+    def _get_list_columns(self):
+        columns = []
+
+        # Determine what columns need to be displayed
+        if self.list_only is not None:
+            columns = self.list_only
+
+        elif self.list_exclude is not None:
+            for column in list(self.model.__table__.columns.keys()):
+                if column not in self.list_exclude:
+                    columns.append(column)
+
+        else:
+            columns = list(self.model.__table__.columns.keys())
+
+        return columns
+
     def _list_csv_common_code(self, return_only_records=False, return_all_records=False):
         """
         Common logic used by both list and csv methods.
@@ -464,23 +484,12 @@ class CRUDController(object):
         elif self.list_sort_by is not None:
             query = query.order_by(self.list_sort_by)
 
-        query = query.slice(start_idx, start_idx + self.list_recs_per_page)
+        if not return_all_records:
+            query = query.slice(start_idx, start_idx + self.list_recs_per_page)
 
         records = query
 
-        columns = []
-
-        # Determine what columns need to be displayed
-        if self.list_only is not None:
-            columns = self.list_only
-
-        elif self.list_exclude is not None:
-            for column in list(self.model.__table__.columns.keys()):
-                if column not in self.list_exclude:
-                    columns.append(column)
-
-        else:
-            columns = list(self.model.__table__.columns.keys())
+        columns = self._get_list_columns()
 
         # calculate number of pages
         total_recs = count_query.scalar()
@@ -518,106 +527,72 @@ class CRUDController(object):
 
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
-    def csv(self):
+    def _get_col_value(self, col_name, R):
+        parts = col_name.split('.')
+
+        obj = R
+
+        for p in parts:
+            obj = getattr(obj, p)
+            if not obj:
+                return ''
+
+        return obj
+
+    def list_csv(self):
         """
         The CSV view - Allow download of the data as CSV
         """
 
         if not self.enable_csv:
-            return HTTPNotAcceptable(details="CSV download disabled")
+            return HTTPNotAcceptable(detail="CSV download disabled")
 
-        p = int(self.request.params.get('p', '1'))
+        csv_buffer = StringIO()
+        csv_writer = csv.writer(csv_buffer)
 
-        start_idx = self.list_recs_per_page * (p - 1)
+        all_records = False
+        if 'y' == self.request.GET.get('all', 'n'):
+            all_records = True
 
-        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
-        pk_col = self.model.__table__.primary_key.columns[pk_col]
+        records = self._list_csv_common_code(return_only_records=True, return_all_records=all_records)
 
-        query = self.db_session.query(self.model)
-        count_query = self.db_session.query(func.count(pk_col))
+        if 0 == records.count():
+            return HTTPNotAcceptable(detail="No data")
 
-        # Process filter condition if given
-        if self.list_filter_condition:
-            log.warn(self.list_filter_condition)
-            cond = eval(self.list_filter_condition)
-            query = query.filter(cond)
-            count_query = count_query.filter(cond)
+        columns = self._get_list_columns()
 
-        #process search query if given
-        if self.request.GET.get('q', ''):
-            search_conditions = []
-            search_term = self.request.GET['q'].strip()
-            for k, v in self.request.GET.items():
-                if k.startswith("_sf_"):
-                    col = getattr(self.model, v)
+        heading_row = []
+        for column in columns:
+            if (self.field_translations and column in self.field_translations and
+                    'header' in self.field_translations[column]):
 
-                    #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
-                    case_sensitive = True
-                    partial_match = True
-                    if '_so_ci' in self.request.GET:
-                        case_sensitive = False
+                heading_row.append(self.field_translations[column]['header'])
+            else:
+                heading_row.append(column.replace("_", " ").title())
 
-                    if '_so_pm' not in self.request.GET:
-                        partial_match = False
+        csv_writer.writerow(heading_row)
 
-                    search_condition = self._get_search_condition(col, search_term,
-                                                                  case_sensitive=case_sensitive,
-                                                                  partial_match=partial_match)
-                    log.error(search_condition)
-                    if search_condition is not None:
-                        search_conditions.append(search_condition)
+        for R in records:
+            data_row = []
+            for column in columns:
+                if column in self.list_field_args and 'display_field' in self.list_field_args[column]:
+                    data_row.append(self._get_col_value(self.list_field_args[column]['display_field'], R))
 
-            log.warn(search_conditions)
-            query = query.filter(or_(*search_conditions))
-            count_query = count_query.filter(or_(*search_conditions))
+                else:
+                    col_value = getattr(R, column)
+                    if self.field_translations and column in self.field_translations:
+                        col_value = self.field_translations[column]['translator'](col_value)
 
-        sort_ascending = self.request.GET.get('sa', None)
-        sort_descending = self.request.GET.get('sd', None)
-        if sort_ascending:
-            query = query.order_by(sort_ascending)
-        elif sort_descending:
-            query = query.order_by(sort_descending + " desc")
-        elif self.list_sort_by is not None:
-            query = query.order_by(self.list_sort_by)
+                    data_row.append(col_value)
 
-        query = query.slice(start_idx, start_idx + self.list_recs_per_page)
+            csv_writer.writerow(data_row)
 
-        records = query
+        headers = {}
+        headers['Content-Description'] = self.friendly_name
+        headers['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(self.friendly_name)
+        headers['Content-Type'] = 'text/csv'
 
-        columns = []
-
-        # Determine what columns need to be displayed
-        if self.list_only is not None:
-            columns = self.list_only
-
-        elif self.list_exclude is not None:
-            for column in list(self.model.__table__.columns.keys()):
-                if column not in self.list_exclude:
-                    columns.append(column)
-
-        else:
-            columns = list(self.model.__table__.columns.keys())
-
-        # calculate number of pages
-        total_recs = count_query.scalar()
-
-        pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
-
-        # determine primary key columns
-        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
-
-        ret_dict = {
-            'base_template': self.base_template, 'friendly_name': self.friendly_name,
-            'columns': columns, 'primary_key_columns': primary_key_columns,
-            'records': records, 'pages': pages, 'current_page': p,
-            'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
-            'list_field_args': self.list_field_args,
-            'field_translations': self.field_translations,
-            'model_record_counts': self._models_rec_count_if_needed(),
-            'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
-        }
-
-        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
+        return Response(body=csv_buffer.getvalue(), headers=headers)
 
     def _get_add_edit_form(self, action_type, R=None):
         exclude_list = self._get_exclude_list(action_type)

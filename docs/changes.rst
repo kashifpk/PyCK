@@ -8,6 +8,7 @@ This document lists the changes as versions progress
 What's new in 0.9.8.7
 ----------------------
 
+* Support for CSV download of CRUD list data
 * Support for CRUD details_exclude
 * Support for default filter condition for CRUD list
 * Minor bugfix in admin section that caused some crud properties not to take effect
