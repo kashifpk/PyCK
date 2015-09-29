@@ -1,6 +1,7 @@
 <%!
 from pyck.lib.urls import url_add, url_without
 from string import Formatter as StringFormatter
+from os.path import dirname
 %>
 
 <%inherit file="${context.get('base_template')}" />
@@ -36,7 +37,16 @@ def get_col_value(col_name, R):
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <h1>${friendly_name}</h1>
+    <h1>
+    ${friendly_name}
+    
+    
+    <span class="pull-right" style="margin-top: -5px;">
+      <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?p=${current_page}"><span class="glyphicon glyphicon-tag"></span>  csv</a>
+      <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?all=y"><span class="glyphicon glyphicon-tags"></span>  csv</a>
+    </span>
+    </h1>
+    
   </div>
     
   <div class="panel-body">

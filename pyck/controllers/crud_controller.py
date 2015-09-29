@@ -7,9 +7,9 @@ from sqlalchemy import (
     DECIMAL, Date, DateTime, FLOAT, Float, INT, INTEGER, Integer, Interval,
     LargeBinary, NUMERIC, Numeric, REAL, SMALLINT, SmallInteger, TIME,
     TIMESTAMP, Time, VARBINARY,
-    
+
     VARCHAR, UnicodeText, Unicode, String, TEXT, Text, NCHAR, NVARCHAR, CHAR, CLOB
-    )
+)
 
 from sqlalchemy.exc import IntegrityError
 
@@ -26,6 +26,9 @@ from pyck.forms import model_form, dojo_model_form
 from pyck.lib.pagination import get_pages
 from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to_list
 from pyck.lib import dates_and_times
+
+import csv
+from StringIO import StringIO
 
 import logging
 
@@ -60,6 +63,10 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
     config.add_view(handler_class, attr='list',
                     route_name=route_name_prefix + 'CRUD_list',
                     renderer='pyck:templates/crud/list.mako')
+
+    config.add_route(route_name_prefix + 'CRUD_list_csv', url_pattern_prefix + '/csv')
+    config.add_view(handler_class, attr='list_csv',
+                    route_name=route_name_prefix + 'CRUD_list_csv')
 
     config.add_route(route_name_prefix + 'CRUD_add', url_pattern_prefix + '/add')
     config.add_view(handler_class, attr='add',
@@ -156,7 +163,7 @@ class CRUDController(object):
 
             field_translations = {
                 'is_active': {
-                      'header': 'Account Active', 
+                      'header': 'Account Active',
                       'translator': translate_is_active
                 }
             }
@@ -185,6 +192,8 @@ class CRUDController(object):
                     {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
                    ]
+
+    :param enable_csv: Boolean indicating whether to allow CSV download of list data or not
 
     :param template_extra_params: A dictionary containing any other parameters required to be passed to the CRUD templates
 
@@ -242,6 +251,8 @@ class CRUDController(object):
     template_extra_params = {}
 
     fetch_record_count = False
+
+    enable_csv = True
 
     def __init__(self, request):
         self.request = request
@@ -392,9 +403,31 @@ class CRUDController(object):
 
         return search_condition
 
-    def list(self):
+    def _get_list_columns(self):
+        columns = []
+
+        # Determine what columns need to be displayed
+        if self.list_only is not None:
+            columns = self.list_only
+
+        elif self.list_exclude is not None:
+            for column in list(self.model.__table__.columns.keys()):
+                if column not in self.list_exclude:
+                    columns.append(column)
+
+        else:
+            columns = list(self.model.__table__.columns.keys())
+
+        return columns
+
+    def _list_csv_common_code(self, return_only_records=False, return_all_records=False):
         """
-        The listing view - Lists all the records with pagination
+        Common logic used by both list and csv methods.
+
+        :param return_only_records: Return all params like current page, record count etc or just the records
+
+        :param return_all_records: return records for the current page on or all records
+
         """
 
         p = int(self.request.params.get('p', '1'))
@@ -451,23 +484,12 @@ class CRUDController(object):
         elif self.list_sort_by is not None:
             query = query.order_by(self.list_sort_by)
 
-        query = query.slice(start_idx, start_idx + self.list_recs_per_page)
+        if not return_all_records:
+            query = query.slice(start_idx, start_idx + self.list_recs_per_page)
 
         records = query
 
-        columns = []
-
-        # Determine what columns need to be displayed
-        if self.list_only is not None:
-            columns = self.list_only
-
-        elif self.list_exclude is not None:
-            for column in list(self.model.__table__.columns.keys()):
-                if column not in self.list_exclude:
-                    columns.append(column)
-
-        else:
-            columns = list(self.model.__table__.columns.keys())
+        columns = self._get_list_columns()
 
         # calculate number of pages
         total_recs = count_query.scalar()
@@ -477,18 +499,100 @@ class CRUDController(object):
         # determine primary key columns
         primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
+        if return_only_records:
+            return records
+        else:
+            return {
+                'columns': columns, 'primary_key_columns': primary_key_columns,
+                'records': records, 'pages': pages, 'current_page': p,
+                'total_records': total_recs
+            }
+
+    def list(self):
+        """
+        The listing view - Lists all the records with pagination
+        """
+
+        list_dict = self._list_csv_common_code(return_only_records=False, return_all_records=False)
+
         ret_dict = {
             'base_template': self.base_template, 'friendly_name': self.friendly_name,
-            'columns': columns, 'primary_key_columns': primary_key_columns,
-            'records': records, 'pages': pages, 'current_page': p,
-            'total_records': total_recs, 'records_per_page': self.list_recs_per_page,
-            'list_field_args': self.list_field_args,
+            'records_per_page': self.list_recs_per_page, 'list_field_args': self.list_field_args,
             'field_translations': self.field_translations,
             'model_record_counts': self._models_rec_count_if_needed(),
             'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
         }
 
+        ret_dict.update(list_dict)
+
         return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
+
+    def _get_col_value(self, col_name, R):
+        parts = col_name.split('.')
+
+        obj = R
+
+        for p in parts:
+            obj = getattr(obj, p)
+            if not obj:
+                return ''
+
+        return obj
+
+    def list_csv(self):
+        """
+        The CSV view - Allow download of the data as CSV
+        """
+
+        if not self.enable_csv:
+            return HTTPNotAcceptable(detail="CSV download disabled")
+
+        csv_buffer = StringIO()
+        csv_writer = csv.writer(csv_buffer)
+
+        all_records = False
+        if 'y' == self.request.GET.get('all', 'n'):
+            all_records = True
+
+        records = self._list_csv_common_code(return_only_records=True, return_all_records=all_records)
+
+        if 0 == records.count():
+            return HTTPNotAcceptable(detail="No data")
+
+        columns = self._get_list_columns()
+
+        heading_row = []
+        for column in columns:
+            if (self.field_translations and column in self.field_translations and
+                    'header' in self.field_translations[column]):
+
+                heading_row.append(self.field_translations[column]['header'])
+            else:
+                heading_row.append(column.replace("_", " ").title())
+
+        csv_writer.writerow(heading_row)
+
+        for R in records:
+            data_row = []
+            for column in columns:
+                if column in self.list_field_args and 'display_field' in self.list_field_args[column]:
+                    data_row.append(self._get_col_value(self.list_field_args[column]['display_field'], R))
+
+                else:
+                    col_value = getattr(R, column)
+                    if self.field_translations and column in self.field_translations:
+                        col_value = self.field_translations[column]['translator'](col_value)
+
+                    data_row.append(col_value)
+
+            csv_writer.writerow(data_row)
+
+        headers = {}
+        headers['Content-Description'] = self.friendly_name
+        headers['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(self.friendly_name)
+        headers['Content-Type'] = 'text/csv'
+
+        return Response(body=csv_buffer.getvalue(), headers=headers)
 
     def _get_add_edit_form(self, action_type, R=None):
         exclude_list = self._get_exclude_list(action_type)
