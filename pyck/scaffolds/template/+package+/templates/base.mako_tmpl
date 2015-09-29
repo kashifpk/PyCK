@@ -121,7 +121,7 @@ claro
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="${request.route_url('home')}"><img src="${request.static_url('{{package}}:static/pyck-small.png')}"  alt="pyck" /></a>
+      <a class="navbar-brand" href="${request.route_url('home')}"><img src="${request.static_url('{{package}}:static/pyck-small.png')}" style="margin-top: -15px;"  alt="pyck" /></a>
     </div>
 
     
@@ -164,11 +164,11 @@ claro
         
         <li>
         <form style="display: inline" action="${request.route_url('pyckauth_logout')}" method="get">
-          <button class="btn btn-danger">Logout</button>
+          <button class="btn btn-danger" style="margin-top: 5px;">Logout</button>
         </form>
         %else:
         <form style="display: inline" action="${request.route_url('pyckauth_login')}" method="get">
-          <button class="btn btn-success">Login</button>
+          <button class="btn btn-success" style="margin-top: 5px;">Login</button>
         </form>
         %endif
         </li>
