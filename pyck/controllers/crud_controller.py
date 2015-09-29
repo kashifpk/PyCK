@@ -7,9 +7,9 @@ from sqlalchemy import (
     DECIMAL, Date, DateTime, FLOAT, Float, INT, INTEGER, Integer, Interval,
     LargeBinary, NUMERIC, Numeric, REAL, SMALLINT, SmallInteger, TIME,
     TIMESTAMP, Time, VARBINARY,
-    
+
     VARCHAR, UnicodeText, Unicode, String, TEXT, Text, NCHAR, NVARCHAR, CHAR, CLOB
-    )
+)
 
 from sqlalchemy.exc import IntegrityError
 
@@ -60,6 +60,10 @@ def add_crud_handler(config, route_name_prefix='', url_pattern_prefix='', handle
     config.add_view(handler_class, attr='list',
                     route_name=route_name_prefix + 'CRUD_list',
                     renderer='pyck:templates/crud/list.mako')
+
+    config.add_route(route_name_prefix + 'CRUD_csv', url_pattern_prefix + '/csv')
+    config.add_view(handler_class, attr='csv',
+                    route_name=route_name_prefix + 'CRUD_csv')
 
     config.add_route(route_name_prefix + 'CRUD_add', url_pattern_prefix + '/add')
     config.add_view(handler_class, attr='add',
@@ -156,7 +160,7 @@ class CRUDController(object):
 
             field_translations = {
                 'is_active': {
-                      'header': 'Account Active', 
+                      'header': 'Account Active',
                       'translator': translate_is_active
                 }
             }
@@ -185,6 +189,8 @@ class CRUDController(object):
                     {'link_text': 'Edit', 'link_url': '../edit/{PK}'},
                     {'link_text': 'Delete', 'link_url': '../delete/{PK}'},
                    ]
+
+    :param enable_csv: Boolean indicating whether to allow CSV download of list data or not
 
     :param template_extra_params: A dictionary containing any other parameters required to be passed to the CRUD templates
 
@@ -242,6 +248,8 @@ class CRUDController(object):
     template_extra_params = {}
 
     fetch_record_count = False
+
+    enable_csv = True
 
     def __init__(self, request):
         self.request = request
@@ -392,10 +400,131 @@ class CRUDController(object):
 
         return search_condition
 
+    def _list_csv_common_code(self, return_only_records=False, return_all_records=False):
+        """
+        Common logic used by both list and csv methods.
+
+        :param return_only_records: Return all params like current page, record count etc or just the records
+
+        :param return_all_records: return records for the current page on or all records
+
+        """
+
+        p = int(self.request.params.get('p', '1'))
+
+        start_idx = self.list_recs_per_page * (p - 1)
+
+        pk_col = list(self.model.__table__.primary_key.columns.keys())[0]
+        pk_col = self.model.__table__.primary_key.columns[pk_col]
+
+        query = self.db_session.query(self.model)
+        count_query = self.db_session.query(func.count(pk_col))
+
+        # Process filter condition if given
+        if self.list_filter_condition:
+            log.warn(self.list_filter_condition)
+            cond = eval(self.list_filter_condition)
+            query = query.filter(cond)
+            count_query = count_query.filter(cond)
+
+        #process search query if given
+        if self.request.GET.get('q', ''):
+            search_conditions = []
+            search_term = self.request.GET['q'].strip()
+            for k, v in self.request.GET.items():
+                if k.startswith("_sf_"):
+                    col = getattr(self.model, v)
+
+                    #can_add, new_val = self._is_valid_comparison_value(col.type.__class__, search_term)
+                    case_sensitive = True
+                    partial_match = True
+                    if '_so_ci' in self.request.GET:
+                        case_sensitive = False
+
+                    if '_so_pm' not in self.request.GET:
+                        partial_match = False
+
+                    search_condition = self._get_search_condition(col, search_term,
+                                                                  case_sensitive=case_sensitive,
+                                                                  partial_match=partial_match)
+                    log.error(search_condition)
+                    if search_condition is not None:
+                        search_conditions.append(search_condition)
+
+            log.warn(search_conditions)
+            query = query.filter(or_(*search_conditions))
+            count_query = count_query.filter(or_(*search_conditions))
+
+        sort_ascending = self.request.GET.get('sa', None)
+        sort_descending = self.request.GET.get('sd', None)
+        if sort_ascending:
+            query = query.order_by(sort_ascending)
+        elif sort_descending:
+            query = query.order_by(sort_descending + " desc")
+        elif self.list_sort_by is not None:
+            query = query.order_by(self.list_sort_by)
+
+        query = query.slice(start_idx, start_idx + self.list_recs_per_page)
+
+        records = query
+
+        columns = []
+
+        # Determine what columns need to be displayed
+        if self.list_only is not None:
+            columns = self.list_only
+
+        elif self.list_exclude is not None:
+            for column in list(self.model.__table__.columns.keys()):
+                if column not in self.list_exclude:
+                    columns.append(column)
+
+        else:
+            columns = list(self.model.__table__.columns.keys())
+
+        # calculate number of pages
+        total_recs = count_query.scalar()
+
+        pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
+
+        # determine primary key columns
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
+
+        if return_only_records:
+            return records
+        else:
+            return {
+                'columns': columns, 'primary_key_columns': primary_key_columns,
+                'records': records, 'pages': pages, 'current_page': p,
+                'total_records': total_recs
+            }
+
     def list(self):
         """
         The listing view - Lists all the records with pagination
         """
+
+        list_dict = self._list_csv_common_code(return_only_records=False, return_all_records=False)
+
+        ret_dict = {
+            'base_template': self.base_template, 'friendly_name': self.friendly_name,
+            'records_per_page': self.list_recs_per_page, 'list_field_args': self.list_field_args,
+            'field_translations': self.field_translations,
+            'model_record_counts': self._models_rec_count_if_needed(),
+            'actions': self.list_actions, 'per_record_actions': self.list_per_record_actions
+        }
+
+        ret_dict.update(list_dict)
+
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
+
+    def csv(self):
+        """
+        The CSV view - Allow download of the data as CSV
+        """
+
+        if not self.enable_csv:
+            return HTTPNotAcceptable(details="CSV download disabled")
 
         p = int(self.request.params.get('p', '1'))
 
