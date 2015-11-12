@@ -11,6 +11,7 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'wtforms',
+    'wtdojo',
     'nose',
     'mako',
     'python-dateutil'

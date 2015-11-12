@@ -28,7 +28,12 @@ from pyck.lib.models import get_columns, get_model_record_counts, models_dict_to
 from pyck.lib import dates_and_times
 
 import csv
-from StringIO import StringIO
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
 
 import logging
 
@@ -673,7 +678,7 @@ class CRUDController(object):
 
                 self.request.session.flash(self.friendly_name + " added successfully!")
                 #return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
-                return self._redirect(os.path.dirname(self.request.current_route_url()))
+                return self._redirect(os.path.dirname(self.request.current_route_url()) + '/')
 
         ret_dict = {'base_template': self.base_template, 'friendly_name': self.friendly_name,
                     'model_record_counts': self._models_rec_count_if_needed(),
@@ -699,7 +704,7 @@ class CRUDController(object):
 
                 self.request.session.flash(self.friendly_name + " updated successfully!")
                 #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
-                return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
+                return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())) + '/')
 
         ret_dict = {'base_template': self.base_template,
                     'model_record_counts': self._models_rec_count_if_needed(),
@@ -726,7 +731,7 @@ class CRUDController(object):
         self.request.session.flash(self.friendly_name + " deleted successfully!")
 
         #return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
-        return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())))
+        return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())) + '/')
 
     def details(self):
         """
