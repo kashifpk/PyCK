@@ -217,7 +217,7 @@ def get_col_value(col_name, R):
                 col_value = field_translations[column]['translator'](col_value)
               endif
               %>
-              %if isinstance(col_value, (str, unicode)):
+              %if isinstance(col_value, str):
                 ${col_value|n}
               %else:
                 ${col_value}
