@@ -84,7 +84,13 @@ def add_admin_handler(config, db_session, models=None, route_name_prefix='',
 
                 # If target column is integer, set the column next to it as display column,
                 # for non-int columns keep the display column same as the db column
-                if int == list(FK.foreign_keys)[0].column.table.columns[db_col].type.python_type:
+                db_col_python_type = None
+                try:
+                    db_col_python_type = list(FK.foreign_keys)[0].column.table.columns[db_col].type.python_type
+                except:
+                    pass
+
+                if int == db_col_python_type:
                     table_cols = list(list(FK.foreign_keys)[0].column.table.columns.keys())
                     d_idx = table_cols.index(db_col) + 1
                     if len(table_cols) > d_idx:
