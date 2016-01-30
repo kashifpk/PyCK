@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The PyCK Admin Interface &mdash; PyCK 0.9.8.6 documentation</title>
+  <title>The PyCK Admin Interface &mdash; PyCK 0.9.8.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.6 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.9.8.7 documentation" href="index.html"/>
         <link rel="next" title="The pyck.lib Package" href="pyck-lib.html"/>
         <link rel="prev" title="The pyck.controllers Package" href="pyck-controllers.html"/> 
 
@@ -119,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-7">What&#8217;s new in 0.9.8.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-6">What&#8217;s new in 0.9.8.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
@@ -232,17 +233,16 @@ like:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Para crud_list_sort_by:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">Sort by specs for models.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>display_record_count</strong> &#8211; Boolean value controlling if record count is to be displayed next to the menu items for CRUD models</li>
+<li><strong>crud_list_sort_by</strong> &#8211; <p>Sort by specs for models.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_sort_by</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">Post</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="n">Post</span><span class="o">.</span><span class="n">created</span><span class="o">.</span><span class="n">desc</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+</li>
 <li><strong>crud_models_field_args</strong> &#8211; <p>A dictionary with key being the model name and value being the field args value for that model.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">model_field_args</span> <span class="o">=</span> <span class="p">{</span>
@@ -291,6 +291,22 @@ like:</p>
         <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;delete/{PK}&#39;</span><span class="p">},</span>
         <span class="p">{</span><span class="s">&#39;link_text&#39;</span><span class="p">:</span> <span class="s">&#39;Upload Photo&#39;</span><span class="p">,</span> <span class="s">&#39;link_url&#39;</span><span class="p">:</span> <span class="s">&#39;/photo_upload/user/{PK}&#39;</span><span class="p">},</span>
     <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_list_filter_condition</strong> &#8211; <p>A SQLAlchemy filter condition to be applied for to the listing page</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_list_filter_condition</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">UserFiles</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="s">&quot;self.model.user_id == self.request.session.get(&#39;logged_in_user&#39;, &#39;&#39;)&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>crud_detail_exclude</strong> &#8211; <p>A dictionary containing list of fields not to be displayed on the record details page for a specific CRUD model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">crud_detail_exclude</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="o">.</span><span class="n">__name__</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -404,7 +420,7 @@ get_models function can be used to include all models.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.6',
+            VERSION:'0.9.8.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

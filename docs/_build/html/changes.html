@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changes &mdash; PyCK 0.9.8.6 documentation</title>
+  <title>Changes &mdash; PyCK 0.9.8.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.6 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.9.8.7 documentation" href="index.html"/>
         <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html"/> 
 
   
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-7">What&#8217;s new in 0.9.8.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-6">What&#8217;s new in 0.9.8.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-4">What&#8217;s new in 0.9.8.4</a></li>
@@ -203,6 +204,18 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-9-8-7">
+<h2>What&#8217;s new in 0.9.8.7<a class="headerlink" href="#what-s-new-in-0-9-8-7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Support for CSV download of CRUD list data</li>
+<li>Support for CRUD details_exclude</li>
+<li>Support for default filter condition for CRUD list</li>
+<li>Minor bugfix in admin section that caused some crud properties not to take effect</li>
+<li>Bootstrap CSS related updates to make the admin section and CRUD interface work equally better with both light and dark bootstrap themes.</li>
+<li>Flash msgs can now contain html and admin flash msgs are also closable now.</li>
+<li>Better structure for auth permissions in populate script.</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-8-6">
 <h2>What&#8217;s new in 0.9.8.6<a class="headerlink" href="#what-s-new-in-0-9-8-6" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -870,7 +883,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.6',
+            VERSION:'0.9.8.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
