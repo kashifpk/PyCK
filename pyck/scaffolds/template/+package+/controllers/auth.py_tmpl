@@ -192,8 +192,8 @@ def login(request):
 
     if 'POST' == request.method and login_form.validate():
         status, user = User.login(
-            username=login_form.user_id.data.encode('utf-8'),
-            password=login_form.password.data.encode('utf-8'),
+            username=login_form.user_id.data,
+            password=login_form.password.data,
             request=request
             )
         
