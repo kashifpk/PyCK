@@ -21,7 +21,7 @@ elif labels_position in ['top', 'bottom'] and errors_position in ['top', 'bottom
 % for field in form:
     <%
     field_label = '<td>' + str(field.label) + '</td>'
-    field_content = '<td>' + str(field) + '</td>'
+    field_content = '<td>' + str(field(class_="form-control")) + '</td>'
     field_errors = '<td></td>'
     if field.errors:
         field_errors = '<td class="errors">'

@@ -32,7 +32,7 @@ ${field.label} \
 ${field_errors} \
 % endif
 \
-${field} \
+${${field(class_="form-control")}} \
 \
 % if 'bottom' == labels_position:
 <br />${field.label} \
