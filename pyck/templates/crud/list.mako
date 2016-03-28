@@ -177,7 +177,7 @@ def get_col_value(col_name, R):
     %endif
   </div>
   
-  <table class="table table-stripped table-hover table-bordered">
+  <table class="table table-stripped table-hover table-bordered" style="table-layout:fixed; word-wrap: break-word">
     %if records.count()>0:
     <thead>
         <tr>
@@ -211,6 +211,7 @@ def get_col_value(col_name, R):
               </td>
             %else:
             <td>
+              <div style="overflow-x:auto; word-wrap: break-word">
               <%
               col_value = getattr(R, column)
               if field_translations and column in field_translations:
@@ -222,6 +223,7 @@ def get_col_value(col_name, R):
               %else:
                 ${col_value}
               %endif
+              </div>
             </td>
             %endif
             
