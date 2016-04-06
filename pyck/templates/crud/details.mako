@@ -56,7 +56,7 @@ def insert_per_rec_keyword_values(s, R):
                 endif
                 %>
 
-                %if isinstance(col_value, (str, unicode)):
+                %if isinstance(col_value, str):
                   ${col_value|n}
                 %else:
                   ${col_value}
