@@ -5,6 +5,7 @@ Multiple item selector mako module
 Allows displaying multiple items and select one or many from the list
 """
 
+import logging
 from collections import OrderedDict
 from mako.template import Template
 from pprint import pprint
@@ -12,6 +13,8 @@ from .template_lookup import template_lookup
 
 import sys
 PY3 = sys.version > '3'
+
+log = logging.getLogger(__name__)
 
 
 def _get_group_key(in_str):
@@ -40,6 +43,8 @@ def group_similar(items):
 
     current_group_key = None
     current_sub_items = OrderedDict()
+    
+    # TODO: Consider all splitters to be the same, don't create a new sub-group for a different splitter
 
     for k, v in items.items():
 
@@ -82,7 +87,7 @@ def group_similar(items):
         else:
             final_group_items[k] = v
 
-    print(final_group_items)
+    # print(final_group_items)
 
     return final_group_items
 
@@ -108,6 +113,8 @@ def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True)
 
     if do_auto_grouping:
         items = group_similar(items)
+
+    # log.info(items)
 
     tmpl = template_lookup.get_template("multi_selector.mako")
     output = tmpl.render(

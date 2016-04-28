@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changes &mdash; PyCK 0.9.8.7 documentation</title>
+  <title>Changes &mdash; PyCK 0.10 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="PyCK 0.9.8.7 documentation" href="index.html"/>
+    <link rel="top" title="PyCK 0.10 documentation" href="index.html"/>
         <link rel="prev" title="Running PyCK Applications with Nginx, uwsgi and Virtualenv" href="nginx_uwsgi_virtualenv.html"/> 
 
   
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mod_wsgi_virtualenv.html">Running PyCK Applications with Apache Mod WSGI and Virtualenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nginx_uwsgi_virtualenv.html">Running PyCK Applications with Nginx, uwsgi and Virtualenv</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-10">What&#8217;s new in 0.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-7">What&#8217;s new in 0.9.8.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-6">What&#8217;s new in 0.9.8.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-0-9-8-5">What&#8217;s new in 0.9.8.5</a></li>
@@ -204,6 +205,17 @@
   <div class="section" id="changes">
 <span id="id1"></span><h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
 <p>This document lists the changes as versions progress</p>
+<div class="section" id="what-s-new-in-0-10">
+<h2>What&#8217;s new in 0.10<a class="headerlink" href="#what-s-new-in-0-10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>python3 fix as unicode keyword is no longer supproted in python &gt;-=3.4. This makes pyck compatible to &gt;= python 2.7.x and &gt;= python 3.4.x</li>
+<li>Fixed broken auth routes section</li>
+<li>Added bootstrap form-control class to form_as_p and form_as_table templates</li>
+<li>Fixed new project scaffold login logic for str/bytes conversion issues</li>
+<li>Fixed admin section to ignore python_type errors for SQL types that don&#8217;t have a corresponding python type</li>
+<li>Python3 StringIO fix for CRUDController</li>
+</ul>
+</div>
 <div class="section" id="what-s-new-in-0-9-8-7">
 <h2>What&#8217;s new in 0.9.8.7<a class="headerlink" href="#what-s-new-in-0-9-8-7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -862,7 +874,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2011 - 2015 Kashif Iftikhar.
+        &copy; Copyright 2011 - 2016 Kashif Iftikhar.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -883,7 +895,7 @@ property can now take values <em>choices</em> and <em>choices_fields</em> and th
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.8.7',
+            VERSION:'0.10',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

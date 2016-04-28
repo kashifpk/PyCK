@@ -5,6 +5,16 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.10
+------------------
+
+* python3 fix as unicode keyword is no longer supproted in python >-=3.4. This makes pyck compatible to >= python 2.7.x and >= python 3.4.x
+* Fixed broken auth routes section
+* Added bootstrap form-control class to form_as_p and form_as_table templates
+* Fixed new project scaffold login logic for str/bytes conversion issues
+* Fixed admin section to ignore python_type errors for SQL types that don't have a corresponding python type
+* Python3 StringIO fix for CRUDController
+
 What's new in 0.9.8.7
 ----------------------
 
