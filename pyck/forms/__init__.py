@@ -25,7 +25,7 @@ class DojoModelConverter(ModelConverter):
 
     @classmethod
     def _string_common(cls, column, field_args, **extra):
-        if column.type.length:
+        if hasattr(column.type, 'length') and column.type.length:
             field_args['validators'].append(validators.Length(max=column.type.length))
 
     @converts('String', 'Unicode')
@@ -33,7 +33,7 @@ class DojoModelConverter(ModelConverter):
         self._string_common(field_args=field_args, **extra)
         return f.DojoStringField(**field_args)
 
-    @converts('Text', 'UnicodeText', 'types.LargeBinary', 'types.Binary')
+    @converts('Text', 'UnicodeText', 'types.LargeBinary', 'types.Binary', 'dialects.postgresql.json.JSONB')
     def conv_Text(self, field_args, **extra):
         self._string_common(field_args=field_args, **extra)
         field_args.setdefault('widget', dw.DojoTextArea())
@@ -187,14 +187,9 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
         exclude = []
     model_mapper = model.__mapper__
 
-    #print('*****')
-    #print(exclude)
     for prop in model_mapper.iterate_properties:
         if not hasattr(prop, 'columns'):  # ignore relationships and other non-field columns
             continue
-
-        #print(prop)
-        #assert False
 
         # if it's primary key and is not foreign key
         if 0 == len(prop.columns[0].foreign_keys) and prop.columns[0].primary_key:
@@ -208,11 +203,8 @@ def dojo_model_form(model, db_session=None, base_class=Form, only=None,
 
     type_name = type_name or str(model.__name__ + 'Form')
     converter = converter or DojoModelConverter()
-    #print('##########')
-    #print(exclude)
+    
     field_dict = model_fields(model, db_session, only, exclude, field_args, converter, exclude_pk=exclude_pk, exclude_fk=exclude_fk)
-    print(field_dict)
-    #print(field_dict)
     return type(type_name, (base_class, ), field_dict)
 
 

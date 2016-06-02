@@ -5,6 +5,16 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.10.2
+--------------------
+
+* JSON and JSONB (PostgreSQL) field types support for crud controller
+
+What's new in 0.10.1
+--------------------
+
+* CRUD add template bug fix
+
 What's new in 0.10
 ------------------
 

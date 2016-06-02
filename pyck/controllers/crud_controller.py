@@ -1,3 +1,4 @@
+import json
 import os.path
 from sqlalchemy import func, or_
 
@@ -601,10 +602,7 @@ class CRUDController(object):
 
     def _get_add_edit_form(self, action_type, R=None):
         exclude_list = self._get_exclude_list(action_type)
-        #print("************************")
-        #print(self.add_edit_field_args)
-        #print(self._get_modelform_field_args())
-
+        
         cols = get_columns(self.model, 'primary_key')
         ModelForm = dojo_model_form(self.model, self.db_session, exclude=exclude_list,
                                     field_args=self._get_modelform_field_args())
@@ -670,8 +668,16 @@ class CRUDController(object):
             if True:
                 obj = self.model()
                 for fname, f_field in list(f._fields.items()):
+                    print("=> Field: %s, %r", fname, f_field)
+                    print("-> have field in model: %r", hasattr(obj, fname))
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
+                    
+                    if hasattr(obj, fname) and \
+                            getattr(obj.__class__, fname).property.columns[0].type.__class__.__name__ in \
+                            ('JSON', 'JSONB'):
+                        
+                        f_field.data = json.loads(f_field.data)
 
                 f.populate_obj(obj)
                 self.db_session.add(obj)
@@ -696,9 +702,16 @@ class CRUDController(object):
         if 'POST' == self.request.method and 'form.submitted' in self.request.params:
             #if f.validate():
             if True:
+                obj = self.model()
                 for fname, f_field in list(f._fields.items()):
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
+                    
+                    if hasattr(obj, fname) and \
+                            getattr(obj.__class__, fname).property.columns[0].type.__class__.__name__ in \
+                            ('JSON', 'JSONB'):
+                        
+                        f_field.data = json.loads(f_field.data)
 
                 f.populate_obj(R)
 
