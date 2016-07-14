@@ -5,6 +5,12 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.10.3
+--------------------
+
+* Custom select field value coerce support for SelectField in WTForms/WTDojoForms.
+* JSON and JSONB (PostgreSQL) types handling is now done in WTDojo instead of PyCK crud controller itself.
+
 What's new in 0.10.2
 --------------------
 

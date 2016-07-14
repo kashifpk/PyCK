@@ -608,10 +608,12 @@ class CRUDController(object):
                                     field_args=self._get_modelform_field_args())
 
         #check for field data and set proper attributes accordingly
+        print('==> %r' % self.add_edit_field_args)
         for field_name, field_data in list(self.add_edit_field_args.items()):
             field = getattr(ModelForm, field_name)
 
             if 'choices' in field_data or 'choices_fields' in field_data:
+                print(" => making field %s into select list" % field_name)
                 field.field_class = DojoSelectField
 
         if 'edit' == action_type:
@@ -624,7 +626,11 @@ class CRUDController(object):
             field = getattr(f, field_name)
 
             if 'choices' in field_data:
-                field.coerce = int
+                if 'coerce' in field_data:
+                    field.coerce = field_data['coerce']
+                else:
+                    field.coerce = int
+
                 field.choices = field_data['choices']
                 #field.validators = []
 
@@ -672,12 +678,6 @@ class CRUDController(object):
                     print("-> have field in model: %r", hasattr(obj, fname))
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
-                    
-                    if hasattr(obj, fname) and \
-                            getattr(obj.__class__, fname).property.columns[0].type.__class__.__name__ in \
-                            ('JSON', 'JSONB'):
-                        
-                        f_field.data = json.loads(f_field.data)
 
                 f.populate_obj(obj)
                 self.db_session.add(obj)
@@ -706,12 +706,6 @@ class CRUDController(object):
                 for fname, f_field in list(f._fields.items()):
                     if hasattr(f_field, 'choices') and f_field.data in ['', 'None']:
                         f_field.data = None
-                    
-                    if hasattr(obj, fname) and \
-                            getattr(obj.__class__, fname).property.columns[0].type.__class__.__name__ in \
-                            ('JSON', 'JSONB'):
-                        
-                        f_field.data = json.loads(f_field.data)
 
                 f.populate_obj(R)
 

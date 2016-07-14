@@ -33,11 +33,17 @@ class DojoModelConverter(ModelConverter):
         self._string_common(field_args=field_args, **extra)
         return f.DojoStringField(**field_args)
 
-    @converts('Text', 'UnicodeText', 'types.LargeBinary', 'types.Binary', 'dialects.postgresql.json.JSONB')
+    @converts('Text', 'UnicodeText', 'types.LargeBinary', 'types.Binary')
     def conv_Text(self, field_args, **extra):
         self._string_common(field_args=field_args, **extra)
         field_args.setdefault('widget', dw.DojoTextArea())
         return f.DojoStringField(**field_args)
+
+    @converts('dialects.postgresql.json.JSONB', 'dialects.postgresql.json.JSON')
+    def conv_JSON(self, field_args, **extra):
+        self._string_common(field_args=field_args, **extra)
+        field_args.setdefault('widget', dw.DojoTextArea())
+        return f.DojoJSONField(**field_args)
 
     @converts('Boolean')
     def conv_Boolean(self, field_args, **extra):
