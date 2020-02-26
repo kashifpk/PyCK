@@ -1,8 +1,9 @@
 """
-Classes for working with Dates and Times and translating them to python's native Date, Time and DateTime objects
+Classes for working with Dates and Times and translating them to python's native Date, Time and
+DateTime objects
 
-Basically these serve as a wrapper around code to get parts of dates and times so that further processing
-can be performed on those objects
+Basically these serve as a wrapper around code to get parts of dates and times so that further
+processing can be performed on those objects
 """
 
 from datetime import date, time, datetime
@@ -15,20 +16,31 @@ class Date(object):
     day = None
 
     def __init__(self, year=None, month=None, day=None):
-        if year: self.year = int(year)
-        if month: self.month = int(month)
-        if day: self.day = int(day)
+
+        if year:
+            self.year = int(year)
+
+        if month:
+            self.month = int(month)
+
+        if day:
+            self.day = int(day)
 
     @classmethod
     def from_string(cls, date_str):
         "Populate date components from date string of the format YYYY[-MM[-DD]]"
-        
+
         parts = date_str.split('-')
         obj = cls()
 
-        if len(parts)>0: obj.year = int(parts[0])
-        if len(parts)>1: obj.month = int(parts[1])
-        if len(parts)>2: obj.day = int(parts[2])
+        if len(parts) > 0:
+            obj.year = int(parts[0])
+
+        if len(parts) > 1:
+            obj.month = int(parts[1])
+
+        if len(parts) > 2:
+            obj.day = int(parts[2])
 
         return obj
 
@@ -51,7 +63,7 @@ class Date(object):
     def to_native(self):
         "Converts to native date type and returns the object. Works only if the date is not partial"
 
-        assert False == self.is_partial()
+        assert self.is_partial() is False
 
         return date(year=self.year, month=self.month, day=self.day)
 
@@ -69,7 +81,9 @@ class Date(object):
                 return (date(self.year, 1, 1), date(self.year, 12, 31))
 
             elif not self.day:  # cover whole month if no day given
-                d = (date(self.year, self.month, 1) + relativedelta(months=1)) - relativedelta(days=1)
+                d = (
+                    date(self.year, self.month, 1) + relativedelta(months=1)
+                    ) - relativedelta(days=1)
                 return (date(self.year, self.month, 1), d)
 
 
@@ -80,22 +94,33 @@ class Time(object):
     microsecond = None
 
     def __init__(self, hour=None, minute=None, second=None, microsecond=None):
-        if hour: self.hour = int(hour)
-        if minute: self.minute = int(minute)
-        if second: self.second = int(second)
-        if microsecond: self.microsecond = int(microsecond)
+
+        if hour:
+            self.hour = int(hour)
+
+        if minute:
+            self.minute = int(minute)
+
+        if second:
+            self.second = int(second)
+
+        if microsecond:
+            self.microsecond = int(microsecond)
 
     @classmethod
     def from_string(cls, time_str):
         "Populate time components from time string of the format HH[:MM[:SS[.microseconds]]]"
-        
+
         parts = time_str.split(':')
         obj = cls()
 
-        if len(parts)>0: obj.hour = int(parts[0])
-        if len(parts)>1: obj.minute = int(parts[1])
-        
-        if len(parts)>2:
+        if len(parts) > 0:
+            obj.hour = int(parts[0])
+
+        if len(parts) > 1:
+            obj.minute = int(parts[1])
+
+        if len(parts) > 2:
             if '.' in parts[2]:
                 second_parts = parts[2].split('.')
                 obj.second = int(second_parts[0])
@@ -124,9 +149,10 @@ class Time(object):
     def to_native(self):
         "Converts to native time type and returns the object. Works only if the time is not partial"
 
-        assert False == self.is_partial()
+        assert self.is_partial() is False
 
-        return time(hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond)
+        return time(hour=self.hour, minute=self.minute,
+                    second=self.second, microsecond=self.microsecond)
 
     def range(self):
         """
@@ -143,14 +169,17 @@ class Time(object):
 
             elif not self.second:  # cover whole minute if no second given
                 return (time(self.hour, self.minute, 0), time(self.hour, self.minute, 59, 999999))
-            
+
             elif not self.microsecond:  # cover whole second if no microsecond given
-                return (time(self.hour, self.minute, self.second), time(self.hour, self.minute, self.second, 999999))
+                return (
+                    time(self.hour, self.minute, self.second),
+                    time(self.hour, self.minute, self.second, 999999)
+                )
 
 
 class DateTime(Date, Time):
 
-    def __init__(self, year=None, month=None, day=None,
+    def __init__(self, year=None, month=None, day=None,  # pylint: disable=R0913
                  hour=None, minute=None, second=None, microsecond=None):
 
         Date.__init__(self, year, month, day)
@@ -158,13 +187,16 @@ class DateTime(Date, Time):
 
     @classmethod
     def from_string(cls, datetime_str):
-        "Populate the DateTime object using string of format YYYY[-MM[-DD]][ HH[:MM[:SS[.microseconds]]]]"
+        """
+        Populate the DateTime object using string of
+        format YYYY[-MM[-DD]][ HH[:MM[:SS[.microseconds]]]]
+        """
 
         obj = cls()
         parts = datetime_str.split(' ')
         date_obj = Date.from_string(parts[0])
         time_obj = Time()
-        if len(parts)>1:
+        if len(parts) > 1:
             time_obj = Time.from_string(parts[1])
 
         obj.day = date_obj.day
@@ -188,14 +220,18 @@ class DateTime(Date, Time):
         return Date.is_partial(self) or Time.is_partial(self)
 
     def to_native(self):
-        "Converts to native datetime type and returns the object. Works only if the DateTime is not partial"
+        """
+        Converts to native datetime type and returns the object. Works only if the
+        DateTime is not partial
+        """
 
-        assert False == self.is_partial()
+        assert self.is_partial() is False
 
         return datetime(year=self.year, month=self.month, day=self.day,
-                        hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond)
+                        hour=self.hour, minute=self.minute, second=self.second,
+                        microsecond=self.microsecond)
 
-    def range(self):
+    def range(self):  # pylint: disable=R0911
         """
         return two datetimes covering the whole range for a partial datetime.
         For a complete datetime, the same datetime is returned twice
@@ -211,8 +247,11 @@ class DateTime(Date, Time):
                                  hour=23, minute=59, second=59, microsecond=999999))
 
             elif not self.day:  # cover whole month if no day given
-                d = (datetime(self.year, self.month, 1) + relativedelta(months=1)) - relativedelta(days=1)
-                d = d.replace(hour=23, minute=59, second=59, microsecond=999999)
+                d = (
+                    datetime(self.year, self.month, 1) + relativedelta(months=1)
+                    ) - relativedelta(days=1)
+                d = d.replace(hour=23, minute=59, second=59,  # pylint: disable=E1101
+                              microsecond=999999)
                 return (datetime(self.year, self.month, 1), d)
 
             elif not self.hour:  # cover the whole day if no hour given
@@ -231,9 +270,10 @@ class DateTime(Date, Time):
                                  hour=self.hour, minute=self.minute),
                         datetime(year=self.year, month=self.month, day=self.day,
                                  hour=self.hour, minute=self.minute, second=59, microsecond=999999))
-            
+
             elif not self.microsecond:  # cover whole second if no microsecond given
                 return (datetime(year=self.year, month=self.month, day=self.day,
                                  hour=self.hour, minute=self.minute, second=self.second),
                         datetime(year=self.year, month=self.month, day=self.day,
-                                 hour=self.hour, minute=self.minute, second=self.second, microsecond=999999))
+                                 hour=self.hour, minute=self.minute, second=self.second,
+                                 microsecond=999999))

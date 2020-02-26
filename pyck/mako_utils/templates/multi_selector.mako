@@ -43,11 +43,9 @@
         %endif
     %endfor
     </table>
-    
-    
 </%def>
 
-<script type="application/x-javascript">
+<script type="application/javascript">
     //dojo.query('#main2 > input[type=checkbox]:checked')
     
     function toggle_selection(chkbox, target_container){

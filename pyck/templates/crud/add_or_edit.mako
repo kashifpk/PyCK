@@ -3,7 +3,7 @@
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
-	<h1>${action_type.title()} ${friendly_name}</h1>
+		<h3 class="panel-title">${action_type.title()} ${friendly_name}</h3>
   </div>
 
   <div class="panel-body">

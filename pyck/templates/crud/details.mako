@@ -16,7 +16,7 @@ def insert_per_rec_keyword_values(s, R):
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1>Displaying ${friendly_name}</h1>
+        <h3 class="panel-title">Displaying ${friendly_name}</h3>
     </div>
 
     <div class="panel-body">

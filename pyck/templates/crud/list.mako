@@ -26,26 +26,27 @@ def get_col_value(col_name, R):
     
     for p in parts:
         obj = getattr(obj, p)
-        if not obj:
-            return ''
+
+    if obj is None:
+        return ''
 
     return obj
-
 
 %>
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <h1>
-    ${friendly_name}
+    <h3 class="panel-title">
+      ${friendly_name}
+    
     
     
     <span class="pull-right" style="margin-top: -5px;">
       <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?p=${current_page}"><span class="glyphicon glyphicon-tag"></span>  csv</a>
       <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?all=y"><span class="glyphicon glyphicon-tags"></span>  csv</a>
     </span>
-    </h1>
+    </h3>
     
   </div>
     
@@ -207,6 +208,10 @@ def get_col_value(col_name, R):
           
             %if column in list_field_args and 'display_field' in list_field_args[column]:
               <td>
+              <% col_value = get_col_value(list_field_args[column]['display_field'], R) %>
+              %if col_value is not None:
+                ${col_value}
+              %endif
               ${get_col_value(list_field_args[column]['display_field'], R)}
               </td>
             %else:
@@ -220,7 +225,7 @@ def get_col_value(col_name, R):
               %>
               %if isinstance(col_value, str):
                 ${col_value|n}
-              %else:
+              %elif col_value is not None:
                 ${col_value}
               %endif
               </div>
@@ -245,13 +250,17 @@ def get_col_value(col_name, R):
                     continue
 
                 css_class_str = ''
+                title_str = ''
                 if 'css_class' in action:
                     css_class_str = ' class="' + action['css_class'] + '"'
+
+                if 'title' in action:
+                    title_str = ' title="' + action['title'] + '"'
                 
-                actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '"' + css_class_str + '>' + action['link_text'] + '</a> | '
+                actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '"' + css_class_str + title_str + '>' + action['link_text'] + '</a> '
             
             if '' != actions_str:
-                actions_str = actions_str[:-2]
+                actions_str = actions_str[:-1]
             %>
             ${actions_str | n}
             </td>

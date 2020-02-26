@@ -43,7 +43,7 @@ def group_similar(items):
 
     current_group_key = None
     current_sub_items = OrderedDict()
-    
+
     # TODO: Consider all splitters to be the same, don't create a new sub-group for a different splitter
 
     for k, v in items.items():
@@ -96,9 +96,13 @@ def multi_selector(items, field_name, ignore_prefix=None, do_auto_grouping=True)
     """
     Displays given items for multi-selection
 
-    :param items: A dictionay or dictionary-like object. Key is returned on form submission, value is displayed
-    :param ignore_prefix: (optional) if given key names starting with the prefix are not displayed (ignored)
-    :param do_auto_grouping: Group similar items together and make them collapsable
+    :param items:
+        A dictionay or dictionary-like object. Key is returned on form submission,
+        value is displayed
+    :param ignore_prefix:
+        (optional) if given key names starting with the prefix are not displayed (ignored)
+    :param do_auto_grouping:
+        Group similar items together and make them collapsible
 
     Done:
 
