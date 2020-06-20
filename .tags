@@ -1,0 +1,55 @@
+requires	/MyWork/Projects/PyCK/setup.py	/^requires = [$/;"	variable	line:5
+name	/MyWork/Projects/PyCK/setup.py	/^    name='PyCK',$/;"	variable	line:24
+version	/MyWork/Projects/PyCK/setup.py	/^    version='0.10.5',$/;"	variable	line:25
+description	/MyWork/Projects/PyCK/setup.py	/^    description='Python Code Karigar - Web Framework',$/;"	variable	line:26
+classifiers	/MyWork/Projects/PyCK/setup.py	/^    classifiers=[$/;"	variable	line:29
+author	/MyWork/Projects/PyCK/setup.py	/^    author='Kashif Iftikhar',$/;"	variable	line:35
+author_email	/MyWork/Projects/PyCK/setup.py	/^    author_email='kashif@compulife.com.pk',$/;"	variable	line:36
+url	/MyWork/Projects/PyCK/setup.py	/^    url='http:\/\/pyck.compulife.com.pk',$/;"	variable	line:37
+keywords	/MyWork/Projects/PyCK/setup.py	/^    keywords='web wsgi bfg pylons pyramid',$/;"	variable	line:38
+packages	/MyWork/Projects/PyCK/setup.py	/^    packages=find_packages(),$/;"	variable	line:39
+include_package_data	/MyWork/Projects/PyCK/setup.py	/^    include_package_data=True,$/;"	variable	line:40
+zip_safe	/MyWork/Projects/PyCK/setup.py	/^    zip_safe=False,$/;"	variable	line:41
+test_suite	/MyWork/Projects/PyCK/setup.py	/^    test_suite='combined_apps',$/;"	variable	line:42
+install_requires	/MyWork/Projects/PyCK/setup.py	/^    install_requires=requires,$/;"	variable	line:43
+log	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^log = logging.getLogger(__name__)$/;"	variable	line:77
+add_crud_handler	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^def add_crud_handler($/;"	function	line:80
+CRUDController	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^class CRUDController(object):$/;"	class	line:164
+model	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    model = None$/;"	variable	line:284	class:CRUDController
+friendly_name	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    friendly_name = None$/;"	variable	line:285	class:CRUDController
+db_session	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    db_session = None$/;"	variable	line:286	class:CRUDController
+add_edit_exclude	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    add_edit_exclude = None$/;"	variable	line:289	class:CRUDController
+add_edit_field_args	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    add_edit_field_args = {}$/;"	variable	line:291	class:CRUDController
+list_sort_by	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_sort_by = None$/;"	variable	line:294	class:CRUDController
+list_recs_per_page	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_recs_per_page = 10$/;"	variable	line:297	class:CRUDController
+list_max_pages	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_max_pages = 10$/;"	variable	line:298	class:CRUDController
+list_field_args	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_field_args = {}$/;"	variable	line:299	class:CRUDController
+list_only	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_only = None$/;"	variable	line:300	class:CRUDController
+list_exclude	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_exclude = None$/;"	variable	line:301	class:CRUDController
+detail_exclude	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    detail_exclude = None$/;"	variable	line:302	class:CRUDController
+list_filter_condition	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_filter_condition = None$/;"	variable	line:304	class:CRUDController
+list_actions	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_actions = [$/;"	variable	line:306	class:CRUDController
+list_per_record_actions	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    list_per_record_actions = [$/;"	variable	line:314	class:CRUDController
+detail_actions	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    detail_actions = [$/;"	variable	line:324	class:CRUDController
+field_translations	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    field_translations = {}$/;"	variable	line:333	class:CRUDController
+base_template	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    base_template = "\/base.mako"$/;"	variable	line:335	class:CRUDController
+template_extra_params	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    template_extra_params = {}$/;"	variable	line:337	class:CRUDController
+fetch_record_count	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    fetch_record_count = False$/;"	variable	line:339	class:CRUDController
+enable_csv	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    enable_csv = True$/;"	variable	line:341	class:CRUDController
+__init__	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def __init__(self, request):$/;"	member	line:343	class:CRUDController
+_get_rec_from_pk_val	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_rec_from_pk_val(self):$/;"	member	line:356	class:CRUDController
+_get_modelform_field_args	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_modelform_field_args(self):$/;"	member	line:381	class:CRUDController
+_get_exclude_list	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_exclude_list(self, action_type):$/;"	member	line:399	class:CRUDController
+_models_rec_count_if_needed	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _models_rec_count_if_needed(self):$/;"	member	line:420	class:CRUDController
+_get_search_condition	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_search_condition($/;"	member	line:429	class:CRUDController
+_get_list_columns	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_list_columns(self):$/;"	member	line:531	class:CRUDController
+_list_csv_common_code	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _list_csv_common_code($/;"	member	line:548	class:CRUDController
+list	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def list(self):$/;"	member	line:648	class:CRUDController
+_get_col_value	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_col_value(self, col_name, R):$/;"	member	line:674	class:CRUDController
+list_csv	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def list_csv(self):$/;"	member	line:686	class:CRUDController
+_get_add_edit_form	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _get_add_edit_form(self, action_type, R=None):$/;"	member	line:760	class:CRUDController
+_redirect	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def _redirect(self, location):$/;"	member	line:827	class:CRUDController
+add	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def add(self):$/;"	member	line:838	class:CRUDController
+edit	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def edit(self):$/;"	member	line:884	class:CRUDController
+delete	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def delete(self):$/;"	member	line:930	class:CRUDController
+details	/MyWork/Projects/PyCK/pyck/controllers/crud_controller.py	/^    def details(self):$/;"	member	line:959	class:CRUDController

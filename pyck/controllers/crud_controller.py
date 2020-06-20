@@ -608,11 +608,11 @@ class CRUDController(object):
         sort_ascending = self.request.GET.get("sa", None)
         sort_descending = self.request.GET.get("sd", None)
         if sort_ascending:
-            query = query.order_by(sort_ascending)
+            query = query.order_by(text(sort_ascending))
         elif sort_descending:
-            query = query.order_by(sort_descending + " desc")
+            query = query.order_by(text(sort_descending + " desc"))
         elif self.list_sort_by is not None:
-            query = query.order_by(self.list_sort_by)
+            query = query.order_by(text(self.list_sort_by))
 
         if not return_all_records:
             query = query.slice(start_idx, start_idx + self.list_recs_per_page)

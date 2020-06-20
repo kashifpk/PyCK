@@ -16,14 +16,14 @@ def insert_per_rec_keyword_values(s, R):
         pk_val += str(getattr(R, pk)) + ','
     if '' != pk_val:
         pk_val = pk_val[:-1]
-    
+
     return s.replace('{PK}', pk_val)
 
 def get_col_value(col_name, R):
     parts = col_name.split('.')
-    
+
     obj = R
-    
+
     for p in parts:
         obj = getattr(obj, p)
 
@@ -39,24 +39,24 @@ def get_col_value(col_name, R):
   <div class="panel-heading">
     <h3 class="panel-title">
       ${friendly_name}
-    
-    
-    
+
+
+
     <span class="pull-right" style="margin-top: -5px;">
       <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?p=${current_page}"><span class="glyphicon glyphicon-tag"></span>  csv</a>
       <a class="btn btn-sm btn-default" href="${dirname(request.current_route_url())}/csv?all=y"><span class="glyphicon glyphicon-tags"></span>  csv</a>
     </span>
     </h3>
-    
+
   </div>
-    
+
   <div class="panel-body">
     <div class="row">
       <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
-        
+
         <form action="${url_without(request.current_route_url(), qs='q')}"
               method="GET">
-          
+
           <input type="text" name="q" data-dojo-type="dijit/form/TextBox" placeholder="serach"
                  %if 'q' in request.GET:
                  value="${request.GET['q']}"
@@ -64,7 +64,7 @@ def get_col_value(col_name, R):
                   />
           <button type="submit" class="btn btn-primary btn-sm">Search</button>
           <br />
-          <a href="#search_controls"data-toggle="collapse">
+          <a href="#search_controls" data-toggle="collapse">
             Search Options <span class="caret"></span>
           </a>
           %if request.GET.get('q', ''):
@@ -115,18 +115,18 @@ def get_col_value(col_name, R):
           </div>
         </form>
       </div>
-    
+
       <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-right">
       <%
-      
+
       actions_str = ''
       for action in actions:
           css_class_str = ' class="btn btn-primary"'
           if 'css_class' in action:
               css_class_str = ' class="' + action['css_class'] + '"'
-      
+
           actions_str += '<a href="' + action['link_url'] + '"' + css_class_str + '>' + insert_keyword_values(action['link_text']) + '</a> | '
-      
+
       if '' != actions_str:
           actions_str = actions_str[:-2]
       %>
@@ -139,7 +139,7 @@ def get_col_value(col_name, R):
       <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
       </div>
       <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-right">
-      
+
           <br />
           <%
           last_record = current_page*records_per_page;
@@ -149,35 +149,35 @@ def get_col_value(col_name, R):
           Displaying records <b>${(current_page*records_per_page)-(records_per_page-1)}</b> to <b>${last_record}</b> of <b>${total_records}</b>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
         <ul class="pagination">
         %for p in pages:
-        
+
             %if p==current_page:
-            
+
                 <li class="active">
                   <a href="${url_add(url_without(request.current_route_url(), qs='p'), qs='p={}'.format(p))}">
                   ${p}
                   </a>
                 </li>
-                
+
             %else:
                 <li>
                   <a href="${url_add(url_without(request.current_route_url(), qs='p'), qs='p={}'.format(p))}">
                   ${p}
                   </a>
-                </li> 
+                </li>
             %endif
-            
+
         %endfor
-        </ul>    
+        </ul>
       </div>
     </div>
     %endif
   </div>
-  
+
   <table class="table table-stripped table-hover table-bordered" style="table-layout:fixed; word-wrap: break-word">
     %if records.count()>0:
     <thead>
@@ -189,7 +189,7 @@ def get_col_value(col_name, R):
               %else:
                 ${column.replace("_", " ").title()}
               %endif
-            
+
             <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sa=' + column)}" class="glyphicon glyphicon-arrow-down"></a>
             <a href="${url_add(url_without(request.current_route_url(), qs=['sa', 'sd']), qs='sd=' + column)}" class="glyphicon glyphicon-arrow-up"></a>
             </th>
@@ -205,7 +205,7 @@ def get_col_value(col_name, R):
     %for R in records:
         <tr>
         %for column in columns:
-          
+
             %if column in list_field_args and 'display_field' in list_field_args[column]:
               <td>
               <% col_value = get_col_value(list_field_args[column]['display_field'], R) %>
@@ -231,7 +231,7 @@ def get_col_value(col_name, R):
               </div>
             </td>
             %endif
-            
+
         %endfor
         %if len(per_record_actions)>0:
             <td style="text-align: right;">
@@ -244,7 +244,7 @@ def get_col_value(col_name, R):
                   val_dict = {}
                   for fname in field_names:
                     val_dict[fname] = getattr(R, fname)
-                  
+
                   parsed_condition_string = condition_str.format(**val_dict)
                   if not eval(parsed_condition_string):
                     continue
@@ -256,9 +256,9 @@ def get_col_value(col_name, R):
 
                 if 'title' in action:
                     title_str = ' title="' + action['title'] + '"'
-                
+
                 actions_str += '<a href="' + insert_per_rec_keyword_values(action['link_url'], R) + '"' + css_class_str + title_str + '>' + action['link_text'] + '</a> '
-            
+
             if '' != actions_str:
                 actions_str = actions_str[:-1]
             %>
@@ -270,4 +270,3 @@ def get_col_value(col_name, R):
     </tbody>
   </table>
 </div>
-
