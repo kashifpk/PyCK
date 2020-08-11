@@ -5,6 +5,11 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.10.6
+--------------------
+
+* Updated code to work with latest zope.sqlalchemy
+
 What's new in 0.10.3
 --------------------
 
@@ -58,7 +63,7 @@ What's new in 0.9.8.6
 
     field_translations = {
         'is_active': {
-              'header': 'Account Active', 
+              'header': 'Account Active',
               'translator': translate_is_active
         }
     }
@@ -67,9 +72,9 @@ What's new in 0.9.8.6
 
     list_per_record_actions = [
         {
-               'link_text': 'View History', 
+               'link_text': 'View History',
                'link_url': '/history/{PK}',
-               'css_class': 'text-primary', 
+               'css_class': 'text-primary',
                'condition': 'True == {has_history}'
         }
     ]
@@ -118,7 +123,7 @@ What's new in 0.9.8.4
 What's new in 0.9.8.3
 ----------------------
 
-* Further support for 'crud_friendly_name', 'crud_add_edit_exclude', 'crud_add_edit_field_args', 'crud_list_recs_per_page', 'crud_list_max_pages', 'crud_list_field_args' fields for custom admin controllers. 
+* Further support for 'crud_friendly_name', 'crud_add_edit_exclude', 'crud_add_edit_field_args', 'crud_list_recs_per_page', 'crud_list_max_pages', 'crud_list_field_args' fields for custom admin controllers.
 
 What's new in 0.9.8.2
 ----------------------
@@ -137,7 +142,7 @@ What's new in 0.9.8
 * Added support for 'crud_list_only', 'crud_list_exclude', 'crud_models_field_args', 'crud_list_actions', 'crud_list_per_record_actions', 'crud_detail_actions' for admin controllers. Now you can define a custom AdminController child class and use it to specify extra parameters for some or all of the crud controllers present in the admin interface. For example::
 
     class BlogsAdminController(AdminController):
-    
+
         crud_list_per_record_actions = {
             UserInfo.__name__: [
                 {'link_text': 'Details', 'link_url': 'details/{PK}'},
@@ -146,13 +151,13 @@ What's new in 0.9.8
                 {'link_text': 'Upload Photo', 'link_url': '/photo_upload/user/{PK}'},
             ]
         }
-    
-* Minor dojo fix that was causing dojo.parse to be called twice 
+
+* Minor dojo fix that was causing dojo.parse to be called twice
 * Auth controller fixes that were broken for python 3
 * Admin section now displays number of records present in a table/model next to the model/tablename on the sidebar. If you want to revert to the old behavior of just displaying the modelname, create a subclass of AdminController and set display_record_count to False. For example in your project's __init__.py where you have code like::
 
     from pyck.ext import add_admin_handler, AdminController
-    
+
     # later in the __init__.main function
     add_admin_handler(config, db, get_models(sms_vault, return_dict=True),
                       'admin.', '/admin', AdminController)
@@ -160,12 +165,12 @@ What's new in 0.9.8
   you could update it to::
 
     from pyck.ext import add_admin_handler, AdminController
-    
+
     class NoRecordCounterAdminController(AdminController):
         display_record_count = False
-    
+
     # later in the __init__.main function
-    
+
     add_admin_handler(config, db, get_models(sms_vault, return_dict=True),
                       'admin.', '/admin', NoRecordCounterAdminController)
 
@@ -361,7 +366,7 @@ What's new in 0.6.8
 -------------------
 
 * CRUDController now uses wtdojo to display fields using dojo.
-  
+
 
 What's new in 0.6.6
 -------------------
@@ -400,24 +405,24 @@ What's new in 0.6
 * Added support for authentication framework. PyCK now supports a graphical web based section for creating users,
   permissions and assigning them to different routes. A default login and logout route is now also present in the
   initial scaffold.
-  
+
   Simply create a new project, run the populate script for the project and then go to::
-  
+
     http://0.0.0.0:6543/auth
-  
+
   to access the authentication manager.
 
 * Minor changes to code for making it cleaner and more compliant to PEP guidelines
 
 * Renamed controllers/views.py to controllers/controllers.py since views.py was confusing in the MVC context
-  
+
 
 What's new in 0.5.1
 -------------------
 
 * Update to CRUDController allowing displaying of related data from another table of a foreign key field. The *add_edit_field_args*
   property can now take values *choices* and *choices_fields* and the *list_field_args* property takes a key *display_field*, for example::
-  
+
     class ProductCRUDController(CRUDController):
         model = Product
         db_session = DBSession
@@ -426,7 +431,7 @@ What's new in 0.5.1
                              'choices_fields': [Category.id, Category.name] }
              #'category_id': {'widget': Select(), 'coerce': int, 'choices': [(1, 'ABC'), (2, 'DEF')] }
             }
-    
+
         list_field_args = {
                 'category_id': {'display_field': 'category.name'}
                     }
@@ -436,17 +441,17 @@ What's new in 0.5
 ------------------
 
 * Automatic Admin Interface - Enables automatic Admin interface generation from database models. The :class:`pyck.ext.admin_controller.AdminController` allows you to quickly enable Admin interface for any number of database models you like. To use AdminController at minimum these steps must be followed.
-    
-    
+
+
     1. In your application's routes settings, specify the url where the Admin interface should be displayed. You can use the :func:`pyck.ext.admin_controller.add_admin_handler` function for it. For example in your __init__.py; put code like::
-    
+
         from pyck.ext import AdminController, add_admin_handler
         from pyck.lib import get_models
         # Place this with the config.add_route calls
         add_admin_handler(config, db_session, get_models(myapplicationpackagenamehere), 'admin', '/admin', AdminController)
-    
+
     and that's all you need to do to get a fully operation Admin interface.
-    
+
 What's new in 0.4.3
 --------------------
 
@@ -461,30 +466,30 @@ What's new in 0.4.1
 --------------------
 
 * Fixed edit interface bug in CRUDController
-* Added instructions for setting up pyck with Apache+mod_wsgi 
+* Added instructions for setting up pyck with Apache+mod_wsgi
 
 What's new in 0.4
 ------------------
 
 * CRUDController - Enables automatic CRUD interface generation from database models. The :class:`pyck.controllers.CRUDController` allows you to quickly enable CRUD interface for any database model you like. To use CRUD controller at minimum these steps must be followed.
-    
+
     1. Create a sub-class of the CRUDController and set model (for which you want to have CRUD) and database session::
-    
+
         from pyck.controllers import CRUDController
         from myapp.models import MyModel, DBSession
-        
+
         class MyCRUDController(CRUDController):
             model = MyModel
             db_session = DBSession()
-    
+
     2. In your application's routes settings, specify the url where the CRUD interface should be displayed. You can use the :func:`pyck.controllers.add_crud_handler` method for it. For example in your __init__.py (if you're enabling CRUD for a model without your main project) or in your routes.py (if you're enabling CRUD for a model within an app in your project) put code like::
-    
+
         from pyck.controllers import add_crud_handler
         from controllers.views import MyCRUDController
-        
+
         # Place this with the config.add_route calls
         add_crud_handler(config, 'mymodel_crud', '/mymodel', MyCRUDController)
-    
+
     and that's all you need to do to get a fully operation CRUD interface. Take a look at the newapp sample app in demos for a working CRUD example in the Wiki app.
 
 
@@ -498,9 +503,9 @@ What's new in 0.3
     UserForm = model_form(User)
 
   Of course, you can then sub-class this UserForm class to add further validators or modifications if you like. Later in a view (considering you've not subclassed UserForm) you can use this form as::
-  
+
     f = UserForm(request.POST, request_obj=request, use_csrf_protection=True)
-  
+
   and it will work exactly like a normal pyck Form.
 
 * A more operational blog app in the newapp given in demos that uses the model_form feature to add blog posts.
@@ -522,9 +527,9 @@ Till now almost all updates were to the scaffold generated by a PyCK project, so
 * A new package :mod:`pyck.forms` that serves as a wrapper on top of WTForms (will try to maintain code usage compatibility with wtforms) so instead of using normal **wtforms.Form** class instances, PyCK developers can use :class:`pyck.forms.Form` instances in the same way. But these forms come with some additional features
 
     * Currently the form can be display using html p tags using :func:`pyck.forms.Form.as_p` method. This method supports displaying labels and validation errors on either direction of the field control (top, bottom, left, right).
-    
+
     * The associated sample app code has been updated along with new app scaffold to use pyck.forms, the code already has become much simpler.
-    
+
     * It is important to note that these forms can be used in the same way as WTForms so if you want to layout your form the way you want (as you normally do in WTForms); you are still able to do it.
 
 * Basic tests have been implemented for :mod:`pyck.forms` and nosetests are being used for automated testing. Keeping the code quality high is one of the aims here so I'll try to write tests for all of the additions to pyck itself.
