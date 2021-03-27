@@ -3,8 +3,8 @@ import sys
 from setuptools import setup, find_packages
 
 requires = [
-    "pyramid===1.10.8",
-    "SQLAlchemy===1.4.3",
+    "pyramid==1.10.8",
+    "SQLAlchemy==1.4.3",
     "transaction",
     "pyramid_mako",
     "pyramid_tm",
