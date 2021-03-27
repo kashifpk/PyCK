@@ -9,7 +9,6 @@ from sqlalchemy import (
     BLOB,
     BOOLEAN,
     BigInteger,
-    Binary,
     Boolean,
     DATE,
     DATETIME,
@@ -22,7 +21,6 @@ from sqlalchemy import (
     INTEGER,
     Integer,
     Interval,
-    LargeBinary,
     NUMERIC,
     Numeric,
     REAL,
@@ -77,9 +75,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def add_crud_handler(
-    config, route_name_prefix="", url_pattern_prefix="", handler_class=None
-):
+def add_crud_handler(config, route_name_prefix="", url_pattern_prefix="", handler_class=None):
     """
     A utility function to quickly add all crud related routes and set them to the crud handler class with one function
     call, for example::
@@ -111,18 +107,14 @@ def add_crud_handler(
         renderer="pyck:templates/crud/list.mako",
     )
 
-    config.add_route(
-        route_name_prefix + "CRUD_list_csv", url_pattern_prefix + "/csv"
-    )
+    config.add_route(route_name_prefix + "CRUD_list_csv", url_pattern_prefix + "/csv")
     config.add_view(
         handler_class,
         attr="list_csv",
         route_name=route_name_prefix + "CRUD_list_csv",
     )
 
-    config.add_route(
-        route_name_prefix + "CRUD_add", url_pattern_prefix + "/add"
-    )
+    config.add_route(route_name_prefix + "CRUD_add", url_pattern_prefix + "/add")
     config.add_view(
         handler_class,
         attr="add",
@@ -130,9 +122,7 @@ def add_crud_handler(
         renderer="pyck:templates/crud/add_or_edit.mako",
     )
 
-    config.add_route(
-        route_name_prefix + "CRUD_edit", url_pattern_prefix + "/edit/{PK}"
-    )
+    config.add_route(route_name_prefix + "CRUD_edit", url_pattern_prefix + "/edit/{PK}")
     config.add_view(
         handler_class,
         attr="edit",
@@ -151,9 +141,7 @@ def add_crud_handler(
         renderer="pyck:templates/crud/details.mako",
     )
 
-    config.add_route(
-        route_name_prefix + "CRUD_delete", url_pattern_prefix + "/delete/{PK}"
-    )
+    config.add_route(route_name_prefix + "CRUD_delete", url_pattern_prefix + "/delete/{PK}")
     config.add_view(
         handler_class,
         attr="delete",
@@ -344,14 +332,10 @@ class CRUDController(object):
         self.request = request
 
         if self.db_session is None:
-            raise ValueError(
-                "Must provide a SQLAlchemy database session object as db_session"
-            )
+            raise ValueError("Must provide a SQLAlchemy database session object as db_session")
 
         if self.friendly_name is None:
-            self.friendly_name = self.model.__tablename__.replace(
-                "_", " "
-            ).title()
+            self.friendly_name = self.model.__tablename__.replace("_", " ").title()
 
     def _get_rec_from_pk_val(self):
 
@@ -360,21 +344,14 @@ class CRUDController(object):
         R = None
 
         # check to see if we have multiple primary keys or single
-        primary_key_columns = list(
-            self.model.__table__.primary_key.columns.keys()
-        )
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
         if len(primary_key_columns) > 1:
             # composite key processing here
             pass
         else:
             pk_name = primary_key_columns[0]
             # R = self.db_session.query(self.model).filter("%s=%s" % (pk_name, pk_val)).one()
-            R = (
-                self.db_session.query(self.model)
-                .filter(text("%s=:pk_val" % (pk_name)))
-                .params(pk_val=pk_val)
-                .one()
-            )
+            R = self.db_session.query(self.model).filter(text("%s=:pk_val" % (pk_name))).params(pk_val=pk_val).one()
 
         return R
 
@@ -410,9 +387,7 @@ class CRUDController(object):
             # exlude list if their autoincrement is True
             cols = get_columns(self.model, "primary_key")
             for c in cols:
-                if int == c.property.columns[0].type.python_type and 0 == len(
-                    c.property.columns[0].foreign_keys
-                ):
+                if int == c.property.columns[0].type.python_type and 0 == len(c.property.columns[0].foreign_keys):
                     exclude_list.append(c.key)
 
         return exclude_list
@@ -426,9 +401,7 @@ class CRUDController(object):
         else:
             return {}
 
-    def _get_search_condition(
-        self, col, val, case_sensitive=True, partial_match=False
-    ):
+    def _get_search_condition(self, col, val, case_sensitive=True, partial_match=False):
 
         # col==new_val
         search_condition = None
@@ -461,7 +434,7 @@ class CRUDController(object):
                 else:
                     search_condition = func.lower(col) == func.lower(val)
 
-        elif col_type in (BOOLEAN, Boolean, Binary):
+        elif col_type in (BOOLEAN, Boolean, BINARY):
             if val.lower() in ["0", "1", "true", "false"]:
                 search_condition = col == val.title()
 
@@ -545,9 +518,7 @@ class CRUDController(object):
 
         return columns
 
-    def _list_csv_common_code(
-        self, return_only_records=False, return_all_records=False
-    ):
+    def _list_csv_common_code(self, return_only_records=False, return_all_records=False):
         """
         Common logic used by both list and csv methods.
 
@@ -624,14 +595,10 @@ class CRUDController(object):
         # calculate number of pages
         total_recs = count_query.scalar()
 
-        pages = get_pages(
-            total_recs, p, self.list_recs_per_page, self.list_max_pages
-        )
+        pages = get_pages(total_recs, p, self.list_recs_per_page, self.list_max_pages)
 
         # determine primary key columns
-        primary_key_columns = list(
-            self.model.__table__.primary_key.columns.keys()
-        )
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
         if return_only_records:
             return records
@@ -650,9 +617,7 @@ class CRUDController(object):
         The listing view - Lists all the records with pagination
         """
 
-        list_dict = self._list_csv_common_code(
-            return_only_records=False, return_all_records=False
-        )
+        list_dict = self._list_csv_common_code(return_only_records=False, return_all_records=False)
 
         ret_dict = {
             "base_template": self.base_template,
@@ -667,9 +632,7 @@ class CRUDController(object):
 
         ret_dict.update(list_dict)
 
-        return dict(
-            list(ret_dict.items()) + list(self.template_extra_params.items())
-        )
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def _get_col_value(self, col_name, R):
         parts = col_name.split(".")
@@ -698,9 +661,7 @@ class CRUDController(object):
         if "y" == self.request.GET.get("all", "n"):
             all_records = True
 
-        records = self._list_csv_common_code(
-            return_only_records=True, return_all_records=all_records
-        )
+        records = self._list_csv_common_code(return_only_records=True, return_all_records=all_records)
 
         if 0 == records.count():
             return HTTPNotAcceptable(detail="No data")
@@ -724,25 +685,13 @@ class CRUDController(object):
         for R in records:
             data_row = []
             for column in columns:
-                if (
-                    column in self.list_field_args
-                    and "display_field" in self.list_field_args[column]
-                ):
-                    data_row.append(
-                        self._get_col_value(
-                            self.list_field_args[column]["display_field"], R
-                        )
-                    )
+                if column in self.list_field_args and "display_field" in self.list_field_args[column]:
+                    data_row.append(self._get_col_value(self.list_field_args[column]["display_field"], R))
 
                 else:
                     col_value = getattr(R, column)
-                    if (
-                        self.field_translations
-                        and column in self.field_translations
-                    ):
-                        col_value = self.field_translations[column][
-                            "translator"
-                        ](col_value)
+                    if self.field_translations and column in self.field_translations:
+                        col_value = self.field_translations[column]["translator"](col_value)
 
                     data_row.append(col_value)
 
@@ -750,9 +699,7 @@ class CRUDController(object):
 
         headers = {}
         headers["Content-Description"] = self.friendly_name
-        headers[
-            "Content-Disposition"
-        ] = 'attachment; filename="{}.csv"'.format(self.friendly_name)
+        headers["Content-Disposition"] = 'attachment; filename="{}.csv"'.format(self.friendly_name)
         headers["Content-Type"] = "text/csv"
 
         return Response(body=csv_buffer.getvalue(), headers=headers)
@@ -805,16 +752,11 @@ class CRUDController(object):
                 # field.validators = []
 
             if "choices_fields" in field_data:
-                recs = self.db_session.query(
-                    *field_data["choices_fields"]
-                ).all()
+                recs = self.db_session.query(*field_data["choices_fields"]).all()
 
                 table_cols = get_columns(self.model)
                 for table_col in table_cols:
-                    if (
-                        table_col.property.columns[0].name == field_name
-                        and table_col.property.columns[0].nullable
-                    ):
+                    if table_col.property.columns[0].name == field_name and table_col.property.columns[0].nullable:
 
                         field.validators = []
                         recs.insert(0, (None, ""))
@@ -842,10 +784,7 @@ class CRUDController(object):
 
         f = self._get_add_edit_form("add")
 
-        if (
-            "POST" == self.request.method
-            and "form.submitted" in self.request.params
-        ):
+        if "POST" == self.request.method and "form.submitted" in self.request.params:
             # assert False
             # if f.validate():
             if True:
@@ -862,13 +801,9 @@ class CRUDController(object):
                 f.populate_obj(obj)
                 self.db_session.add(obj)
 
-                self.request.session.flash(
-                    self.friendly_name + " added successfully!"
-                )
+                self.request.session.flash(self.friendly_name + " added successfully!")
                 # return HTTPFound(location=os.path.dirname(self.request.current_route_url()))
-                return self._redirect(
-                    os.path.dirname(self.request.current_route_url()) + "/"
-                )
+                return self._redirect(os.path.dirname(self.request.current_route_url()) + "/")
 
         ret_dict = {
             "base_template": self.base_template,
@@ -877,9 +812,7 @@ class CRUDController(object):
             "form": f,
             "action_type": "add",
         }
-        return dict(
-            list(ret_dict.items()) + list(self.template_extra_params.items())
-        )
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def edit(self):
         """
@@ -889,10 +822,7 @@ class CRUDController(object):
         R = self._get_rec_from_pk_val()
         f = self._get_add_edit_form("edit", R)
 
-        if (
-            "POST" == self.request.method
-            and "form.submitted" in self.request.params
-        ):
+        if "POST" == self.request.method and "form.submitted" in self.request.params:
             # if f.validate():
             if True:
                 obj = self.model()
@@ -905,16 +835,9 @@ class CRUDController(object):
 
                 f.populate_obj(R)
 
-                self.request.session.flash(
-                    self.friendly_name + " updated successfully!"
-                )
+                self.request.session.flash(self.friendly_name + " updated successfully!")
                 # return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
-                return self._redirect(
-                    os.path.dirname(
-                        os.path.dirname(self.request.current_route_url())
-                    )
-                    + "/"
-                )
+                return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())) + "/")
 
         ret_dict = {
             "base_template": self.base_template,
@@ -923,9 +846,7 @@ class CRUDController(object):
             "form": f,
             "action_type": "edit",
         }
-        return dict(
-            list(ret_dict.items()) + list(self.template_extra_params.items())
-        )
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))
 
     def delete(self):
         """
@@ -941,20 +862,12 @@ class CRUDController(object):
             self.db_session.delete(R)
             self.db_session.flush()
         except IntegrityError as exp:
-            return HTTPNotAcceptable(
-                detail="Cannot delete category as it has dependent records\n"
-                + str(exp)
-            )
+            return HTTPNotAcceptable(detail="Cannot delete category as it has dependent records\n" + str(exp))
 
-        self.request.session.flash(
-            self.friendly_name + " deleted successfully!"
-        )
+        self.request.session.flash(self.friendly_name + " deleted successfully!")
 
         # return HTTPFound(location=os.path.dirname(os.path.dirname(self.request.current_route_url())))
-        return self._redirect(
-            os.path.dirname(os.path.dirname(self.request.current_route_url()))
-            + "/"
-        )
+        return self._redirect(os.path.dirname(os.path.dirname(self.request.current_route_url())) + "/")
 
     def details(self):
         """
@@ -967,9 +880,7 @@ class CRUDController(object):
         if self.detail_exclude:
             columns = [c for c in columns if c not in self.detail_exclude]
 
-        primary_key_columns = list(
-            self.model.__table__.primary_key.columns.keys()
-        )
+        primary_key_columns = list(self.model.__table__.primary_key.columns.keys())
 
         ret_dict = {
             "base_template": self.base_template,
@@ -982,6 +893,4 @@ class CRUDController(object):
             "field_translations": self.field_translations,
         }
 
-        return dict(
-            list(ret_dict.items()) + list(self.template_extra_params.items())
-        )
+        return dict(list(ret_dict.items()) + list(self.template_extra_params.items()))

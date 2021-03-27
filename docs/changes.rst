@@ -5,6 +5,13 @@ Changes
 
 This document lists the changes as versions progress
 
+What's new in 0.10.7
+--------------------
+
+* Fixed pyramid version to 1.10.8 (as pyramid 2.0 has been released) and SQLAlchemy version to 1.4.3 to
+  avoid breaking the code with package upgrades.
+* SQLAlchmey no longer has the Binary data type so use BINARY.
+
 What's new in 0.10.6
 --------------------
 
